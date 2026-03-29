@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { DateRangeField } from "@/components/date-range-field";
 import { Input } from "@/components/ui/input";
 import { availabilityQuerySchema } from "@/lib/validation/bookings";
 
@@ -55,7 +55,7 @@ export function AvailabilityChecker() {
   }
 
   return (
-    <Card>
+    <Card className="rounded-[2rem] bg-stone-50">
       <CardContent className="space-y-4 p-5">
         <div>
           <h3 className="text-lg font-semibold text-stone-950">
@@ -66,36 +66,39 @@ export function AvailabilityChecker() {
           className="grid gap-3 sm:grid-cols-3"
           onSubmit={form.handleSubmit(onSubmit)}
         >
-          <label className="space-y-2 text-sm font-medium text-stone-700">
-            Check-in
-            <Input type="date" {...form.register("checkInDate")} />
-            {form.formState.errors.checkInDate ? (
-              <span className="text-xs text-red-600">
-                {form.formState.errors.checkInDate.message}
-              </span>
-            ) : null}
-          </label>
-          <label className="space-y-2 text-sm font-medium text-stone-700">
-            Check-out
-            <Input type="date" {...form.register("checkOutDate")} />
-            {form.formState.errors.checkOutDate ? (
-              <span className="text-xs text-red-600">
-                {form.formState.errors.checkOutDate.message}
-              </span>
-            ) : null}
-          </label>
-          <label className="space-y-2 text-sm font-medium text-stone-700">
-            Campsites needed
+          <DateRangeField
+            className="sm:col-span-2"
+            checkInDate={form.watch("checkInDate")}
+            checkOutDate={form.watch("checkOutDate")}
+            onChange={({ checkInDate, checkOutDate }) => {
+              form.setValue("checkInDate", checkInDate, {
+                shouldDirty: true,
+                shouldValidate: true,
+              });
+              form.setValue("checkOutDate", checkOutDate, {
+                shouldDirty: true,
+                shouldValidate: true,
+              });
+            }}
+            error={
+              form.formState.errors.checkInDate?.message ??
+              form.formState.errors.checkOutDate?.message
+            }
+          />
+          <label className="flex flex-col gap-2 text-sm font-medium text-stone-700">
+            <span>Campsites needed</span>
             <Input
               type="number"
               min={1}
               max={4}
+              className="h-11 bg-white"
+              value={form.watch("requestedUnitCount") ?? 1}
               {...form.register("requestedUnitCount", { valueAsNumber: true })}
             />
           </label>
           <Button
             type="submit"
-            className="sm:col-span-3"
+            className="h-11 rounded-2xl bg-amber-700 text-white hover:bg-amber-600 sm:col-span-3"
             disabled={form.formState.isSubmitting}
           >
             {form.formState.isSubmitting ? "Checking..." : "Check dates"}
@@ -103,7 +106,7 @@ export function AvailabilityChecker() {
         </form>
         {result ? (
           <div
-            className={`mt-4 rounded-2xl px-4 py-3 text-sm ${result.available ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"}`}
+            className={`mt-4 rounded-[1.5rem] border px-4 py-3 text-sm ${result.available ? "border-green-200 bg-green-50 text-green-800" : "border-red-200 bg-red-50 text-red-800"}`}
           >
             <p className="font-medium">
               {result.available

@@ -4,12 +4,11 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { DateRangeField } from "@/components/date-range-field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { siteContent } from "@/lib/content/site-content";
 import { createBookingRequestSchema } from "@/lib/validation/bookings";
 
 type FormValues = {
@@ -82,20 +81,32 @@ export function BookingRequestForm({
           className="grid gap-4 sm:grid-cols-2"
           onSubmit={form.handleSubmit(onSubmit)}
         >
-          <label className="space-y-2 text-sm font-medium text-stone-700">
-            Check-in
-            <Input type="date" {...form.register("checkInDate")} />
-          </label>
-          <label className="space-y-2 text-sm font-medium text-stone-700">
-            Check-out
-            <Input type="date" {...form.register("checkOutDate")} />
-          </label>
+          <DateRangeField
+            className="sm:col-span-2"
+            checkInDate={form.watch("checkInDate")}
+            checkOutDate={form.watch("checkOutDate")}
+            onChange={({ checkInDate, checkOutDate }) => {
+              form.setValue("checkInDate", checkInDate, {
+                shouldDirty: true,
+                shouldValidate: true,
+              });
+              form.setValue("checkOutDate", checkOutDate, {
+                shouldDirty: true,
+                shouldValidate: true,
+              });
+            }}
+            error={
+              form.formState.errors.checkInDate?.message ??
+              form.formState.errors.checkOutDate?.message
+            }
+          />
           <label className="space-y-2 text-sm font-medium text-stone-700">
             Campsites needed
             <Input
               type="number"
               min={1}
               max={4}
+              value={form.watch("requestedUnitCount") ?? 1}
               {...form.register("requestedUnitCount", { valueAsNumber: true })}
             />
           </label>

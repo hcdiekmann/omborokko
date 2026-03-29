@@ -175,14 +175,14 @@ export default async function HomePage() {
               images={siteContent.images}
               alt={siteContent.brandName}
             />
-            <div className="rounded-[2rem] bg-stone-950 p-6 text-white sm:p-8">
+            <div className="rounded-[2rem] border border-stone-200 bg-stone-50 p-6 sm:p-8">
               <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                 <div className="max-w-xl">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-100">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-900">
                     <Mountain className="h-4 w-4" />
                     Campsite notes
                   </div>
-                  <p className="mt-4 text-sm leading-6 text-stone-300">
+                  <p className="mt-4 text-xs md:text-sm leading-6 text-stone-600">
                     A few practical details to know before you head out into the
                     bush.
                   </p>
@@ -191,7 +191,7 @@ export default async function HomePage() {
                   {siteContent.notes.map((item) => (
                     <li
                       key={item}
-                      className="rounded-3xl border border-white/10 bg-white/5 px-4 py-4 text-sm leading-6 text-stone-100"
+                      className="rounded-3xl border border-stone-200 bg-white px-4 py-4 text-sm leading-6 text-stone-700"
                     >
                       <span className="flex items-start gap-3">
                         <span className="mt-2 h-2 w-2 flex-none rounded-full bg-amber-300" />
@@ -237,7 +237,7 @@ export default async function HomePage() {
                     ))}
                   </div>
                   <p className="mt-5 text-base leading-7 text-stone-700">
-                    "{item.quote}"
+                    &ldquo;{item.quote}&rdquo;
                   </p>
                   <div className="mt-6 border-t border-stone-100 pt-4">
                     <p className="text-sm font-semibold text-stone-950">
