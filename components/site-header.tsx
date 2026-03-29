@@ -25,7 +25,7 @@ export function SiteHeader() {
               {siteContent.brandName}
             </p>
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-stone-500">
-              Namibian bush campsite
+              Namibian bush accommodation
             </p>
           </div>
         </Link>

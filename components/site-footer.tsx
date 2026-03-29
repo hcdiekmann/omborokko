@@ -22,7 +22,7 @@ export function SiteFooter() {
               {siteContent.brandName}
             </p>
             <p className="text-[10px] uppercase tracking-[0.14em] text-stone-500">
-              Namibian Bush Campsite
+              Namibian Bush Accommodation
             </p>
           </div>
         </div>

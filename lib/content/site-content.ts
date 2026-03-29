@@ -18,9 +18,9 @@ export const siteContent = {
     "Trail to watering hole",
   ],
   notes: [
+    "Max. 6 guests per campsite",
     "A 4x4 off-road vehicle is advised",
     "No electrical outlets available",
-    "Guests pay onsite upon arrival",
   ],
   pricing: {
     adultLabel: "Adults 16+",

@@ -2,22 +2,28 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Compass,
-  Droplets,
+  ShowerHead,
   Flame,
   Mountain,
+  Star,
   TentTree,
   Trees,
 } from "lucide-react";
 
+import { AvailabilityChecker } from "@/components/availability-checker";
+import { HomeGalleryCarousel } from "@/components/home-gallery-carousel";
 import { SectionTitle } from "@/components/section-title";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { getActiveUnits } from "@/features/bookings/server/service";
 import { siteContent } from "@/lib/content/site-content";
 
 export default async function HomePage() {
-  const units = await getActiveUnits();
   const highlights = [
+    {
+      icon: ShowerHead,
+      title: "Essential comforts",
+      text: "Warm showers, flush toilets, drinking water, and a pool nearby.",
+    },
     {
       icon: Trees,
       title: "Quiet bush setting",
@@ -25,18 +31,34 @@ export default async function HomePage() {
     },
     {
       icon: Flame,
-      title: "Authentic camp rhythm",
+      title: "Authentic camping",
       text: "Firepit cooking, starlit dinners, and a simple base for a proper bush stay.",
-    },
-    {
-      icon: Droplets,
-      title: "Essential comforts",
-      text: "Warm showers, flush toilets, drinking water, and a pool nearby.",
     },
     {
       icon: Compass,
       title: "Made for overlanders",
       text: "Four matching campsites, cash onsite, and a clear request-and-confirm booking flow.",
+    },
+  ];
+
+  const testimonials = [
+    {
+      quote:
+        "A beautiful place integrated into nature, well equipped, and far from any buildings.",
+      author: "k g.",
+      detail: "Google review",
+    },
+    {
+      quote:
+        "The facilities were immaculate, very well thought out, peaceful, and secluded.",
+      author: "Laura B.",
+      detail: "Google review",
+    },
+    {
+      quote:
+        "A fabulous wild campsite beside a dry river bed with spotlessly clean facilities and lovely owners.",
+      author: "Oonagh",
+      detail: "Google review",
     },
   ];
 
@@ -47,7 +69,7 @@ export default async function HomePage() {
         <section className="relative overflow-hidden border-b border-stone-200">
           <div className="absolute inset-0">
             <Image
-              src="/images/campsite/home-bg.webp"
+              src="/images/campsite/mountains.webp"
               alt="Omborokko campsite"
               fill
               className="object-cover"
@@ -74,6 +96,12 @@ export default async function HomePage() {
                   <Link
                     href="/book"
                     className="rounded-full bg-amber-700 px-5 py-3 text-sm font-medium text-white shadow-lg shadow-amber-950/20 transition hover:bg-amber-600"
+                  >
+                    Book Now
+                  </Link>
+                  <Link
+                    href="#availability"
+                    className="rounded-full border border-white/20 bg-black/20 px-5 py-3 text-sm font-medium text-white transition hover:bg-black/30"
                   >
                     Check Availability
                   </Link>
@@ -142,36 +170,85 @@ export default async function HomePage() {
           </div>
         </section>
         <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
-          <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-            <div className="grid gap-4 sm:grid-cols-2">
-              {siteContent.images.slice(0, 4).map((image, index) => (
-                <div
-                  key={image}
-                  className={`relative overflow-hidden rounded-[1.75rem] ${index === 0 ? "sm:col-span-2 h-72" : "h-44 sm:h-52"}`}
-                >
-                  <Image
-                    src={image}
-                    alt={siteContent.brandName}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
+          <div className="space-y-6">
+            <HomeGalleryCarousel
+              images={siteContent.images}
+              alt={siteContent.brandName}
+            />
+            <div className="rounded-[2rem] bg-stone-950 p-6 text-white sm:p-8">
+              <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+                <div className="max-w-xl">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-100">
+                    <Mountain className="h-4 w-4" />
+                    Campsite notes
+                  </div>
+                  <p className="mt-4 text-sm leading-6 text-stone-300">
+                    A few practical details to know before you head out into the
+                    bush.
+                  </p>
                 </div>
-              ))}
-            </div>
-            <div className="rounded-[2rem] bg-stone-950 p-8 text-white">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-100">
-                <Mountain className="h-4 w-4" />
-                Campsite notes
+                <ul className="grid gap-3 sm:grid-cols-3 lg:min-w-[62%]">
+                  {siteContent.notes.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-3xl border border-white/10 bg-white/5 px-4 py-4 text-sm leading-6 text-stone-100"
+                    >
+                      <span className="flex items-start gap-3">
+                        <span className="mt-2 h-2 w-2 flex-none rounded-full bg-amber-300" />
+                        <span>{item}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="mt-6 space-y-3 text-sm text-stone-200">
-                {siteContent.notes.map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span className="mt-1 h-2 w-2 rounded-full bg-amber-300" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+            </div>
+          </div>
+        </section>
+        <section
+          id="availability"
+          className="border-y border-stone-200 bg-stone-50/80"
+        >
+          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+            <SectionTitle
+              eyebrow="Booking"
+              title="Check your dates before you book"
+            />
+            <div className="mt-8">
+              <AvailabilityChecker />
+            </div>
+          </div>
+        </section>
+        <section className="border-b border-stone-200 bg-stone-50/80">
+          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+            <SectionTitle
+              eyebrow="Testimonials"
+              title="What guests say about the campsite"
+              // description="A few notes from recent visitors who stayed at Omborokko and shared their experience publicly on Google."
+            />
+            <div className="mt-8 grid gap-4 lg:grid-cols-3">
+              {testimonials.map((item) => (
+                <article
+                  key={item.author}
+                  className="rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm"
+                >
+                  <div className="flex items-center gap-1 text-amber-600">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <Star key={index} className="h-4 w-4 fill-current" />
+                    ))}
+                  </div>
+                  <p className="mt-5 text-base leading-7 text-stone-700">
+                    "{item.quote}"
+                  </p>
+                  <div className="mt-6 border-t border-stone-100 pt-4">
+                    <p className="text-sm font-semibold text-stone-950">
+                      {item.author}
+                    </p>
+                    <p className="text-xs uppercase tracking-[0.18em] text-stone-500">
+                      {item.detail}
+                    </p>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
