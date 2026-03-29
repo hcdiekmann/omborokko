@@ -73,11 +73,9 @@ export function AvailabilityChecker() {
             onChange={({ checkInDate, checkOutDate }) => {
               form.setValue("checkInDate", checkInDate, {
                 shouldDirty: true,
-                shouldValidate: true,
               });
               form.setValue("checkOutDate", checkOutDate, {
                 shouldDirty: true,
-                shouldValidate: true,
               });
             }}
             error={
