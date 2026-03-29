@@ -2,7 +2,7 @@
   "name": "campsite-booking-app",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@10.6.3",
+  "packageManager": "pnpm@10.27.0",
   "engines": {
     "node": "22.x"
   },
