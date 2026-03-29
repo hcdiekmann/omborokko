@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { AdminBlocksClient } from "@/components/admin-blocks-client";
 import { AdminPageHeader } from "@/components/admin-page-header";
 
@@ -9,7 +11,9 @@ export default function AdminBlocksPage() {
         title="Manual blocks"
         description="Create and remove date blocks that should make a campsite unavailable."
       />
-      <AdminBlocksClient />
+      <Suspense fallback={<div className="rounded-3xl border border-stone-200 bg-white p-6" />}>
+        <AdminBlocksClient />
+      </Suspense>
     </div>
   );
 }
