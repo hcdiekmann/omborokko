@@ -7,6 +7,7 @@ const splitEmails = (value: string | undefined) =>
 export function getEmailConfig() {
   return {
     apiKey: process.env.RESEND_API_KEY ?? "",
+    appUrl: process.env.APP_URL ?? "",
     fromEmail: process.env.RESEND_FROM_EMAIL ?? "",
     fromName: process.env.RESEND_FROM_NAME ?? "Omborokko Safaris",
     adminEmails: splitEmails(process.env.BOOKING_ADMIN_EMAILS),

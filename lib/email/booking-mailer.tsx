@@ -22,6 +22,9 @@ export async function sendBookingRequestEmails(input: BookingEmailProps) {
   }
 
   const config = getEmailConfig();
+  const adminBookingUrl = config.appUrl
+    ? `${config.appUrl.replace(/\/$/, "")}/admin/bookings/${input.bookingId}`
+    : undefined;
   const tasks: Promise<unknown>[] = [];
 
   if (config.adminEmails.length) {
@@ -29,7 +32,7 @@ export async function sendBookingRequestEmails(input: BookingEmailProps) {
       sendEmail({
         to: config.adminEmails,
         subject: `New booking request ${input.bookingReference}`,
-        react: <BookingRequestAdminEmail {...input} />,
+        react: <BookingRequestAdminEmail {...input} adminBookingUrl={adminBookingUrl} />,
         replyTo: input.guestEmail
       })
     );

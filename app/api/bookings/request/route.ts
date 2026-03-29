@@ -8,6 +8,7 @@ export async function POST(request: Request) {
     const payload = createBookingRequestSchema.parse(await request.json());
     const result = await createPendingBookingRequest(payload);
     await sendBookingRequestEmails({
+      bookingId: result.booking.booking_id,
       bookingReference: result.booking.booking_reference,
       guestName: `${payload.guestFirstName} ${payload.guestLastName}`,
       guestEmail: payload.guestEmail,

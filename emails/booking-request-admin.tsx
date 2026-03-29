@@ -1,9 +1,10 @@
-import { Heading, Section, Text } from "@react-email/components";
+import { Heading, Link, Section, Text } from "@react-email/components";
 import * as React from "react";
 
 import { DetailTable, EmailShell } from "@/emails/components/email-shell";
 
 export type BookingEmailProps = {
+  bookingId: string;
   bookingReference: string;
   guestName: string;
   guestEmail: string;
@@ -16,6 +17,7 @@ export type BookingEmailProps = {
   nights: number;
   totalAmount: string;
   notes?: string | null;
+  adminBookingUrl?: string;
 };
 
 export default function BookingRequestAdminEmail(props: BookingEmailProps) {
@@ -39,6 +41,13 @@ export default function BookingRequestAdminEmail(props: BookingEmailProps) {
           { label: "Estimated total", value: props.totalAmount }
         ]}
       />
+      {props.adminBookingUrl ? (
+        <Section style={actionSection}>
+          <Link href={props.adminBookingUrl} style={actionButton}>
+            Open booking request
+          </Link>
+        </Section>
+      ) : null}
       {props.notes ? (
         <Section style={noteCard}>
           <Heading as="h2" style={noteTitle}>Guest notes</Heading>
@@ -75,4 +84,19 @@ const noteText = {
   fontSize: "15px",
   lineHeight: "1.7",
   color: "#4f3e2c"
+};
+
+const actionSection = {
+  marginTop: "20px",
+};
+
+const actionButton = {
+  display: "inline-block",
+  padding: "12px 18px",
+  borderRadius: "999px",
+  backgroundColor: "#b86110",
+  color: "#fffaf2",
+  fontSize: "15px",
+  fontWeight: 700,
+  textDecoration: "none",
 };
