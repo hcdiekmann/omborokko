@@ -95,6 +95,7 @@ export default async function HomePage() {
                 <div className="flex flex-wrap gap-3">
                   <Link
                     href="/book"
+                    prefetch
                     className="rounded-full bg-amber-700 px-5 py-3 text-sm font-medium text-white shadow-lg shadow-amber-950/20 transition hover:bg-amber-600"
                   >
                     Book Now

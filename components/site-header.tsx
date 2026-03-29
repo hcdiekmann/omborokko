@@ -9,18 +9,18 @@ export function SiteHeader() {
       <div className="mx-auto flex h-24 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link
           href="/"
-          className="flex items-center text-lg font-semibold tracking-tight text-stone-900"
+          className="flex items-center gap-0 text-lg font-semibold tracking-tight text-stone-900 sm:gap-1"
         >
-          <div className="relative -my-3 h-24 w-24 flex-none overflow-hidden sm:-my-4 sm:h-28 sm:w-28">
+          <div className="relative -my-4 h-28 w-28 flex-none overflow-hidden sm:-my-5 sm:h-32 sm:w-32">
             <Image
               src={siteContent.logoDarkPath}
               alt={siteContent.brandName}
               fill
               className="object-contain"
-              sizes="(max-width: 640px) 96px, 112px"
+              sizes="(max-width: 640px) 112px, 128px"
             />
           </div>
-          <div>
+          <div className="-ml-3 sm:-ml-4">
             <p className="brand-title text-[1.95rem] sm:text-[2.35rem]">
               {siteContent.brandName}
             </p>
