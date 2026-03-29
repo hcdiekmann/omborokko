@@ -57,11 +57,6 @@ export function AvailabilityChecker() {
   return (
     <Card className="rounded-[2rem] bg-stone-50">
       <CardContent className="space-y-4 p-5">
-        <div>
-          <h3 className="text-lg font-semibold text-stone-950">
-            Check availability
-          </h3>
-        </div>
         <form
           className="grid gap-3 sm:grid-cols-3"
           onSubmit={form.handleSubmit(onSubmit)}
