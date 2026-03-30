@@ -21,7 +21,7 @@ export default async function HomePage() {
   const highlights = [
     {
       icon: ShowerHead,
-      title: "Essential comforts",
+      title: "Well-kept essentials",
       text: "Warm showers, flush toilets, drinking water, and a pool nearby.",
     },
     {
@@ -149,8 +149,8 @@ export default async function HomePage() {
         </section>
         <section className="mx-auto max-w-6xl space-y-8 px-4 py-14 sm:px-6">
           <SectionTitle
-            //eyebrow="About the stay"
-            title={"About the stay"}
+            eyebrow="About the stay"
+            title={"Off the Grid, With Essential Comforts"}
             description={siteContent.introBody}
           />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
