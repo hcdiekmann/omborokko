@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Alegreya, Caveat_Brush } from "next/font/google";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import { Providers } from "@/app/providers";
@@ -8,6 +9,18 @@ import { getSiteUrl } from "@/lib/utils/site-url";
 import "@/app/globals.css";
 
 const siteUrl = getSiteUrl();
+const alegreya = Alegreya({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-alegreya",
+  display: "swap",
+});
+const caveatBrush = Caveat_Brush({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-caveat-brush",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
@@ -48,7 +61,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${alegreya.variable} ${caveatBrush.variable}`}>
         <div className="relative isolate min-h-screen overflow-x-hidden">
           <div
             aria-hidden="true"

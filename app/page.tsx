@@ -137,6 +137,8 @@ export default async function HomePage() {
               fill
               className="object-cover"
               priority
+              fetchPriority="high"
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(17,24,39,0.88),rgba(68,48,34,0.62),rgba(17,24,39,0.7))]" />
           </div>
