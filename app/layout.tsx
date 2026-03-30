@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import { Providers } from "@/app/providers";
 import { getSiteUrl } from "@/lib/utils/site-url";

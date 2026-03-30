@@ -306,6 +306,59 @@ export async function createAdminBlock(input: TablesInsert<"booking_blocks">) {
   return data as Tables<"booking_blocks"> | null;
 }
 
+export async function createAdminBlocksForAllUnits(
+  input: Omit<TablesInsert<"booking_blocks">, "campsite_unit_id">,
+) {
+  const { supabase, user } = await requireAdmin();
+
+  const { data: units, error: unitsError } = await supabase
+    .from("campsite_units")
+    .select("id")
+    .eq("active", true)
+    .order("name", { ascending: true });
+
+  if (unitsError) {
+    throw new AppError(
+      "Failed to load campsites for block creation",
+      500,
+      "block_units_lookup_failed",
+      unitsError,
+    );
+  }
+
+  const typedUnits = (units ?? []) as Array<Pick<Tables<"campsite_units">, "id">>;
+
+  if (!typedUnits.length) {
+    throw new AppError(
+      "No active campsites found for block creation",
+      400,
+      "block_units_not_found",
+    );
+  }
+
+  const { data, error } = await supabase
+    .from("booking_blocks")
+    .insert(
+      typedUnits.map((unit) => ({
+        ...input,
+        campsite_unit_id: unit.id,
+        created_by: user.id,
+      })) as never,
+    )
+    .select("*");
+
+  if (error) {
+    throw new AppError(
+      "Failed to create booking blocks",
+      400,
+      "booking_blocks_create_failed",
+      error,
+    );
+  }
+
+  return (data ?? []) as Tables<"booking_blocks">[];
+}
+
 export async function updateAdminBlock(blockId: string, input: TablesUpdate<"booking_blocks">) {
   const { supabase } = await requireAdmin();
   const { data, error } = await supabase
@@ -341,14 +394,14 @@ export async function getAdminCalendarFeed(startDate: string, endDate: string, c
   let bookingsQuery = supabase
     .from("booking_units")
     .select("id, booking_id, campsite_unit_id, start_date, end_date, campsite_units(name, slug), bookings(id, booking_reference, guest_first_name, guest_last_name, status)")
-    .lt("start_date", endDate)
+    .lte("start_date", endDate)
     .gt("end_date", startDate)
     .order("start_date");
 
   let blocksQuery = supabase
     .from("booking_blocks")
     .select("id, campsite_unit_id, start_date, end_date, reason, campsite_units(name, slug)")
-    .lt("start_date", endDate)
+    .lte("start_date", endDate)
     .gt("end_date", startDate)
     .order("start_date");
 

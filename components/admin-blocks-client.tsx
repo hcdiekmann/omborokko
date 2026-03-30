@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { DateRangeField } from "@/components/date-range-field";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -186,6 +187,9 @@ export function AdminBlocksClient() {
               <label className="text-sm font-medium text-stone-700">Campsite unit</label>
               <Select {...form.register("campsiteUnitId")}>
                 <option value="">Select campsite</option>
+                {!selectedBlockId ? (
+                  <option value="__all__">All campsites</option>
+                ) : null}
                 {unitsQuery.data?.map((unit) => (
                   <option key={unit.id} value={unit.id}>
                     {unit.name}
@@ -193,16 +197,19 @@ export function AdminBlocksClient() {
                 ))}
               </Select>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-stone-700">Start date</label>
-                <Input type="date" {...form.register("startDate")} />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-stone-700">End date</label>
-                <Input type="date" {...form.register("endDate")} />
-              </div>
-            </div>
+            <DateRangeField
+              checkInDate={form.watch("startDate")}
+              checkOutDate={form.watch("endDate")}
+              label="Blocked dates"
+              onChange={({ checkInDate, checkOutDate }) => {
+                form.setValue("startDate", checkInDate, {
+                  shouldDirty: true,
+                });
+                form.setValue("endDate", checkOutDate, {
+                  shouldDirty: true,
+                });
+              }}
+            />
             <div className="space-y-2">
               <label className="text-sm font-medium text-stone-700">Reason</label>
               <Textarea {...form.register("reason")} className="min-h-24" />

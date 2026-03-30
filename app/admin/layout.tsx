@@ -76,9 +76,7 @@ export default async function AdminLayout({
       </header>
       <main className="mx-auto grid max-w-7xl gap-4 px-4 py-4 lg:gap-6 lg:px-6 lg:py-8 lg:grid-cols-[260px_minmax(0,1fr)]">
         <aside className="h-fit rounded-3xl border border-stone-200/80 bg-white/90 p-2.5 shadow-sm backdrop-blur-sm lg:p-3">
-          <div className="pt-1 lg:pt-3">
-            <AdminShellNav />
-          </div>
+          <AdminShellNav />
         </aside>
         <div className="min-w-0 space-y-6">{children}</div>
       </main>

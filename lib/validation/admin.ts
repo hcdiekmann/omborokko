@@ -20,7 +20,7 @@ const adminUnitSchemaBase = z.object({
 });
 
 const adminBlockSchemaBase = z.object({
-  campsiteUnitId: z.string().uuid(),
+  campsiteUnitId: z.union([z.string().uuid(), z.literal("__all__")]),
   startDate: isoDate,
   endDate: isoDate,
   reason: z.string().trim().max(500).optional().or(z.literal(""))
@@ -40,7 +40,11 @@ export const adminBlockSchema = adminBlockSchemaBase
     }
   });
 
-export const adminBlockPatchSchema = adminBlockSchemaBase.partial();
+export const adminBlockPatchSchema = adminBlockSchemaBase
+  .extend({
+    campsiteUnitId: z.string().uuid().optional()
+  })
+  .partial();
 
 export const adminCalendarQuerySchema = z.object({
   startDate: isoDate,
