@@ -1,7 +1,7 @@
 export const siteContent = {
   brandName: "Omborokko Safaris",
-  logoDarkPath: "/images/branding/omborokko-logo-dark.png",
-  logoLightPath: "/images/branding/omborokko-logo-light.png",
+  logoDarkPath: "/images/branding/omborokko-logo-dark-optimized.png",
+  logoLightPath: "/images/branding/omborokko-logo-light-optimized.png",
   heroTitle: "Remote camping at the foot of the Omborokko Mountains",
   introBody:
     "Our remote campsite provides a unique chance to dwell in the midst of Namibia's untouched beauty. Located next to a seasonal river far from any other infrastructure, the campsite offers a genuine encounter with the tranquil Namibian bush.",

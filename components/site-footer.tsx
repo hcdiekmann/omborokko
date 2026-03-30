@@ -8,12 +8,13 @@ export function SiteFooter() {
     <footer className="border-t border-stone-200 bg-stone-50">
       <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-6 text-sm text-stone-600 sm:px-6 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
-          <div className="relative h-16 w-16 flex-none overflow-hidden">
+          <div className="flex-none overflow-hidden">
             <Image
               src={siteContent.logoDarkPath}
               alt={siteContent.brandName}
-              fill
-              className="object-contain"
+              width={256}
+              height={362}
+              className="h-auto w-16 object-contain"
               sizes="64px"
             />
           </div>

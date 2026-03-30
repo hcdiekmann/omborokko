@@ -11,12 +11,13 @@ export function SiteHeader() {
           href="/"
           className="flex items-center gap-0 text-lg font-semibold tracking-tight text-stone-900 sm:gap-1"
         >
-          <div className="relative -my-4 h-28 w-28 flex-none overflow-hidden sm:-my-5 sm:h-32 sm:w-32">
+          <div className="-my-4 flex-none overflow-hidden sm:-my-5">
             <Image
               src={siteContent.logoDarkPath}
               alt={siteContent.brandName}
-              fill
-              className="object-contain"
+              width={256}
+              height={362}
+              className="h-auto w-28 object-contain"
               sizes="(max-width: 640px) 112px, 128px"
             />
           </div>

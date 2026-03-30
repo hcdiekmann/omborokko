@@ -43,12 +43,13 @@ export default async function AdminLayout({
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-start gap-3">
             <div className="flex items-center">
-              <div className="relative -my-3 h-24 w-24 flex-none overflow-hidden sm:-my-4 sm:h-28 sm:w-28">
+              <div className="-my-3 flex-none overflow-hidden sm:-my-4">
                 <Image
                   src={siteContent.logoDarkPath}
                   alt={siteContent.brandName}
-                  fill
-                  className="object-contain"
+                  width={256}
+                  height={362}
+                  className="h-auto w-24 object-contain sm:w-28"
                   sizes="(max-width: 640px) 96px, 112px"
                 />
               </div>
