@@ -3,15 +3,37 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { Providers } from "@/app/providers";
+import { getSiteUrl } from "@/lib/utils/site-url";
 import "@/app/globals.css";
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: {
     default: "Omborokko Safaris",
     template: "%s | Omborokko Safaris",
   },
   applicationName: "Omborokko Safaris",
-  description: "Campsite booking requests for Omborokko Safaris in Namibia.",
+  description:
+    "Book a remote bush campsite stay at Omborokko Safaris in Namibia, with warm showers, flush toilets, and wide open mountain views.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    siteName: "Omborokko Safaris",
+    title: "Omborokko Safaris",
+    description:
+      "Remote bush camping in Namibia with essential comforts, mountain views, and a simple request-and-confirm booking flow.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Omborokko Safaris",
+    description:
+      "Remote bush camping in Namibia with essential comforts, mountain views, and a simple request-and-confirm booking flow.",
+  },
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",

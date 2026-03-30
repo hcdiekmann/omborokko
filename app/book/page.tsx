@@ -1,8 +1,25 @@
+import type { Metadata } from "next";
+
 import { BookingRequestForm } from "@/components/booking-request-form";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getPublicCampsiteTemplate } from "@/features/bookings/server/service";
 import { siteContent } from "@/lib/content/site-content";
+
+export const metadata: Metadata = {
+  title: "Book Your Campsite Stay",
+  description:
+    "Request your campsite stay at Omborokko Safaris. Check practical details, review pricing, and send your preferred dates for confirmation.",
+  alternates: {
+    canonical: "/book",
+  },
+  openGraph: {
+    title: "Book Your Campsite Stay",
+    description:
+      "Request your campsite stay at Omborokko Safaris. Check practical details, review pricing, and send your preferred dates for confirmation.",
+    url: "/book",
+  },
+};
 
 export default async function BookPage() {
   const templateUnit = await getPublicCampsiteTemplate();

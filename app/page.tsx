@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -16,8 +17,64 @@ import { SectionTitle } from "@/components/section-title";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteContent } from "@/lib/content/site-content";
+import { getSiteUrl } from "@/lib/utils/site-url";
+
+const siteUrl = getSiteUrl();
+
+export const metadata: Metadata = {
+  title: "Remote Bush Camping in Namibia",
+  description:
+    "Discover Omborokko Safaris, a remote Namibian bush campsite with mountain views, warm showers, flush toilets, and easy online booking requests.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Remote Bush Camping in Namibia",
+    description:
+      "Discover Omborokko Safaris, a remote Namibian bush campsite with mountain views, warm showers, flush toilets, and easy online booking requests.",
+    url: siteUrl,
+  },
+};
 
 export default async function HomePage() {
+  const lodgingJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Campground",
+    name: "Omborokko Safaris",
+    description:
+      "Remote bush camping in Namibia with warm showers, flush toilets, drinking water, and mountain views.",
+    url: siteUrl.toString(),
+    image: `${siteUrl.origin}/images/campsite/mountains.webp`,
+    telephone: "",
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "NA",
+    },
+    amenityFeature: [
+      {
+        "@type": "LocationFeatureSpecification",
+        name: "Warm water showers",
+        value: true,
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        name: "Flush toilets",
+        value: true,
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        name: "Swimming pool",
+        value: true,
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        name: "Fresh drinking water",
+        value: true,
+      },
+    ],
+    sameAs: ["https://g.page/r/CX5GoEWHNEH8EBM/review"],
+  };
+
   const highlights = [
     {
       icon: ShowerHead,
@@ -66,6 +123,12 @@ export default async function HomePage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="flex-1">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(lodgingJsonLd),
+          }}
+        />
         <section className="relative overflow-hidden border-b border-stone-200">
           <div className="absolute inset-0">
             <Image
