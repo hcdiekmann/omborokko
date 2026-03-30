@@ -24,7 +24,7 @@ export function AdminShellNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="space-y-1.5">
+    <nav className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:block lg:space-y-1.5">
       {items.map((item) => {
         const Icon = item.icon;
         const isActive =
@@ -36,14 +36,14 @@ export function AdminShellNav() {
             key={item.href}
             href={item.href}
             className={cn(
-              "flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium transition-colors",
+              "flex min-w-0 items-center gap-2 rounded-2xl px-3 py-2 text-sm font-medium transition-colors lg:px-3 lg:py-2.5",
               isActive
                 ? "bg-stone-950 text-white shadow-sm"
                 : "text-stone-700 hover:bg-stone-100 hover:text-stone-950",
             )}
           >
-            <Icon className="h-4 w-4" />
-            {item.label}
+            <Icon className="h-4 w-4 flex-none" />
+            <span className="truncate">{item.label}</span>
           </Link>
         );
       })}

@@ -57,7 +57,7 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <AdminStatCard
           label="Pending bookings"
           value={pendingCount}
@@ -83,9 +83,9 @@ export default async function AdminDashboardPage() {
           detail="Currently bookable campsite units."
         />
       </div>
-      <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
+      <div className="grid gap-4 xl:grid-cols-[1.2fr_0.8fr] xl:gap-6">
         <Card className="bg-white/90">
-          <CardHeader className="flex flex-row items-center justify-between">
+          <CardHeader className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-lg font-semibold text-stone-950">
                 Recent pending bookings
@@ -103,7 +103,7 @@ export default async function AdminDashboardPage() {
                   href={`/admin/bookings/${booking.id}`}
                   className="block rounded-2xl border border-stone-200 p-4 hover:bg-stone-50"
                 >
-                  <div className="flex items-start justify-between gap-3">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                       <p className="font-medium text-stone-900">
                         {booking.booking_reference}
@@ -117,7 +117,7 @@ export default async function AdminDashboardPage() {
                         {booking.requested_unit_count} campsite(s)
                       </p>
                     </div>
-                    <div className="text-right">
+                    <div className="sm:text-right">
                       <Badge variant="pending">Pending</Badge>
                       <p className="mt-2 text-sm text-stone-700">
                         {formatCurrency(booking.total_amount)}

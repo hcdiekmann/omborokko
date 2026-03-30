@@ -109,12 +109,12 @@ export function AdminUnitsClient() {
   });
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+    <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:gap-6">
       <Card>
-        <CardHeader>
+        <CardHeader className="px-4 py-4 sm:px-5">
           <h2 className="text-lg font-semibold text-stone-950">Campsite units</h2>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="space-y-3 p-4 sm:p-5">
           {unitsQuery.data?.map((unit) => (
             <button
               key={unit.id}
@@ -140,10 +140,10 @@ export function AdminUnitsClient() {
       </Card>
 
       <Card>
-        <CardHeader>
+        <CardHeader className="px-4 py-4 sm:px-5">
           <h2 className="text-lg font-semibold text-stone-950">Edit unit</h2>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 sm:p-5">
           <form className="space-y-4" onSubmit={form.handleSubmit((values) => saveMutation.mutate(values))}>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">

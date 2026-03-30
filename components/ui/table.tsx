@@ -3,7 +3,7 @@ import type { HTMLAttributes, ThHTMLAttributes, TdHTMLAttributes } from "react";
 import { cn } from "@/lib/utils/cn";
 
 export function Table({ className, ...props }: HTMLAttributes<HTMLTableElement>) {
-  return <table className={cn("w-full caption-bottom text-sm", className)} {...props} />;
+  return <table className={cn("w-max min-w-full caption-bottom text-sm", className)} {...props} />;
 }
 
 export function TableHeader({ className, ...props }: HTMLAttributes<HTMLTableSectionElement>) {

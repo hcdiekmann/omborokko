@@ -222,7 +222,7 @@ export function AdminBookingsClient() {
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {[
           { label: "Pending", value: counts.pending ?? 0, variant: "pending" as const },
           { label: "Confirmed", value: counts.confirmed ?? 0, variant: "confirmed" as const },
@@ -244,6 +244,7 @@ export function AdminBookingsClient() {
         data={bookingsQuery.data ?? []}
         emptyState={bookingsQuery.isLoading ? "Loading bookings..." : "No bookings found for the current filters."}
         defaultSorting={[{ id: "created_at", desc: true }]}
+        tableClassName="min-w-[980px]"
         toolbar={
           <div className="grid gap-3 md:grid-cols-[200px_1fr]">
             <Select value={status} onChange={(event) => setStatus(event.target.value)}>

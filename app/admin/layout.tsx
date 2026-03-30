@@ -40,30 +40,30 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen bg-transparent">
       <header className="border-b border-stone-200/80 bg-white/90 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-start gap-3">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:gap-4 lg:py-4">
+          <div className="min-w-0 flex items-center gap-2.5 sm:gap-3">
             <div className="flex items-center">
-              <div className="-my-3 flex-none overflow-hidden sm:-my-4">
+              <div className="-my-2 flex-none overflow-hidden sm:-my-3">
                 <Image
                   src={siteContent.logoDarkPath}
                   alt={siteContent.brandName}
                   width={256}
                   height={362}
-                  className="h-auto w-24 object-contain sm:w-28"
-                  sizes="(max-width: 640px) 96px, 112px"
+                  className="h-auto w-16 object-contain sm:w-20 lg:w-24"
+                  sizes="(max-width: 640px) 64px, (max-width: 1024px) 80px, 96px"
                 />
               </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">
+              <div className="min-w-0">
+                <p className="truncate text-[10px] font-semibold uppercase tracking-[0.16em] text-stone-500 sm:text-xs">
                   Omborokko Safaris
                 </p>
-                <p className="text-lg font-semibold text-stone-950">
+                <p className="text-base font-semibold leading-tight text-stone-950 sm:text-lg">
                   Admin Campsite Managment
                 </p>
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/book"
               className="text-sm text-stone-600 transition-colors hover:text-stone-950"
@@ -74,13 +74,13 @@ export default async function AdminLayout({
           </div>
         </div>
       </header>
-      <main className="mx-auto grid max-w-7xl gap-6 px-4 py-8 lg:grid-cols-[260px_1fr] sm:px-6">
-        <aside className="h-fit rounded-3xl border border-stone-200/80 bg-white/90 p-3 shadow-sm backdrop-blur-sm">
-          <div className="pt-3">
+      <main className="mx-auto grid max-w-7xl gap-4 px-4 py-4 lg:gap-6 lg:px-6 lg:py-8 lg:grid-cols-[260px_minmax(0,1fr)]">
+        <aside className="h-fit rounded-3xl border border-stone-200/80 bg-white/90 p-2.5 shadow-sm backdrop-blur-sm lg:p-3">
+          <div className="pt-1 lg:pt-3">
             <AdminShellNav />
           </div>
         </aside>
-        <div className="space-y-6">{children}</div>
+        <div className="min-w-0 space-y-6">{children}</div>
       </main>
     </div>
   );

@@ -105,26 +105,28 @@ export function AdminCalendarClient() {
         </CardContent>
       </Card>
       <Card>
-        <CardContent className="flex flex-wrap items-center gap-3 p-4">
+        <CardContent className="flex flex-wrap items-center gap-2 p-4 sm:gap-3">
           <Button
             onClick={() => setCurrentMonth((value) => addMonths(value, -1))}
             variant="outline"
+            size="sm"
           >
             Previous
           </Button>
-          <div className="min-w-40 text-sm font-medium text-stone-800">
+          <div className="min-w-32 text-sm font-medium text-stone-800 sm:min-w-40">
             {format(currentMonth, "MMMM yyyy")}
           </div>
           <Button
             onClick={() => setCurrentMonth((value) => addMonths(value, 1))}
             variant="outline"
+            size="sm"
           >
             Next
           </Button>
           <Select
             value={unitId}
             onChange={(event) => setUnitId(event.target.value)}
-            className="max-w-56"
+            className="w-full sm:max-w-56"
           >
             <option value="">All campsites</option>
             {unitsQuery.data?.map((unit) => (

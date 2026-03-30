@@ -124,15 +124,15 @@ export function AdminBlocksClient() {
   });
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+    <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr] lg:gap-6">
       <Card>
-        <CardHeader className="space-y-3">
-          <div className="flex items-center justify-between gap-3">
+        <CardHeader className="space-y-3 px-4 py-4 sm:px-5">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-lg font-semibold text-stone-950">Current date blocks</h2>
               <p className="mt-1 text-sm text-stone-600">Manual blocks also remove availability from the calendar.</p>
             </div>
-            <Select value={unitFilter} onChange={(event) => setUnitFilter(event.target.value)} className="max-w-56">
+            <Select value={unitFilter} onChange={(event) => setUnitFilter(event.target.value)} className="w-full sm:max-w-56">
               <option value="">All campsites</option>
               {unitsQuery.data?.map((unit) => (
                 <option key={unit.id} value={unit.id}>
@@ -142,7 +142,7 @@ export function AdminBlocksClient() {
             </Select>
           </div>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="space-y-3 p-4 sm:p-5">
           {blocksQuery.data?.length ? (
             blocksQuery.data.map((block) => (
               <div
@@ -177,10 +177,10 @@ export function AdminBlocksClient() {
       </Card>
 
       <Card>
-        <CardHeader>
+        <CardHeader className="px-4 py-4 sm:px-5">
           <h2 className="text-lg font-semibold text-stone-950">{selectedBlockId ? "Edit block" : "Create block"}</h2>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 sm:p-5">
           <form className="space-y-4" onSubmit={form.handleSubmit((values) => saveMutation.mutate(values))}>
             <div className="space-y-2">
               <label className="text-sm font-medium text-stone-700">Campsite unit</label>

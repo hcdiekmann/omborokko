@@ -24,6 +24,7 @@ type DataTableProps<TData> = {
   footer?: ReactNode;
   pageSize?: number;
   defaultSorting?: SortingState;
+  tableClassName?: string;
 };
 
 export function DataTable<TData>({
@@ -33,7 +34,8 @@ export function DataTable<TData>({
   toolbar,
   footer,
   pageSize = 10,
-  defaultSorting = []
+  defaultSorting = [],
+  tableClassName
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>(defaultSorting);
 
@@ -56,10 +58,10 @@ export function DataTable<TData>({
   });
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="min-w-0 overflow-hidden">
       {toolbar ? <div className="border-b border-stone-200 bg-stone-50/70 px-4 py-3">{toolbar}</div> : null}
-      <div className="overflow-x-auto">
-        <Table>
+      <div className="overflow-x-auto overscroll-x-contain">
+        <Table className={tableClassName}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <HeaderRow key={headerGroup.id} headerGroup={headerGroup} />
