@@ -253,6 +253,25 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+        <section className="border-b border-stone-200 bg-white">
+          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+            <SectionTitle
+              eyebrow="Directions"
+              title="How to find us"
+              description="Please follow the road signs to reception at the farmhouse on arrival. From there, you will receive directions to the campsite, which is a further 5 km away."
+            />
+            <div className="mt-4 overflow-hidden rounded-md border border-stone-200 bg-stone-50 shadow-sm">
+              <iframe
+                title="Google Maps Omborokko Safaris"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3727.3187037577013!2d16.7204197!3d-20.8994937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1bf4d0a1bbde997f%3A0xfc41348745a0467e!2sOmborokko%20Safaris!5e0!3m2!1sen!2snz!4v1690864712755!5m2!1sen!2s"
+                width="100%"
+                height="350"
+                loading="lazy"
+                className="block w-full"
+              />
+            </div>
+          </div>
+        </section>
       </main>
       <SiteFooter />
     </div>
