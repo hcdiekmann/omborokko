@@ -63,9 +63,9 @@ export default async function HomePage() {
   ];
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main>
+      <main className="flex-1">
         <section className="relative overflow-hidden border-b border-stone-200">
           <div className="absolute inset-0">
             <Image
@@ -230,14 +230,14 @@ export default async function HomePage() {
               {testimonials.map((item) => (
                 <article
                   key={item.author}
-                  className="rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm"
+                  className="flex h-full flex-col rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm"
                 >
                   <div className="flex items-center gap-1 text-amber-600">
                     {Array.from({ length: 5 }).map((_, index) => (
                       <Star key={index} className="h-4 w-4 fill-current" />
                     ))}
                   </div>
-                  <p className="mt-5 text-base leading-7 text-stone-700">
+                  <p className="mt-5 flex-1 text-base italic leading-7 text-stone-700">
                     &ldquo;{item.quote}&rdquo;
                   </p>
                   <div className="mt-6 border-t border-stone-100 pt-4">
@@ -255,6 +255,6 @@ export default async function HomePage() {
         </section>
       </main>
       <SiteFooter />
-    </>
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -30,6 +31,7 @@ export function BookingRequestForm({
   maxGuestsPerCampsite: number;
 }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const form = useForm<FormValues>({
     resolver: zodResolver(createBookingRequestSchema),
     defaultValues: {
@@ -45,6 +47,32 @@ export function BookingRequestForm({
       notes: "",
     },
   });
+
+  useEffect(() => {
+    const checkInDate = searchParams.get("checkInDate") ?? "";
+    const checkOutDate = searchParams.get("checkOutDate") ?? "";
+    const requestedUnitCount = Number(
+      searchParams.get("requestedUnitCount") ?? "1",
+    );
+
+    if (checkInDate) {
+      form.setValue("checkInDate", checkInDate, {
+        shouldDirty: false,
+      });
+    }
+
+    if (checkOutDate) {
+      form.setValue("checkOutDate", checkOutDate, {
+        shouldDirty: false,
+      });
+    }
+
+    if (Number.isFinite(requestedUnitCount) && requestedUnitCount > 0) {
+      form.setValue("requestedUnitCount", requestedUnitCount, {
+        shouldDirty: false,
+      });
+    }
+  }, [form, searchParams]);
 
   async function onSubmit(values: FormValues) {
     const response = await fetch("/api/bookings/request", {
@@ -72,11 +100,6 @@ export function BookingRequestForm({
   return (
     <Card>
       <CardContent className="space-y-4 p-5">
-        <div>
-          <h3 className="text-lg font-semibold text-stone-950">
-            Submit booking request
-          </h3>
-        </div>
         <form
           className="grid gap-4 sm:grid-cols-2"
           onSubmit={form.handleSubmit(onSubmit)}
@@ -163,7 +186,7 @@ export function BookingRequestForm({
           ) : null}
           <Button
             type="submit"
-            className="sm:col-span-2"
+            className="h-11 rounded-2xl bg-amber-700 text-white hover:bg-amber-600 sm:col-span-2"
             disabled={form.formState.isSubmitting}
           >
             {form.formState.isSubmitting ? "Submitting..." : "Request booking"}

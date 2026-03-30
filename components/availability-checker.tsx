@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -106,6 +107,25 @@ export function AvailabilityChecker() {
                 ? `${result.availableCount} of ${result.totalCount} campsites are available for these dates.`
                 : `Only ${result.availableCount} of ${result.totalCount} campsites are available for these dates.`}
             </p>
+            {result.available ? (
+              <div className="mt-3">
+                <Link
+                  href={{
+                    pathname: "/book",
+                    query: {
+                      checkInDate: form.getValues("checkInDate"),
+                      checkOutDate: form.getValues("checkOutDate"),
+                      requestedUnitCount: String(
+                        form.getValues("requestedUnitCount"),
+                      ),
+                    },
+                  }}
+                  className="inline-flex h-9 items-center rounded-full bg-green-700 px-4 text-sm font-medium text-white transition hover:bg-green-600"
+                >
+                  Book now
+                </Link>
+              </div>
+            ) : null}
             {/*{result.availableUnits.length ? (
               <p className="mt-2 text-xs">
                 Available now:{" "}

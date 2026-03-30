@@ -11,9 +11,9 @@ export default async function BookingSuccessPage({ searchParams }: PageProps) {
   const { reference } = await searchParams;
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <main className="mx-auto flex-1 max-w-3xl px-4 py-16 sm:px-6">
         <div className="rounded-3xl border border-stone-200 bg-white p-8 text-center shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-800">
             Booking request received
@@ -49,6 +49,6 @@ export default async function BookingSuccessPage({ searchParams }: PageProps) {
         </div>
       </main>
       <SiteFooter />
-    </>
+    </div>
   );
 }

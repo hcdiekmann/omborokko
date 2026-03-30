@@ -3,9 +3,9 @@ import { SiteHeader } from "@/components/site-header";
 
 export default function BookLoading() {
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="mx-auto max-w-6xl space-y-6 px-4 py-5 sm:px-6">
+      <main className="mx-auto flex-1 max-w-6xl space-y-6 px-4 py-5 sm:px-6">
         <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-5">
             <div className="h-[340px] animate-pulse rounded-[2rem] bg-stone-200" />
@@ -46,6 +46,6 @@ export default function BookLoading() {
         </section>
       </main>
       <SiteFooter />
-    </>
+    </div>
   );
 }
