@@ -2,6 +2,8 @@
 
 import { CalendarIcon } from "lucide-react";
 import { format, parseISO, startOfToday } from "date-fns";
+import { de, enUS, fr } from "date-fns/locale";
+import { useLocale, useTranslations } from "next-intl";
 import { DateRange } from "react-day-picker";
 
 import { Button } from "@/components/ui/button";
@@ -35,14 +37,11 @@ function toRange(
   };
 }
 
-function formatRangeLabel(checkInDate: string, checkOutDate: string) {
-  if (!checkInDate) return "Select stay dates";
-
-  const from = format(parseISO(checkInDate), "MMM d, yyyy");
-  if (!checkOutDate) return from;
-
-  return `${from} - ${format(parseISO(checkOutDate), "MMM d, yyyy")}`;
-}
+const datePickerLocales = {
+  en: enUS,
+  de,
+  fr
+} as const;
 
 export function DateRangeField({
   checkInDate,
@@ -52,11 +51,25 @@ export function DateRangeField({
   label = "Stay dates",
   error,
 }: DateRangeFieldProps) {
+  const locale = useLocale();
+  const t = useTranslations("DateRangeField");
   const selectedRange = toRange(checkInDate, checkOutDate);
+  const formatter = new Intl.DateTimeFormat(locale, {
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  });
+  const rangeLabel = checkInDate
+    ? checkOutDate
+      ? `${formatter.format(parseISO(checkInDate))} - ${formatter.format(parseISO(checkOutDate))}`
+      : formatter.format(parseISO(checkInDate))
+    : t("placeholder");
 
   return (
     <div className={cn("space-y-2", className)}>
-      <div className="text-sm font-medium text-stone-700">{label}</div>
+      <div className="text-sm font-medium text-stone-700">
+        {label === "Stay dates" ? t("label") : label}
+      </div>
       <Popover>
         <PopoverTrigger asChild>
           <button
@@ -67,7 +80,7 @@ export function DateRangeField({
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {formatRangeLabel(checkInDate, checkOutDate)}
+            {rangeLabel}
           </button>
         </PopoverTrigger>
         <PopoverContent
@@ -77,6 +90,7 @@ export function DateRangeField({
         >
           <Calendar
             mode="range"
+            locale={datePickerLocales[locale as keyof typeof datePickerLocales] ?? enUS}
             numberOfMonths={1}
             selected={selectedRange}
             min={1}
@@ -104,7 +118,7 @@ export function DateRangeField({
                 })
               }
             >
-              Clear dates
+              {t("clear")}
             </Button>
             <PopoverClose asChild>
               <Button
@@ -113,7 +127,7 @@ export function DateRangeField({
                 size="sm"
                 className="rounded-full"
               >
-                Done
+                {t("done")}
               </Button>
             </PopoverClose>
           </div>

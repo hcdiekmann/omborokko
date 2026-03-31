@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { Route } from "next";
 import Link from "next/link";
 
 import { siteContent } from "@/lib/content/site-content";
@@ -30,7 +31,7 @@ export function UnitCard({ unit }: { unit: Tables<"campsite_units"> }) {
           {siteContent.pricing.adultLabel}: N$ {siteContent.pricing.adultRate} · {siteContent.pricing.childLabel}: N$ {siteContent.pricing.childRate}
         </p>
         <Link
-          href={`/units/${unit.slug}`}
+          href={`/en/units/${unit.slug}` as Route}
           className="inline-flex rounded-full bg-stone-950 px-4 py-2 text-sm font-medium text-white"
         >
           View campsite

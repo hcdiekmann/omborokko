@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DateRangeField } from "@/components/date-range-field";
+import { useRouter } from "@/i18n/navigation";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { createBookingRequestSchema } from "@/lib/validation/bookings";
@@ -30,10 +32,22 @@ export function BookingRequestForm({
 }: {
   maxGuestsPerCampsite: number;
 }) {
+  const t = useTranslations();
+  const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
   const form = useForm<FormValues>({
-    resolver: zodResolver(createBookingRequestSchema),
+    resolver: zodResolver(
+      createBookingRequestSchema({
+        dateFormat: t("BookingValidation.dateFormat"),
+        checkOutLater: t("BookingValidation.checkOutLater"),
+        firstNameRequired: t("BookingValidation.firstNameRequired"),
+        lastNameRequired: t("BookingValidation.lastNameRequired"),
+        emailRequired: t("BookingValidation.emailRequired"),
+        emailInvalid: t("BookingValidation.emailInvalid"),
+        addGuest: t("BookingValidation.addGuest")
+      })
+    ),
     defaultValues: {
       checkInDate: "",
       checkOutDate: "",
@@ -86,15 +100,13 @@ export function BookingRequestForm({
     const payload = await response.json();
 
     if (!response.ok) {
-      const message = payload.error?.message ?? "Booking request failed";
+      const message = payload.error?.message ?? t("BookingForm.requestFailed");
       form.setError("root", { message });
       return;
     }
 
     const reference = payload.data.booking.booking_reference;
-    router.push(
-      `/booking/request/success?reference=${encodeURIComponent(reference)}`,
-    );
+    router.push(`/${locale}/booking/request/success?reference=${encodeURIComponent(reference)}`);
   }
 
   return (
@@ -122,7 +134,7 @@ export function BookingRequestForm({
             }
           />
           <label className="space-y-2 text-sm font-medium text-stone-700">
-            Campsites needed
+            {t("BookingForm.campsitesNeeded")}
             <Input
               type="number"
               min={1}
@@ -132,23 +144,23 @@ export function BookingRequestForm({
             />
           </label>
           <label className="space-y-2 text-sm font-medium text-stone-700">
-            First name
+            {t("BookingForm.firstName")}
             <Input {...form.register("guestFirstName")} />
           </label>
           <label className="space-y-2 text-sm font-medium text-stone-700">
-            Last name
+            {t("BookingForm.lastName")}
             <Input {...form.register("guestLastName")} />
           </label>
           <label className="space-y-2 text-sm font-medium text-stone-700">
-            Email
+            {t("BookingForm.email")}
             <Input type="email" {...form.register("guestEmail")} />
           </label>
           <label className="space-y-2 text-sm font-medium text-stone-700">
-            Phone
+            {t("BookingForm.phone")}
             <Input {...form.register("guestPhone")} />
           </label>
           <label className="space-y-2 text-sm font-medium text-stone-700">
-            Adults (16+)
+            {t("BookingForm.adults")}
             <Input
               type="number"
               min={0}
@@ -162,7 +174,7 @@ export function BookingRequestForm({
             ) : null}
           </label>
           <label className="space-y-2 text-sm font-medium text-stone-700">
-            Children (8-15)
+            {t("BookingForm.children")}
             <Input
               type="number"
               min={0}
@@ -176,7 +188,7 @@ export function BookingRequestForm({
             ) : null}
           </label>
           <label className="space-y-2 text-sm font-medium text-stone-700 sm:col-span-2">
-            Notes
+            {t("BookingForm.notes")}
             <Textarea {...form.register("notes")} />
           </label>
           {form.formState.errors.root ? (
@@ -189,7 +201,9 @@ export function BookingRequestForm({
             className="h-11 rounded-2xl bg-amber-700 text-white hover:bg-amber-600 sm:col-span-2"
             disabled={form.formState.isSubmitting}
           >
-            {form.formState.isSubmitting ? "Submitting..." : "Request booking"}
+            {form.formState.isSubmitting
+              ? t("BookingForm.submitting")
+              : t("BookingForm.submit")}
           </Button>
         </form>
       </CardContent>

@@ -1,7 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
+import NextLink from "next/link";
+import { useTranslations } from "next-intl";
 import { ExternalLink, Star } from "lucide-react";
 
+import { Link } from "@/i18n/navigation";
 import { siteContent } from "@/lib/content/site-content";
 import { Separator } from "./ui/separator";
 
@@ -29,6 +31,7 @@ function GoogleIcon() {
 }
 
 export function SiteFooter() {
+  const t = useTranslations();
   const year = new Date().getFullYear();
 
   return (
@@ -51,7 +54,7 @@ export function SiteFooter() {
                 {siteContent.brandName}
               </p>
               <p className="text-[10px] uppercase tracking-[0.14em] text-stone-500">
-                Namibian Bush Accommodation
+                {t("Site.brandTagline")}
               </p>
             </div>
           </div>
@@ -79,7 +82,7 @@ export function SiteFooter() {
             rel="noreferrer"
             className="inline-flex w-fit items-center gap-1 text-xs uppercase tracking-[0.14em] text-stone-500 transition hover:text-stone-900"
           >
-            <span>Directions</span>
+            <span>{t("Footer.directions")}</span>
             <ExternalLink className="h-3.5 w-3.5" />
           </a>
           <a
@@ -90,21 +93,21 @@ export function SiteFooter() {
           >
             <GoogleIcon />
             <span className="inline-flex items-center gap-0">
-              <span>Leave us a 5-</span>
+              <span>{t("Footer.reviewPrefix")}</span>
               <Star className="mr-1 h-4 w-4 fill-amber-500 text-amber-500" />
-              <span>review</span>
+              <span>{t("Footer.reviewSuffix")}</span>
             </span>
 
             {/*<ExternalLink className="h-4 w-4 text-stone-500" />*/}
           </a>
           <Separator />
-          <p className="text-xs text-stone-500">© {year} Omborokko Safaris</p>
-          <Link
+          <p className="text-xs text-stone-500">{t("Footer.copyright", { year })}</p>
+          <NextLink
             href="/admin"
             className="inline-flex w-fit text-xs text-stone-400 transition hover:text-stone-600"
           >
-            Admin Dashboard
-          </Link>
+            {t("Footer.admin")}
+          </NextLink>
         </div>
       </div>
     </footer>

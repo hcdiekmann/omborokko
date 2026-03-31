@@ -6,7 +6,7 @@ import { fail, ok } from "@/lib/utils/http";
 
 export async function GET(request: NextRequest) {
   try {
-    const params = availabilityQuerySchema.parse({
+    const params = availabilityQuerySchema().parse({
       checkInDate: request.nextUrl.searchParams.get("checkInDate"),
       checkOutDate: request.nextUrl.searchParams.get("checkOutDate"),
       requestedUnitCount: Number(request.nextUrl.searchParams.get("requestedUnitCount") ?? "1")

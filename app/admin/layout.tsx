@@ -65,7 +65,7 @@ export default async function AdminLayout({
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
-              href="/book"
+              href="/en"
               className="text-sm text-stone-600 transition-colors hover:text-stone-950"
             >
               Go to website

@@ -1,29 +1,52 @@
 import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { BookingRequestForm } from "@/components/booking-request-form";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getPublicCampsiteTemplate } from "@/features/bookings/server/service";
-import { siteContent } from "@/lib/content/site-content";
+import { getLanguageAlternates } from "@/lib/seo/locales";
 
-export const metadata: Metadata = {
-  title: "Book Your Campsite Stay",
-  description:
-    "Request your campsite stay at Omborokko Safaris. Check practical details, review pricing, and send your preferred dates for confirmation.",
-  alternates: {
-    canonical: "/book",
-  },
-  openGraph: {
-    title: "Book Your Campsite Stay",
-    description:
-      "Request your campsite stay at Omborokko Safaris. Check practical details, review pricing, and send your preferred dates for confirmation.",
-    url: "/book",
-  },
+type PageProps = {
+  params: Promise<{ locale: string }>;
 };
 
-export default async function BookPage() {
+export async function generateMetadata({
+  params
+}: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "BookPage" });
+
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: {
+      canonical: `/${locale}/book`,
+      languages: {
+        ...getLanguageAlternates("/book"),
+        "x-default": "/en/book"
+      }
+    },
+    openGraph: {
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+      url: `/${locale}/book`
+    }
+  };
+}
+
+export default async function BookPage({ params }: PageProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations({ locale, namespace: "BookPage" });
+  const homeT = await getTranslations({ locale, namespace: "HomePage" });
   const templateUnit = await getPublicCampsiteTemplate();
-  const bookingNotes = [...siteContent.notes];
+  const bookingNotes = [
+    homeT("notes.maxGuests"),
+    homeT("notes.fourByFour"),
+    homeT("notes.noPower")
+  ];
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -32,10 +55,10 @@ export default async function BookPage() {
         <section className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div className="space-y-5 rounded-[2rem] border border-stone-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-800">
-              Booking
+              {t("eyebrow")}
             </p>
             <h1 className="brand-title text-3xl font-semibold tracking-tight text-stone-950">
-              Request your bush campsite stay
+              {t("title")}
             </h1>
 
             <div className="border-t border-stone-200">
@@ -52,23 +75,19 @@ export default async function BookPage() {
             </div>
             <div className="flex flex-wrap gap-2 text-sm text-stone-700">
               <span className="rounded-full bg-stone-100 px-3 py-1">
-                {siteContent.pricing.adultLabel}: N${" "}
-                {templateUnit.base_price_per_night}/night
+                {t("adultLabel")}: N$ {templateUnit.base_price_per_night} {t("perNight")}
               </span>
               <span className="rounded-full bg-stone-100 px-3 py-1">
-                {siteContent.pricing.childLabel}: N${" "}
-                {templateUnit.child_price_per_night}/night
+                {t("childLabel")}: N$ {templateUnit.child_price_per_night} {t("perNight")}
               </span>
               <span className="rounded-full bg-stone-100 px-3 py-1">
-                No cleaning fees
+                {t("noCleaningFees")}
               </span>
             </div>
           </div>
 
           <div>
-            <BookingRequestForm
-              maxGuestsPerCampsite={templateUnit.max_guests}
-            />
+            <BookingRequestForm maxGuestsPerCampsite={templateUnit.max_guests} />
           </div>
         </section>
       </main>

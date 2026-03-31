@@ -6,6 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import { Providers } from "@/app/providers";
 import { getSiteUrl } from "@/lib/utils/site-url";
+import { getLanguageAlternates } from "@/lib/seo/locales";
 import "@/app/globals.css";
 
 const siteUrl = getSiteUrl();
@@ -32,7 +33,11 @@ export const metadata: Metadata = {
   description:
     "Book a remote bush campsite stay at Omborokko Safaris in Namibia, with warm showers, flush toilets, and wide open mountain views.",
   alternates: {
-    canonical: "/",
+    canonical: "/en",
+    languages: {
+      ...getLanguageAlternates(),
+      "x-default": "/en"
+    }
   },
   openGraph: {
     type: "website",

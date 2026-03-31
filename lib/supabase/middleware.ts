@@ -4,10 +4,12 @@ import { NextResponse, type NextRequest } from "next/server";
 import { env } from "@/lib/env";
 import type { Database } from "@/types/database";
 
-export async function updateSession(request: NextRequest) {
-  const response = NextResponse.next({
+export async function updateSession(
+  request: NextRequest,
+  response = NextResponse.next({
     request
-  });
+  })
+) {
 
   const supabase = createServerClient<Database, "public", Database["public"]>(
     env.NEXT_PUBLIC_SUPABASE_URL,

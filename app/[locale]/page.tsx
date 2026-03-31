@@ -1,48 +1,59 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import {
-  Compass,
-  ShowerHead,
-  FlameKindling,
-  Mountain,
-  Star,
-  TentTree,
-  Trees,
-} from "lucide-react";
+import { Compass, FlameKindling, Mountain, ShowerHead, Star, TentTree, Trees } from "lucide-react";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { AvailabilityChecker } from "@/components/availability-checker";
 import { HomeGalleryCarousel } from "@/components/home-gallery-carousel";
 import { SectionTitle } from "@/components/section-title";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { Link } from "@/i18n/navigation";
 import { siteContent } from "@/lib/content/site-content";
+import { getLanguageAlternates } from "@/lib/seo/locales";
 import { getSiteUrl } from "@/lib/utils/site-url";
+
+type PageProps = {
+  params: Promise<{ locale: string }>;
+};
 
 const siteUrl = getSiteUrl();
 
-export const metadata: Metadata = {
-  title: "Remote Bush Camping in Namibia",
-  description:
-    "Discover Omborokko Safaris, a remote Namibian bush campsite with mountain views, warm showers, flush toilets, and easy online booking requests.",
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: "Remote Bush Camping in Namibia",
-    description:
-      "Discover Omborokko Safaris, a remote Namibian bush campsite with mountain views, warm showers, flush toilets, and easy online booking requests.",
-    url: siteUrl,
-  },
-};
+export async function generateMetadata({
+  params
+}: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "HomePage" });
 
-export default async function HomePage() {
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        ...getLanguageAlternates(),
+        "x-default": "/en"
+      }
+    },
+    openGraph: {
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+      url: `${siteUrl.origin}/${locale}`
+    }
+  };
+}
+
+export default async function HomePage({ params }: PageProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations({ locale, namespace: "HomePage" });
+
   const lodgingJsonLd = {
     "@context": "https://schema.org",
     "@type": "Campground",
-    name: "Omborokko Safaris",
-    description:
-      "Remote bush camping in Namibia with warm showers, flush toilets, drinking water, and mountain views.",
+    name: siteContent.brandName,
+    description: t("structuredDescription"),
     url: siteUrl.toString(),
     image: `${siteUrl.origin}/images/campsite/mountains.webp`,
     telephone: "+264817068051",
@@ -50,76 +61,31 @@ export default async function HomePage() {
       "@type": "PostalAddress",
       streetAddress: "Farm Omihe 127",
       addressLocality: "Otjiwarongo",
-      addressCountry: "NA",
+      addressCountry: "NA"
     },
     amenityFeature: [
-      {
-        "@type": "LocationFeatureSpecification",
-        name: "Warm water showers",
-        value: true,
-      },
-      {
-        "@type": "LocationFeatureSpecification",
-        name: "Flush toilets",
-        value: true,
-      },
-      {
-        "@type": "LocationFeatureSpecification",
-        name: "Swimming pool",
-        value: true,
-      },
-      {
-        "@type": "LocationFeatureSpecification",
-        name: "Fresh drinking water",
-        value: true,
-      },
+      { "@type": "LocationFeatureSpecification", name: "Warm water showers", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Flush toilets", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Swimming pool", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Fresh drinking water", value: true }
     ],
-    sameAs: ["https://g.page/r/CX5GoEWHNEH8EBM/review"],
+    sameAs: ["https://g.page/r/CX5GoEWHNEH8EBM/review"]
   };
 
   const highlights = [
-    {
-      icon: ShowerHead,
-      title: "Well-kept amenities",
-      text: "Warm showers, flush toilets, drinking water, and a pool nearby.",
-    },
-    {
-      icon: Trees,
-      title: "Quiet bush setting",
-      text: "Seasonal riverbeds, mountain views, and a short hiking trail to the water hole.",
-    },
-    {
-      icon: FlameKindling,
-      title: "Authentic camping",
-      text: "Firepit cooking, starlit dinners, and a simple base for a proper bush stay.",
-    },
-    {
-      icon: Compass,
-      title: "Made for overlanders",
-      text: "Cash onsite, straightforward arrivals, and a clear request-and-confirm booking flow.",
-    },
+    { icon: ShowerHead, title: t("highlights.amenitiesTitle"), text: t("highlights.amenitiesText") },
+    { icon: Trees, title: t("highlights.settingTitle"), text: t("highlights.settingText") },
+    { icon: FlameKindling, title: t("highlights.campingTitle"), text: t("highlights.campingText") },
+    { icon: Compass, title: t("highlights.overlandersTitle"), text: t("highlights.overlandersText") }
   ];
 
   const testimonials = [
-    {
-      quote:
-        "A beautiful place integrated into nature, well equipped, and far from any buildings.",
-      author: "k g.",
-      detail: "Google review",
-    },
-    {
-      quote:
-        "The facilities were immaculate, very well thought out, peaceful, and secluded.",
-      author: "Laura B.",
-      detail: "Google review",
-    },
-    {
-      quote:
-        "A fabulous wild campsite beside a dry river bed with spotlessly clean facilities and lovely owners.",
-      author: "Oonagh",
-      detail: "Google review",
-    },
+    { quote: t("testimonials.oneQuote"), author: t("testimonials.oneAuthor"), detail: t("testimonialDetail") },
+    { quote: t("testimonials.twoQuote"), author: t("testimonials.twoAuthor"), detail: t("testimonialDetail") },
+    { quote: t("testimonials.threeQuote"), author: t("testimonials.threeAuthor"), detail: t("testimonialDetail") }
   ];
+
+  const notes = [t("notes.maxGuests"), t("notes.fourByFour"), t("notes.noPower")];
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -127,9 +93,7 @@ export default async function HomePage() {
       <main className="flex-1">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(lodgingJsonLd),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingJsonLd) }}
         />
         <section className="relative overflow-hidden border-b border-stone-200">
           <div className="absolute inset-0">
@@ -146,79 +110,63 @@ export default async function HomePage() {
           </div>
           <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-              <div className="max-w-3xl space-y-6 sm:space-y-2  text-white">
+              <div className="max-w-3xl space-y-6 text-white sm:space-y-2">
                 <div className="inline-flex items-center gap-3 rounded-[2rem] border border-white/15 bg-white/10 px-4 py-2 backdrop-blur">
                   <TentTree className="h-4 w-4 flex-none text-amber-100" />
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-amber-100">
-                    Authentic bush camping
+                    {t("heroBadge")}
                   </p>
                 </div>
                 <h1 className="hero-title text-5xl sm:text-6xl lg:text-7xl">
-                  {siteContent.heroTitle}
+                  {t("heroTitle")}
                 </h1>
                 <p className="max-w-2xl text-base leading-8 text-stone-100 sm:text-lg">
-                  {siteContent.heroBody}
+                  {t("heroBody")}
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link
                     href="/book"
-                    prefetch
                     className="rounded-full bg-amber-700 px-5 py-3 text-sm font-medium text-white shadow-lg shadow-amber-950/20 transition hover:bg-amber-600"
                   >
-                    Book Now
+                    {t("bookNow")}
                   </Link>
-                  <Link
+                  <a
                     href="#availability"
                     className="rounded-full border border-white/20 bg-black/20 px-5 py-3 text-sm font-medium text-white transition hover:bg-black/30"
                   >
-                    Check Availability
-                  </Link>
+                    {t("checkAvailability")}
+                  </a>
                 </div>
               </div>
               <div className="rounded-[2rem] border border-white/15 bg-white/10 p-5 text-white backdrop-blur-md">
                 <p className="ml-2 text-sm font-semibold uppercase tracking-[0.22em] text-amber-100">
-                  Bookings on request
+                  {t("bookingCardEyebrow")}
                 </p>
                 <div id="rates" className="mt-5 grid gap-4 sm:grid-cols-2">
                   <div className="rounded-3xl bg-white/10 p-4">
-                    <p className="text-sm text-amber-100">
-                      {siteContent.pricing.adultLabel}
-                    </p>
-                    <p className="text-2xl md:text-3xl md:mt-2 font-semibold">
+                    <p className="text-sm text-amber-100">{t("adultLabel")}</p>
+                    <p className="mt-2 text-2xl font-semibold md:text-3xl">
                       N$ {siteContent.pricing.adultRate}
                     </p>
-                    <p className="text-xs md:mt-2 text-stone-200">
-                      Per person, per night
-                    </p>
+                    <p className="mt-2 text-xs text-stone-200">{t("perPersonPerNight")}</p>
                   </div>
                   <div className="rounded-3xl bg-white/10 p-4">
-                    <p className="text-sm text-amber-100">
-                      {siteContent.pricing.childLabel}
-                    </p>
-                    <p className="text-2xl md:text-3xl md:mt-2 font-semibold">
+                    <p className="text-sm text-amber-100">{t("childLabel")}</p>
+                    <p className="mt-2 text-2xl font-semibold md:text-3xl">
                       N$ {siteContent.pricing.childRate}
                     </p>
-                    <p className="text-xs md:mt-2 text-stone-200">
-                      Per person, per night
-                    </p>
+                    <p className="mt-2 text-xs text-stone-200">{t("perPersonPerNight")}</p>
                   </div>
                 </div>
-                {/*<div className="mt-4 flex items-start gap-3 rounded-3xl bg-stone-950/25 p-4 text-sm text-stone-100">
-                  <TentTree className="mt-0.5 h-5 w-5 flex-none text-amber-200" />
-                  <p>
-                    Four numbered campsites, no cleaning fees, and all requests
-                    are reviewed by the team before they are confirmed.
-                  </p>
-                </div>*/}
               </div>
             </div>
           </div>
         </section>
         <section className="mx-auto max-w-6xl space-y-8 px-4 py-14 sm:px-6">
           <SectionTitle
-            eyebrow="About the stay"
-            title={"Off the Grid, With Essential Comforts"}
-            description={siteContent.introBody}
+            eyebrow={t("aboutEyebrow")}
+            title={t("aboutTitle")}
+            description={t("aboutDescription")}
           />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {highlights.map((item) => (
@@ -227,36 +175,28 @@ export default async function HomePage() {
                 className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm"
               >
                 <item.icon className="h-6 w-6 text-amber-700" />
-                <p className="mt-4 text-base font-medium text-stone-900">
-                  {item.title}
-                </p>
-                <p className="mt-2 text-sm leading-6 text-stone-600">
-                  {item.text}
-                </p>
+                <p className="mt-4 text-base font-medium text-stone-900">{item.title}</p>
+                <p className="mt-2 text-sm leading-6 text-stone-600">{item.text}</p>
               </div>
             ))}
           </div>
         </section>
         <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
           <div className="space-y-6">
-            <HomeGalleryCarousel
-              images={siteContent.images}
-              alt={siteContent.brandName}
-            />
+            <HomeGalleryCarousel images={siteContent.images} alt={siteContent.brandName} />
             <div className="rounded-[2rem] border border-stone-200 bg-stone-50 p-6 sm:p-8">
               <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                 <div className="max-w-xl">
                   <div className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-900">
                     <Mountain className="h-4 w-4" />
-                    Campsite notes
+                    {t("notesEyebrow")}
                   </div>
-                  <p className="mt-4 text-xs md:text-sm leading-6 text-stone-600">
-                    A few practical details to know before you head out into the
-                    bush.
+                  <p className="mt-4 text-xs leading-6 text-stone-600 md:text-sm">
+                    {t("notesDescription")}
                   </p>
                 </div>
                 <ul className="grid gap-3 sm:grid-cols-3 lg:min-w-[62%]">
-                  {siteContent.notes.map((item) => (
+                  {notes.map((item) => (
                     <li
                       key={item}
                       className="rounded-3xl border border-stone-200 bg-white px-4 py-4 text-sm leading-6 text-stone-700"
@@ -272,15 +212,9 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
-        <section
-          id="availability"
-          className="border-y border-stone-200 bg-stone-50/80"
-        >
+        <section id="availability" className="border-y border-stone-200 bg-stone-50/80">
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-            <SectionTitle
-              eyebrow="Booking"
-              title="Check your dates before you book"
-            />
+            <SectionTitle eyebrow={t("bookingEyebrow")} title={t("bookingTitle")} />
             <div className="mt-8">
               <AvailabilityChecker />
             </div>
@@ -288,15 +222,11 @@ export default async function HomePage() {
         </section>
         <section className="border-b border-stone-200 bg-stone-50/80">
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-            <SectionTitle
-              eyebrow="Testimonials"
-              title="What guests say about the campsite"
-              // description="A few notes from recent visitors who stayed at Omborokko and shared their experience publicly on Google."
-            />
+            <SectionTitle eyebrow={t("testimonialsEyebrow")} title={t("testimonialsTitle")} />
             <div className="mt-8 grid gap-4 lg:grid-cols-3">
               {testimonials.map((item) => (
                 <article
-                  key={item.author}
+                  key={`${item.author}-${item.quote}`}
                   className="flex h-full flex-col rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm"
                 >
                   <div className="flex items-center gap-1 text-amber-600">
@@ -308,9 +238,7 @@ export default async function HomePage() {
                     &ldquo;{item.quote}&rdquo;
                   </p>
                   <div className="mt-6 border-t border-stone-100 pt-4">
-                    <p className="text-sm font-semibold text-stone-950">
-                      {item.author}
-                    </p>
+                    <p className="text-sm font-semibold text-stone-950">{item.author}</p>
                     <p className="text-xs uppercase tracking-[0.18em] text-stone-500">
                       {item.detail}
                     </p>
@@ -323,9 +251,9 @@ export default async function HomePage() {
         <section className="border-b border-stone-200 bg-white">
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
             <SectionTitle
-              eyebrow="Directions"
-              title="How to find us"
-              description="Please follow the road signs to reception at the farmhouse on arrival. From there, you will receive directions to the campsite, which is a further 5 km away."
+              eyebrow={t("directionsEyebrow")}
+              title={t("directionsTitle")}
+              description={t("directionsDescription")}
             />
             <div className="mt-4 overflow-hidden rounded-md border border-stone-200 bg-stone-50 shadow-sm">
               <iframe
@@ -342,46 +270,42 @@ export default async function HomePage() {
         <section className="bg-stone-50/80">
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
             <SectionTitle
-              eyebrow="Booking process"
-              title="How booking works"
-              description="A simple request-and-confirm flow so you know what happens after you choose your dates."
+              eyebrow={t("bookingProcessEyebrow")}
+              title={t("bookingProcessTitle")}
+              description={t("bookingProcessDescription")}
             />
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               <article className="rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
-                  1. Send your request
+                  {t("steps.requestEyebrow")}
                 </p>
                 <p className="mt-4 text-base font-medium text-stone-900">
-                  Check your dates and submit your booking request online.
+                  {t("steps.requestTitle")}
                 </p>
                 <p className="mt-2 text-sm leading-6 text-stone-600">
-                  Choose your stay dates, guest count, and contact details so the
-                  team can review availability.
+                  {t("steps.requestText")}
                 </p>
               </article>
               <article className="rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
-                  2. We confirm availability
+                  {t("steps.confirmEyebrow")}
                 </p>
                 <p className="mt-4 text-base font-medium text-stone-900">
-                  Each request is reviewed before it becomes a confirmed booking.
+                  {t("steps.confirmTitle")}
                 </p>
                 <p className="mt-2 text-sm leading-6 text-stone-600">
-                  You will receive a confirmation email as soon as your requested
-                  dates have been checked by the team.
+                  {t("steps.confirmText")}
                 </p>
               </article>
               <article className="rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
-                  3. Arrive at the farm
+                  {t("steps.arriveEyebrow")}
                 </p>
                 <p className="mt-4 text-base font-medium text-stone-900">
-                  Head to reception first, then continue on to the campsite.
+                  {t("steps.arriveTitle")}
                 </p>
                 <p className="mt-2 text-sm leading-6 text-stone-600">
-                  Follow the road signs to the farmhouse on arrival. From there,
-                  you will receive directions to the campsite, which is a further
-                  5 km away.
+                  {t("steps.arriveText")}
                 </p>
               </article>
             </div>

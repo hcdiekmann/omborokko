@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 
 type PageProps = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 };
 
 export default async function UnitDetailPage({ params }: PageProps) {
-  await params;
-  redirect("/book");
+  const { locale } = await params;
+  redirect(`/${locale}/book`);
 }

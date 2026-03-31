@@ -1,13 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DateRangeField } from "@/components/date-range-field";
+import { Link } from "@/i18n/navigation";
 import { Input } from "@/components/ui/input";
 import { availabilityQuerySchema } from "@/lib/validation/bookings";
 
@@ -18,6 +19,7 @@ type FormValues = {
 };
 
 export function AvailabilityChecker() {
+  const t = useTranslations();
   const [result, setResult] = useState<{
     available: boolean;
     availableCount: number;
@@ -27,7 +29,17 @@ export function AvailabilityChecker() {
   } | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const form = useForm<FormValues>({
-    resolver: zodResolver(availabilityQuerySchema),
+    resolver: zodResolver(
+      availabilityQuerySchema({
+        dateFormat: t("BookingValidation.dateFormat"),
+        checkOutLater: t("BookingValidation.checkOutLater"),
+        firstNameRequired: t("BookingValidation.firstNameRequired"),
+        lastNameRequired: t("BookingValidation.lastNameRequired"),
+        emailRequired: t("BookingValidation.emailRequired"),
+        emailInvalid: t("BookingValidation.emailInvalid"),
+        addGuest: t("BookingValidation.addGuest")
+      })
+    ),
     defaultValues: {
       checkInDate: "",
       checkOutDate: "",
@@ -48,7 +60,7 @@ export function AvailabilityChecker() {
     const payload = await response.json();
 
     if (!response.ok) {
-      setErrorMessage(payload.error?.message ?? "Availability check failed");
+      setErrorMessage(payload.error?.message ?? t("AvailabilityChecker.checkFailed"));
       return;
     }
 
@@ -80,7 +92,7 @@ export function AvailabilityChecker() {
             }
           />
           <label className="flex flex-col gap-2 text-sm font-medium text-stone-700">
-            <span>Campsites needed</span>
+            <span>{t("AvailabilityChecker.campsitesNeeded")}</span>
             <Input
               type="number"
               min={1}
@@ -95,7 +107,9 @@ export function AvailabilityChecker() {
             className="h-11 rounded-2xl bg-amber-700 text-white hover:bg-amber-600 sm:col-span-3"
             disabled={form.formState.isSubmitting}
           >
-            {form.formState.isSubmitting ? "Checking..." : "Check dates"}
+            {form.formState.isSubmitting
+              ? t("AvailabilityChecker.checking")
+              : t("AvailabilityChecker.checkDates")}
           </Button>
         </form>
         {result ? (
@@ -104,8 +118,14 @@ export function AvailabilityChecker() {
           >
             <p className="font-medium">
               {result.available
-                ? `${result.availableCount} of ${result.totalCount} campsites are available for these dates.`
-                : `Only ${result.availableCount} of ${result.totalCount} campsites are available for these dates.`}
+                ? t("AvailabilityChecker.availableMessage", {
+                    availableCount: result.availableCount,
+                    totalCount: result.totalCount
+                  })
+                : t("AvailabilityChecker.limitedMessage", {
+                    availableCount: result.availableCount,
+                    totalCount: result.totalCount
+                  })}
             </p>
             {result.available ? (
               <div className="mt-3">
@@ -122,7 +142,7 @@ export function AvailabilityChecker() {
                   }}
                   className="inline-flex h-9 items-center rounded-full bg-green-700 px-4 text-sm font-medium text-white transition hover:bg-green-600"
                 >
-                  Book now
+                  {t("AvailabilityChecker.bookNow")}
                 </Link>
               </div>
             ) : null}

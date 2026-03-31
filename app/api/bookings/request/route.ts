@@ -5,7 +5,7 @@ import { fail, ok } from "@/lib/utils/http";
 
 export async function POST(request: Request) {
   try {
-    const payload = createBookingRequestSchema.parse(await request.json());
+    const payload = createBookingRequestSchema().parse(await request.json());
     const result = await createPendingBookingRequest(payload);
     await sendBookingRequestEmails({
       bookingId: result.booking.booking_id,
