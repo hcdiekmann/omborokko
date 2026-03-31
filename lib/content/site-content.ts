@@ -4,9 +4,9 @@ export const siteContent = {
   logoLightPath: "/images/branding/omborokko-logo-light-optimized.png",
   heroTitle: "Remote camping at the foot of the Omborokko Mountains",
   introBody:
-    "Our remote campsite provides a unique chance to dwell in the midst of Namibia's untouched beauty. Located next to a seasonal river far from any other infrastructure, the campsite offers a genuine encounter with the tranquil Namibian bush.",
+    "Located next to a seasonal river far from any other infrastructure, the campsite offers a genuine encounter with the tranquil Namibian bush.",
   heroBody:
-    "Sprawling over a vast 6000-hectare plain, Omborokko Safaris is a working cattle farm and wildlife-rich destination shaped by open skies, dry riverbeds, and quiet evenings around the firepit.",
+    "Set on a vast, wildlife-rich cattle farm, Omborokko Safaris offers remote camping, open skies, and quiet evenings by the fire.",
   longDescription:
     "For those who seek an immersive natural experience, our remote camping sites provide a unique chance to dwell in the midst of Namibia's untouched beauty. Located next to a seasonal river, and tucked away at the foot of the majestic Omborokko Mountains, our campsites offer a genuine encounter with the tranquil Namibian bush.",
   amenities: [

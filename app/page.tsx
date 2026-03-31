@@ -45,9 +45,11 @@ export default async function HomePage() {
       "Remote bush camping in Namibia with warm showers, flush toilets, drinking water, and mountain views.",
     url: siteUrl.toString(),
     image: `${siteUrl.origin}/images/campsite/mountains.webp`,
-    telephone: "",
+    telephone: "+264817068051",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "Farm Omihe 127",
+      addressLocality: "Otjiwarongo",
       addressCountry: "NA",
     },
     amenityFeature: [
@@ -84,7 +86,7 @@ export default async function HomePage() {
     {
       icon: Trees,
       title: "Quiet bush setting",
-      text: "Seasonal riverbeds, mountain views, and evenings that settle into total stillness.",
+      text: "Seasonal riverbeds, mountain views, and a short hiking trail to the water hole.",
     },
     {
       icon: FlameKindling,
@@ -94,7 +96,7 @@ export default async function HomePage() {
     {
       icon: Compass,
       title: "Made for overlanders",
-      text: "Four matching campsites, cash onsite, and a clear request-and-confirm booking flow.",
+      text: "Cash onsite, straightforward arrivals, and a clear request-and-confirm booking flow.",
     },
   ];
 
@@ -334,6 +336,54 @@ export default async function HomePage() {
                 loading="lazy"
                 className="block w-full"
               />
+            </div>
+          </div>
+        </section>
+        <section className="bg-stone-50/80">
+          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+            <SectionTitle
+              eyebrow="Booking process"
+              title="How booking works"
+              description="A simple request-and-confirm flow so you know what happens after you choose your dates."
+            />
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              <article className="rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
+                  1. Send your request
+                </p>
+                <p className="mt-4 text-base font-medium text-stone-900">
+                  Check your dates and submit your booking request online.
+                </p>
+                <p className="mt-2 text-sm leading-6 text-stone-600">
+                  Choose your stay dates, guest count, and contact details so the
+                  team can review availability.
+                </p>
+              </article>
+              <article className="rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
+                  2. We confirm availability
+                </p>
+                <p className="mt-4 text-base font-medium text-stone-900">
+                  Each request is reviewed before it becomes a confirmed booking.
+                </p>
+                <p className="mt-2 text-sm leading-6 text-stone-600">
+                  You will receive a confirmation email as soon as your requested
+                  dates have been checked by the team.
+                </p>
+              </article>
+              <article className="rounded-[1.75rem] border border-stone-200 bg-white p-6 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
+                  3. Arrive at the farm
+                </p>
+                <p className="mt-4 text-base font-medium text-stone-900">
+                  Head to reception first, then continue on to the campsite.
+                </p>
+                <p className="mt-2 text-sm leading-6 text-stone-600">
+                  Follow the road signs to the farmhouse on arrival. From there,
+                  you will receive directions to the campsite, which is a further
+                  5 km away.
+                </p>
+              </article>
             </div>
           </div>
         </section>
