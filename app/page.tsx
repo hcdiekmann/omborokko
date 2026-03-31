@@ -4,7 +4,7 @@ import Link from "next/link";
 import {
   Compass,
   ShowerHead,
-  Flame,
+  FlameKindling,
   Mountain,
   Star,
   TentTree,
@@ -78,7 +78,7 @@ export default async function HomePage() {
   const highlights = [
     {
       icon: ShowerHead,
-      title: "Well-kept essentials",
+      title: "Well-kept amenities",
       text: "Warm showers, flush toilets, drinking water, and a pool nearby.",
     },
     {
@@ -87,7 +87,7 @@ export default async function HomePage() {
       text: "Seasonal riverbeds, mountain views, and evenings that settle into total stillness.",
     },
     {
-      icon: Flame,
+      icon: FlameKindling,
       title: "Authentic camping",
       text: "Firepit cooking, starlit dinners, and a simple base for a proper bush stay.",
     },

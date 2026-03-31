@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ExternalLink, Star } from "lucide-react";
 
 import { siteContent } from "@/lib/content/site-content";
+import { Separator } from "./ui/separator";
 
 function GoogleIcon() {
   return (
@@ -28,46 +29,80 @@ function GoogleIcon() {
 }
 
 export function SiteFooter() {
+  const year = new Date().getFullYear();
+
   return (
     <footer className="border-t border-stone-200 bg-stone-50">
-      <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-6 text-sm text-stone-600 sm:px-6 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-3">
-          <div className="flex-none overflow-hidden">
-            <Image
-              src={siteContent.logoDarkPath}
-              alt={siteContent.brandName}
-              width={256}
-              height={362}
-              className="h-auto w-16 object-contain"
-              sizes="64px"
-            />
+      <div className="mx-auto flex max-w-6xl flex-col  px-4 py-6 text-sm text-stone-600 sm:px-6 md:flex-row md:items-start md:justify-between">
+        <div className="md:self-start">
+          <div className="flex items-center">
+            <div className="flex-none overflow-hidden">
+              <Image
+                src={siteContent.logoDarkPath}
+                alt={siteContent.brandName}
+                width={256}
+                height={362}
+                className="h-auto w-16 object-contain"
+                sizes="64px"
+              />
+            </div>
+            <div>
+              <p className="brand-title text-xl text-stone-900">
+                {siteContent.brandName}
+              </p>
+              <p className="text-[10px] uppercase tracking-[0.14em] text-stone-500">
+                Namibian Bush Accommodation
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="brand-title text-xl text-stone-900">
-              {siteContent.brandName}
-            </p>
-            <p className="text-[10px] uppercase tracking-[0.14em] text-stone-500">
-              Namibian Bush Accommodation
-            </p>
+          <div className="mt-3 hidden text-xs text-stone-600 md:block md:pl-[4.75rem]">
+            <a
+              href="tel:+264817068051"
+              className="transition hover:text-stone-900"
+            >
+              +264 (0) 81 706 8051
+            </a>
           </div>
         </div>
         <div className="flex flex-col gap-3 md:items-center">
+          <div className="text-xs text-stone-600 md:hidden">
+            <a
+              href="tel:+264817068051"
+              className="transition hover:text-stone-900"
+            >
+              +264 (0) 81 706 8051
+            </a>
+          </div>
+          <a
+            href="https://maps.google.com/?q=Omborokko+Safaris"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex w-fit items-center gap-1 text-xs uppercase tracking-[0.14em] text-stone-500 transition hover:text-stone-900"
+          >
+            <span>Directions</span>
+            <ExternalLink className="h-3.5 w-3.5" />
+          </a>
           <a
             href="https://g.page/r/CX5GoEWHNEH8EBM/review"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex h-9 items-center gap-2 rounded-full border border-stone-300 bg-white px-5 text-sm font-medium text-stone-900 transition hover:border-stone-950"
+            className="inline-flex w-fit h-9 items-center gap-2 rounded-full border border-stone-300 bg-white px-5 text-sm font-medium text-stone-900 transition hover:border-stone-950"
           >
             <GoogleIcon />
             <span className="inline-flex items-center gap-0">
               <span>Leave us a 5-</span>
-              <Star className="h-4 w-4 text-amber-500 fill-amber-500 mr-0.5" />
+              <Star className="mr-1 h-4 w-4 fill-amber-500 text-amber-500" />
               <span>review</span>
             </span>
 
-            <ExternalLink className="h-4 w-4 text-stone-500" />
+            {/*<ExternalLink className="h-4 w-4 text-stone-500" />*/}
           </a>
-          <Link href="/admin" className="inline-flex w-fit">
+          <Separator />
+          <p className="text-xs text-stone-500">© {year} Omborokko Safaris</p>
+          <Link
+            href="/admin"
+            className="inline-flex w-fit text-xs text-stone-400 transition hover:text-stone-600"
+          >
             Admin Dashboard
           </Link>
         </div>
