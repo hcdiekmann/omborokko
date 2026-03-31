@@ -2,7 +2,7 @@
 
 import { CalendarIcon } from "lucide-react";
 import { format, parseISO, startOfToday } from "date-fns";
-import { de, enUS, fr } from "date-fns/locale";
+import { af, de, enUS, es, fr, it } from "date-fns/locale";
 import { useLocale, useTranslations } from "next-intl";
 import { DateRange } from "react-day-picker";
 
@@ -39,8 +39,11 @@ function toRange(
 
 const datePickerLocales = {
   en: enUS,
+  af,
   de,
-  fr
+  es,
+  fr,
+  it
 } as const;
 
 export function DateRangeField({

@@ -5,9 +5,12 @@
   "LocaleSwitcher": {
     "label": "Sprachauswahl",
     "selectLanguage": "Sprache wählen",
+    "afrikaans": "Afrikaans",
     "english": "English",
     "german": "Deutsch",
-    "french": "Français"
+    "spanish": "Español",
+    "french": "Français",
+    "italian": "Italiano"
   },
   "Footer": {
     "directions": "Anfahrt",

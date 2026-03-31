@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Compass, FlameKindling, Mountain, ShowerHead, Star, TentTree, Trees } from "lucide-react";
+import {
+  Compass,
+  FlameKindling,
+  Mountain,
+  ShowerHead,
+  Star,
+  TentTree,
+  Trees,
+} from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { AvailabilityChecker } from "@/components/availability-checker";
@@ -20,7 +28,7 @@ type PageProps = {
 const siteUrl = getSiteUrl();
 
 export async function generateMetadata({
-  params
+  params,
 }: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "HomePage" });
@@ -32,14 +40,14 @@ export async function generateMetadata({
       canonical: `/${locale}`,
       languages: {
         ...getLanguageAlternates(),
-        "x-default": "/en"
-      }
+        "x-default": "/en",
+      },
     },
     openGraph: {
       title: t("metaTitle"),
       description: t("metaDescription"),
-      url: `${siteUrl.origin}/${locale}`
-    }
+      url: `${siteUrl.origin}/${locale}`,
+    },
   };
 }
 
@@ -61,31 +69,79 @@ export default async function HomePage({ params }: PageProps) {
       "@type": "PostalAddress",
       streetAddress: "Farm Omihe 127",
       addressLocality: "Otjiwarongo",
-      addressCountry: "NA"
+      addressCountry: "NA",
     },
     amenityFeature: [
-      { "@type": "LocationFeatureSpecification", name: "Warm water showers", value: true },
-      { "@type": "LocationFeatureSpecification", name: "Flush toilets", value: true },
-      { "@type": "LocationFeatureSpecification", name: "Swimming pool", value: true },
-      { "@type": "LocationFeatureSpecification", name: "Fresh drinking water", value: true }
+      {
+        "@type": "LocationFeatureSpecification",
+        name: "Warm water showers",
+        value: true,
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        name: "Flush toilets",
+        value: true,
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        name: "Swimming pool",
+        value: true,
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        name: "Fresh drinking water",
+        value: true,
+      },
     ],
-    sameAs: ["https://g.page/r/CX5GoEWHNEH8EBM/review"]
+    sameAs: ["https://g.page/r/CX5GoEWHNEH8EBM/review"],
   };
 
   const highlights = [
-    { icon: ShowerHead, title: t("highlights.amenitiesTitle"), text: t("highlights.amenitiesText") },
-    { icon: Trees, title: t("highlights.settingTitle"), text: t("highlights.settingText") },
-    { icon: FlameKindling, title: t("highlights.campingTitle"), text: t("highlights.campingText") },
-    { icon: Compass, title: t("highlights.overlandersTitle"), text: t("highlights.overlandersText") }
+    {
+      icon: ShowerHead,
+      title: t("highlights.amenitiesTitle"),
+      text: t("highlights.amenitiesText"),
+    },
+    {
+      icon: Trees,
+      title: t("highlights.settingTitle"),
+      text: t("highlights.settingText"),
+    },
+    {
+      icon: FlameKindling,
+      title: t("highlights.campingTitle"),
+      text: t("highlights.campingText"),
+    },
+    {
+      icon: Compass,
+      title: t("highlights.overlandersTitle"),
+      text: t("highlights.overlandersText"),
+    },
   ];
 
   const testimonials = [
-    { quote: t("testimonials.oneQuote"), author: t("testimonials.oneAuthor"), detail: t("testimonialDetail") },
-    { quote: t("testimonials.twoQuote"), author: t("testimonials.twoAuthor"), detail: t("testimonialDetail") },
-    { quote: t("testimonials.threeQuote"), author: t("testimonials.threeAuthor"), detail: t("testimonialDetail") }
+    {
+      quote: t("testimonials.oneQuote"),
+      author: t("testimonials.oneAuthor"),
+      detail: t("testimonialDetail"),
+    },
+    {
+      quote: t("testimonials.twoQuote"),
+      author: t("testimonials.twoAuthor"),
+      detail: t("testimonialDetail"),
+    },
+    {
+      quote: t("testimonials.threeQuote"),
+      author: t("testimonials.threeAuthor"),
+      detail: t("testimonialDetail"),
+    },
   ];
 
-  const notes = [t("notes.maxGuests"), t("notes.fourByFour"), t("notes.noPower")];
+  const notes = [
+    t("notes.maxGuests"),
+    t("notes.fourByFour"),
+    t("notes.noPower"),
+  ];
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -148,14 +204,18 @@ export default async function HomePage({ params }: PageProps) {
                     <p className="mt-2 text-2xl font-semibold md:text-3xl">
                       N$ {siteContent.pricing.adultRate}
                     </p>
-                    <p className="mt-2 text-xs text-stone-200">{t("perPersonPerNight")}</p>
+                    <p className="mt-2 text-xs text-stone-200">
+                      {t("perPersonPerNight")}
+                    </p>
                   </div>
                   <div className="rounded-3xl bg-white/10 p-4">
                     <p className="text-sm text-amber-100">{t("childLabel")}</p>
                     <p className="mt-2 text-2xl font-semibold md:text-3xl">
                       N$ {siteContent.pricing.childRate}
                     </p>
-                    <p className="mt-2 text-xs text-stone-200">{t("perPersonPerNight")}</p>
+                    <p className="mt-2 text-xs text-stone-200">
+                      {t("perPersonPerNight")}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -175,13 +235,17 @@ export default async function HomePage({ params }: PageProps) {
                 className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm"
               >
                 <item.icon className="h-6 w-6 text-amber-700" />
-                <p className="mt-4 text-base font-medium text-stone-900">{item.title}</p>
-                <p className="mt-2 text-sm leading-6 text-stone-600">{item.text}</p>
+                <p className="mt-4 text-base font-medium text-stone-900">
+                  {item.title}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-stone-600">
+                  {item.text}
+                </p>
               </div>
             ))}
           </div>
         </section>
-        <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
+        {/*<section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
           <div className="space-y-6">
             <HomeGalleryCarousel images={siteContent.images} alt={siteContent.brandName} />
             <div className="rounded-[2rem] border border-stone-200 bg-stone-50 p-6 sm:p-8">
@@ -211,10 +275,16 @@ export default async function HomePage({ params }: PageProps) {
               </div>
             </div>
           </div>
-        </section>
-        <section id="availability" className="border-y border-stone-200 bg-stone-50/80">
+        </section>*/}
+        <section
+          id="availability"
+          className="border-y border-stone-200 bg-stone-50/80"
+        >
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-            <SectionTitle eyebrow={t("bookingEyebrow")} title={t("bookingTitle")} />
+            <SectionTitle
+              eyebrow={t("bookingEyebrow")}
+              title={t("bookingTitle")}
+            />
             <div className="mt-8">
               <AvailabilityChecker />
             </div>
@@ -222,7 +292,10 @@ export default async function HomePage({ params }: PageProps) {
         </section>
         <section className="border-b border-stone-200 bg-stone-50/80">
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-            <SectionTitle eyebrow={t("testimonialsEyebrow")} title={t("testimonialsTitle")} />
+            <SectionTitle
+              eyebrow={t("testimonialsEyebrow")}
+              title={t("testimonialsTitle")}
+            />
             <div className="mt-8 grid gap-4 lg:grid-cols-3">
               {testimonials.map((item) => (
                 <article
@@ -238,7 +311,9 @@ export default async function HomePage({ params }: PageProps) {
                     &ldquo;{item.quote}&rdquo;
                   </p>
                   <div className="mt-6 border-t border-stone-100 pt-4">
-                    <p className="text-sm font-semibold text-stone-950">{item.author}</p>
+                    <p className="text-sm font-semibold text-stone-950">
+                      {item.author}
+                    </p>
                     <p className="text-xs uppercase tracking-[0.18em] text-stone-500">
                       {item.detail}
                     </p>

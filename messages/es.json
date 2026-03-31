@@ -1,0 +1,143 @@
+{
+  "Site": {
+    "brandTagline": "Alojamiento en el bush de Namibia"
+  },
+  "LocaleSwitcher": {
+    "label": "Selector de idioma",
+    "selectLanguage": "Seleccionar idioma",
+    "afrikaans": "Afrikaans",
+    "english": "English",
+    "german": "Deutsch",
+    "spanish": "Español",
+    "french": "Français",
+    "italian": "Italiano"
+  },
+  "Footer": {
+    "directions": "Cómo llegar",
+    "reviewPrefix": "Déjanos una reseña de 5-",
+    "reviewSuffix": "",
+    "admin": "Panel de administración",
+    "copyright": "© {year} Omborokko Safaris"
+  },
+  "DateRangeField": {
+    "label": "Fechas de estancia",
+    "placeholder": "Selecciona las fechas",
+    "clear": "Borrar fechas",
+    "done": "Listo"
+  },
+  "AvailabilityChecker": {
+    "campsitesNeeded": "Parcelas necesarias",
+    "checking": "Comprobando...",
+    "checkDates": "Comprobar fechas",
+    "availableMessage": "{availableCount} de {totalCount} parcelas están disponibles para estas fechas.",
+    "limitedMessage": "Solo {availableCount} de {totalCount} parcelas están disponibles para estas fechas.",
+    "bookNow": "Reservar ahora",
+    "checkFailed": "La comprobación de disponibilidad falló"
+  },
+  "BookingForm": {
+    "campsitesNeeded": "Parcelas necesarias",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "adults": "Adultos (16+)",
+    "children": "Niños (8-15)",
+    "notes": "Notas",
+    "submitting": "Enviando...",
+    "submit": "Solicitar reserva",
+    "requestFailed": "La solicitud de reserva falló"
+  },
+  "BookingValidation": {
+    "dateFormat": "Formato de fecha esperado: AAAA-MM-DD",
+    "checkOutLater": "La fecha de salida debe ser posterior a la fecha de entrada",
+    "firstNameRequired": "Introduce tu nombre",
+    "lastNameRequired": "Introduce tu apellido",
+    "emailRequired": "Introduce tu correo electrónico",
+    "emailInvalid": "Introduce un correo electrónico válido",
+    "addGuest": "Añade al menos un huésped"
+  },
+  "HomePage": {
+    "metaTitle": "Camping bush remoto en Namibia",
+    "metaDescription": "Descubre Omborokko Safaris, un camping bush remoto en Namibia con vistas a la montaña, duchas calientes, inodoros con cisterna y un sencillo sistema de solicitud de reserva en línea.",
+    "structuredDescription": "Camping bush remoto en Namibia con duchas calientes, inodoros con cisterna, agua potable y vistas a la montaña.",
+    "heroBadge": "Camping bush auténtico",
+    "heroTitle": "Camping remoto al pie de las montañas Omborokko",
+    "heroBody": "Situado en una extensa finca ganadera rica en fauna, Omborokko Safaris ofrece camping remoto, cielos abiertos y tranquilas veladas junto al fuego.",
+    "bookNow": "Reservar ahora",
+    "checkAvailability": "Comprobar disponibilidad",
+    "bookingCardEyebrow": "Reservas bajo solicitud",
+    "adultLabel": "Adultos 16+",
+    "childLabel": "Niños 8-15",
+    "perPersonPerNight": "Por persona y por noche",
+    "aboutEyebrow": "Sobre la estancia",
+    "aboutTitle": "Desconectado, con lo esencial",
+    "aboutDescription": "Nuestro camping remoto ofrece una oportunidad única de alojarse en plena belleza intacta de Namibia. Situado junto a un río estacional y lejos de cualquier otra infraestructura, el camping brinda una experiencia auténtica del tranquilo bush namibio.",
+    "highlights": {
+      "amenitiesTitle": "Servicios bien cuidados",
+      "amenitiesText": "Duchas calientes, inodoros con cisterna, agua potable y una piscina cerca.",
+      "settingTitle": "Entorno bush tranquilo",
+      "settingText": "Cauces estacionales, vistas a la montaña y un corto sendero hasta el abrevadero.",
+      "campingTitle": "Camping auténtico",
+      "campingText": "Cocina al fuego, cenas bajo las estrellas y una base sencilla para una verdadera estancia en el bush.",
+      "overlandersTitle": "Ideal para overlanders",
+      "overlandersText": "Pago en efectivo en el lugar, llegadas sencillas y un claro proceso de solicitud y confirmación."
+    },
+    "notesEyebrow": "Notas del camping",
+    "notesDescription": "Algunos detalles prácticos que conviene saber antes de internarse en el bush.",
+    "notes": {
+      "maxGuests": "Máx. 6 huéspedes por parcela",
+      "fourByFour": "Se recomienda un vehículo 4x4",
+      "noPower": "No hay tomas de corriente disponibles"
+    },
+    "bookingEyebrow": "Reserva",
+    "bookingTitle": "Comprueba tus fechas antes de reservar",
+    "testimonialsEyebrow": "Testimonios",
+    "testimonialsTitle": "Lo que dicen los huéspedes del camping",
+    "testimonialDetail": "Reseña de Google",
+    "directionsEyebrow": "Cómo llegar",
+    "directionsTitle": "Cómo encontrarnos",
+    "directionsDescription": "Sigue las señales hasta la recepción en la casa principal al llegar. Desde allí recibirás indicaciones para llegar al camping, que está 5 km más adelante.",
+    "bookingProcessEyebrow": "Proceso de reserva",
+    "bookingProcessTitle": "Cómo funciona la reserva",
+    "bookingProcessDescription": "Un proceso sencillo de solicitud y confirmación para que sepas qué ocurre después de elegir tus fechas.",
+    "steps": {
+      "requestEyebrow": "1. Envía tu solicitud",
+      "requestTitle": "Comprueba tus fechas y envía tu solicitud de reserva en línea.",
+      "requestText": "Elige las fechas de estancia, el número de huéspedes y tus datos de contacto para que el equipo pueda revisar la disponibilidad.",
+      "confirmEyebrow": "2. Confirmamos la disponibilidad",
+      "confirmTitle": "Cada solicitud se revisa antes de convertirse en una reserva confirmada.",
+      "confirmText": "Recibirás un correo de confirmación en cuanto el equipo haya revisado las fechas solicitadas.",
+      "arriveEyebrow": "3. Llega a la finca",
+      "arriveTitle": "Dirígete primero a la recepción y luego continúa hasta el camping.",
+      "arriveText": "Sigue las señales hasta la casa principal al llegar. Desde allí recibirás indicaciones para llegar al camping, que está 5 km más adelante."
+    },
+    "testimonials": {
+      "oneQuote": "A beautiful place integrated into nature, well equipped, and far from any buildings.",
+      "oneAuthor": "k g.",
+      "twoQuote": "The facilities were immaculate, very well thought out, peaceful, and secluded.",
+      "twoAuthor": "Laura B.",
+      "threeQuote": "A fabulous wild campsite beside a dry river bed with spotlessly clean facilities and lovely owners.",
+      "threeAuthor": "Oonagh"
+    }
+  },
+  "BookPage": {
+    "metaTitle": "Reserva tu estancia en el camping",
+    "metaDescription": "Solicita tu estancia en el camping de Omborokko Safaris. Revisa los detalles prácticos, consulta los precios y envía tus fechas preferidas para confirmación.",
+    "eyebrow": "Reserva",
+    "title": "Solicita tu estancia en el camping bush",
+    "adultLabel": "Adultos 16+",
+    "childLabel": "Niños 8-15",
+    "perNight": "/noche",
+    "noCleaningFees": "Sin gastos de limpieza"
+  },
+  "BookingSuccessPage": {
+    "metaTitle": "Solicitud de reserva recibida",
+    "metaDescription": "Hemos recibido tu solicitud de reserva.",
+    "eyebrow": "Solicitud de reserva recibida",
+    "title": "Gracias por tu solicitud de reserva",
+    "referencePrefix": "Tu referencia de reserva es",
+    "body": "Revisaremos la disponibilidad y confirmaremos la estancia lo antes posible. Recibirás un correo de confirmación una vez que la reserva haya sido confirmada.",
+    "backToBooking": "Volver a la reserva",
+    "returnHome": "Volver al inicio"
+  }
+}

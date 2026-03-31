@@ -1,0 +1,143 @@
+{
+  "Site": {
+    "brandTagline": "Namibiese bosverblyf"
+  },
+  "LocaleSwitcher": {
+    "label": "Taalkeurder",
+    "selectLanguage": "Kies taal",
+    "afrikaans": "Afrikaans",
+    "english": "English",
+    "german": "Deutsch",
+    "spanish": "Español",
+    "french": "Français",
+    "italian": "Italiano"
+  },
+  "Footer": {
+    "directions": "Aanwysings",
+    "reviewPrefix": "Los vir ons 'n 5-",
+    "reviewSuffix": "resensie",
+    "admin": "Admin-paneel",
+    "copyright": "© {year} Omborokko Safaris"
+  },
+  "DateRangeField": {
+    "label": "Verblyfdatums",
+    "placeholder": "Kies verblyfdatums",
+    "clear": "Maak datums skoon",
+    "done": "Klaar"
+  },
+  "AvailabilityChecker": {
+    "campsitesNeeded": "Kampplekke benodig",
+    "checking": "Besig om te kyk...",
+    "checkDates": "Gaan datums na",
+    "availableMessage": "{availableCount} van {totalCount} kampplekke is vir hierdie datums beskikbaar.",
+    "limitedMessage": "Slegs {availableCount} van {totalCount} kampplekke is vir hierdie datums beskikbaar.",
+    "bookNow": "Bespreek nou",
+    "checkFailed": "Beskikbaarheidstoets het misluk"
+  },
+  "BookingForm": {
+    "campsitesNeeded": "Kampplekke benodig",
+    "firstName": "Voornaam",
+    "lastName": "Van",
+    "email": "E-pos",
+    "phone": "Telefoon",
+    "adults": "Volwassenes (16+)",
+    "children": "Kinders (8-15)",
+    "notes": "Notas",
+    "submitting": "Stuur...",
+    "submit": "Stuur bespreekingsversoek",
+    "requestFailed": "Bespreekingsversoek het misluk"
+  },
+  "BookingValidation": {
+    "dateFormat": "Verwagte datumformaat: JJJJ-MM-DD",
+    "checkOutLater": "Uitklokdatum moet later as inklokdatum wees",
+    "firstNameRequired": "Voer jou voornaam in",
+    "lastNameRequired": "Voer jou van in",
+    "emailRequired": "Voer jou e-posadres in",
+    "emailInvalid": "Voer 'n geldige e-posadres in",
+    "addGuest": "Voeg ten minste een gas by"
+  },
+  "HomePage": {
+    "metaTitle": "Afgeleë boskampering in Namibië",
+    "metaDescription": "Ontdek Omborokko Safaris, 'n afgeleë Namibiese boskampplek met berguitsigte, warm storte, spoeltoilette en eenvoudige aanlyn-bespreekingsversoeke.",
+    "structuredDescription": "Afgeleë boskampering in Namibië met warm storte, spoeltoilette, drinkwater en berguitsigte.",
+    "heroBadge": "Egte boskampering",
+    "heroTitle": "Afgeleë kampering aan die voet van die Omborokko-berge",
+    "heroBody": "Op 'n uitgestrekte, wildryke beesplaas bied Omborokko Safaris afgeleë kampering, oop lugruimtes en rustige aande by die vuur.",
+    "bookNow": "Bespreek nou",
+    "checkAvailability": "Gaan beskikbaarheid na",
+    "bookingCardEyebrow": "Besprekings op versoek",
+    "adultLabel": "Volwassenes 16+",
+    "childLabel": "Kinders 8-15",
+    "perPersonPerNight": "Per persoon, per nag",
+    "aboutEyebrow": "Oor die verblyf",
+    "aboutTitle": "Van die netwerk af, met die nodige geriewe",
+    "aboutDescription": "Ons afgeleë kampplek bied 'n besondere kans om in die middel van Namibië se ongerepte natuurskoon te vertoef. Geleë langs 'n seisoenale rivier en ver van enige ander infrastruktuur, bied die kampplek 'n egte belewenis van die rustige Namibiese bos.",
+    "highlights": {
+      "amenitiesTitle": "Netjiese geriewe",
+      "amenitiesText": "Warm storte, spoeltoilette, drinkwater en 'n swembad naby.",
+      "settingTitle": "Rustige bosomgewing",
+      "settingText": "Seisoenale rivierlope, berguitsigte en 'n kort staproete na die watergat.",
+      "campingTitle": "Egte kampering",
+      "campingText": "Kosmaak by die vuur, sterlig-aande en 'n eenvoudige basis vir 'n behoorlike bosverblyf.",
+      "overlandersTitle": "Geskik vir overlanders",
+      "overlandersText": "Kontant op die perseel, eenvoudige aankoms en 'n duidelike versoek-en-bevestig bespreekingsproses."
+    },
+    "notesEyebrow": "Kamppleknotas",
+    "notesDescription": "'n Paar praktiese besonderhede om te weet voordat jy die bos invaar.",
+    "notes": {
+      "maxGuests": "Maks. 6 gaste per kampplek",
+      "fourByFour": "'n 4x4-voertuig word aanbeveel",
+      "noPower": "Geen elektriese aansluitings beskikbaar nie"
+    },
+    "bookingEyebrow": "Bespreking",
+    "bookingTitle": "Gaan jou datums na voordat jy bespreek",
+    "testimonialsEyebrow": "Getuigskrifte",
+    "testimonialsTitle": "Wat gaste oor die kampplek sê",
+    "testimonialDetail": "Google-resensie",
+    "directionsEyebrow": "Aanwysings",
+    "directionsTitle": "Hoe om ons te vind",
+    "directionsDescription": "Volg asseblief die padtekens na ontvangs by die plaashuis met aankoms. Van daar af sal jy aanwysings na die kampplek ontvang, wat nog 5 km verder is.",
+    "bookingProcessEyebrow": "Bespreekingsproses",
+    "bookingProcessTitle": "Hoe bespreking werk",
+    "bookingProcessDescription": "'n Eenvoudige versoek-en-bevestig proses sodat jy weet wat gebeur nadat jy jou datums gekies het.",
+    "steps": {
+      "requestEyebrow": "1. Stuur jou versoek",
+      "requestTitle": "Gaan jou datums na en stuur jou bespreekingsversoek aanlyn.",
+      "requestText": "Kies jou verblyfdatums, aantal gaste en kontakbesonderhede sodat die span beskikbaarheid kan nagaan.",
+      "confirmEyebrow": "2. Ons bevestig beskikbaarheid",
+      "confirmTitle": "Elke versoek word nagegaan voordat dit 'n bevestigde bespreking word.",
+      "confirmText": "Jy sal 'n bevestigings-e-pos ontvang sodra die span jou verlangde datums nagegaan het.",
+      "arriveEyebrow": "3. Arriveer by die plaas",
+      "arriveTitle": "Gaan eers na ontvangs en ry dan verder na die kampplek.",
+      "arriveText": "Volg die padtekens na die plaashuis met aankoms. Van daar af sal jy aanwysings na die kampplek ontvang, wat nog 5 km verder is."
+    },
+    "testimonials": {
+      "oneQuote": "A beautiful place integrated into nature, well equipped, and far from any buildings.",
+      "oneAuthor": "k g.",
+      "twoQuote": "The facilities were immaculate, very well thought out, peaceful, and secluded.",
+      "twoAuthor": "Laura B.",
+      "threeQuote": "A fabulous wild campsite beside a dry river bed with spotlessly clean facilities and lovely owners.",
+      "threeAuthor": "Oonagh"
+    }
+  },
+  "BookPage": {
+    "metaTitle": "Bespreek jou kampplekverblyf",
+    "metaDescription": "Versoek jou kampplekverblyf by Omborokko Safaris. Gaan praktiese besonderhede na, hersien pryse en stuur jou voorkeurdatums vir bevestiging.",
+    "eyebrow": "Bespreking",
+    "title": "Versoek jou boskampplekverblyf",
+    "adultLabel": "Volwassenes 16+",
+    "childLabel": "Kinders 8-15",
+    "perNight": "/nag",
+    "noCleaningFees": "Geen skoonmaakfooie"
+  },
+  "BookingSuccessPage": {
+    "metaTitle": "Bespreekingsversoek ontvang",
+    "metaDescription": "Jou bespreekingsversoek is ontvang.",
+    "eyebrow": "Bespreekingsversoek ontvang",
+    "title": "Dankie vir jou bespreekingsversoek!",
+    "referencePrefix": "Jou bespreekingsverwysing is",
+    "body": "Ons sal beskikbaarheid nagaan en die verblyf so gou moontlik bevestig. Jy sal 'n bevestigings-e-pos ontvang sodra jou bespreking bevestig is.",
+    "backToBooking": "Terug na bespreking",
+    "returnHome": "Terug na tuisblad"
+  }
+}

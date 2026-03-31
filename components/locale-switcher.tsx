@@ -1,6 +1,5 @@
 "use client";
 
-import { Languages } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
@@ -22,8 +21,11 @@ const localeMeta: Record<
   { flag: string; short: string; nameKey: string }
 > = {
   en: { flag: "🇬🇧", short: "EN", nameKey: "english" },
+  af: { flag: "🇿🇦", short: "AF", nameKey: "afrikaans" },
   de: { flag: "🇩🇪", short: "DE", nameKey: "german" },
+  es: { flag: "🇪🇸", short: "ES", nameKey: "spanish" },
   fr: { flag: "🇫🇷", short: "FR", nameKey: "french" },
+  it: { flag: "🇮🇹", short: "IT", nameKey: "italian" },
 };
 
 export function LocaleSwitcher() {

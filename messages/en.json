@@ -5,9 +5,12 @@
   "LocaleSwitcher": {
     "label": "Language selector",
     "selectLanguage": "Select language",
+    "afrikaans": "Afrikaans",
     "english": "English",
     "german": "Deutsch",
-    "french": "Français"
+    "spanish": "Español",
+    "french": "Français",
+    "italian": "Italiano"
   },
   "Footer": {
     "directions": "Directions",
