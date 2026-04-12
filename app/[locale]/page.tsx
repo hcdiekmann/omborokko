@@ -245,10 +245,13 @@ export default async function HomePage({ params }: PageProps) {
             ))}
           </div>
         </section>
-        {/*<section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
+        <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
           <div className="space-y-6">
-            <HomeGalleryCarousel images={siteContent.images} alt={siteContent.brandName} />
-            <div className="rounded-[2rem] border border-stone-200 bg-stone-50 p-6 sm:p-8">
+            <HomeGalleryCarousel
+              images={siteContent.images}
+              alt={siteContent.brandName}
+            />
+            {/*<div className="rounded-[2rem] border border-stone-200 bg-stone-50 p-6 sm:p-8">
               <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                 <div className="max-w-xl">
                   <div className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-900">
@@ -272,10 +275,10 @@ export default async function HomePage({ params }: PageProps) {
                     </li>
                   ))}
                 </ul>
-              </div>
-            </div>
+                </div>
+              </div>*/}
           </div>
-        </section>*/}
+        </section>
         <section
           id="availability"
           className="border-y border-stone-200 bg-stone-50/80"
