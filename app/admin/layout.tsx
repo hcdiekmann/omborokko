@@ -1,12 +1,9 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import Image from "next/image";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 
-import { siteContent } from "@/lib/content/site-content";
 import { routing } from "@/i18n/routing";
-
 import { AdminShellNav } from "@/components/admin-shell-nav";
 import { LogoutButton } from "@/components/logout-button";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
@@ -46,47 +43,36 @@ export default async function AdminLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <div className="min-h-screen bg-transparent">
-        <header className="border-b border-stone-200/80 bg-white/90 backdrop-blur-sm">
-          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:gap-4 lg:py-4">
-            <div className="min-w-0 flex items-center gap-2.5 sm:gap-3">
-              <div className="flex items-center">
-                <div className="-my-2 flex-none overflow-hidden sm:-my-3">
-                  <Image
-                    src={siteContent.logoDarkPath}
-                    alt={siteContent.brandName}
-                    width={256}
-                    height={362}
-                    className="h-auto w-16 object-contain sm:w-20 lg:w-24"
-                    sizes="(max-width: 640px) 64px, (max-width: 1024px) 80px, 96px"
-                  />
-                </div>
-                <div className="min-w-0">
-                  <p className="truncate text-[10px] font-semibold uppercase tracking-[0.16em] text-stone-500 sm:text-xs">
-                    Omborokko Safaris
-                  </p>
-                  <p className="text-base font-semibold leading-tight text-stone-950 sm:text-lg">
-                    Admin Campsite Managment
-                  </p>
-                </div>
+      <div className="min-h-screen bg-stone-50">
+        <header className="sticky top-0 z-30 border-b border-stone-200 bg-white/95 backdrop-blur">
+          <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-2 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex min-w-0 items-center justify-between gap-4 lg:justify-start">
+              <Link href="/admin" className="min-w-0">
+                <p className="truncate text-sm font-semibold text-stone-950">Omborokko Admin</p>
+                <p className="truncate text-xs text-stone-500">Campsite management</p>
+              </Link>
+              <div className="flex items-center gap-2 lg:hidden">
+                <Link href="/en" className="text-xs font-medium text-stone-600 hover:text-stone-950">
+                  Website
+                </Link>
+                <LogoutButton />
               </div>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3">
-              <Link
-                href="/en"
-                className="text-sm text-stone-600 transition-colors hover:text-stone-950"
-              >
-                Go to website
+
+            <div className="min-w-0 flex-1 lg:flex lg:justify-center">
+              <AdminShellNav />
+            </div>
+
+            <div className="hidden items-center gap-3 lg:flex">
+              <Link href="/en" className="text-sm font-medium text-stone-600 transition hover:text-stone-950">
+                Website
               </Link>
               <LogoutButton />
             </div>
           </div>
         </header>
-        <main className="mx-auto grid max-w-7xl gap-4 px-4 py-4 lg:gap-6 lg:px-6 lg:py-8 lg:grid-cols-[260px_minmax(0,1fr)]">
-          <aside className="h-fit rounded-3xl border border-stone-200/80 bg-white/90 p-2.5 shadow-sm backdrop-blur-sm lg:p-3">
-            <AdminShellNav />
-          </aside>
-          <div className="min-w-0 space-y-6">{children}</div>
+        <main className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:py-7">
+          <div className="min-w-0 space-y-5">{children}</div>
         </main>
       </div>
     </NextIntlClientProvider>

@@ -466,23 +466,25 @@ export function BookingRequestForm({
     <Card>
       <CardContent className="space-y-5 p-5">
         <form className="rounded-md border border-stone-200 bg-stone-50 p-4" onSubmit={handleLookupSubmit}>
-          <div className="flex flex-col gap-3 md:flex-row md:items-end">
-            <div className="flex-1">
+          <div className="space-y-4">
+            <div>
               <p className="text-sm font-semibold text-stone-950">{t("BookingForm.findRequestTitle")}</p>
-              <p className="mt-1 text-sm text-stone-600">{t("BookingForm.findRequestBody")}</p>
+              <p className="mt-1 max-w-2xl text-sm text-stone-600">{t("BookingForm.findRequestBody")}</p>
             </div>
-            <label className="space-y-2 text-sm font-medium text-stone-700">
-              {t("BookingForm.findRequestEmail")}
-              <Input type="email" value={lookupEmail} onChange={(event) => setLookupEmail(event.target.value)} />
-            </label>
-            <label className="space-y-2 text-sm font-medium text-stone-700">
-              {t("BookingForm.findRequestReference")}
-              <Input value={lookupReference} onChange={(event) => setLookupReference(event.target.value)} />
-            </label>
-            <Button type="submit" variant="outline" className="h-11 rounded-2xl" disabled={isLookingUp}>
-              <Search className="mr-2 h-4 w-4" />
-              {isLookingUp ? t("BookingForm.findingRequest") : t("BookingForm.findRequestButton")}
-            </Button>
+            <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] md:items-end">
+              <label className="space-y-2 text-sm font-medium text-stone-700">
+                {t("BookingForm.findRequestEmail")}
+                <Input type="email" value={lookupEmail} onChange={(event) => setLookupEmail(event.target.value)} />
+              </label>
+              <label className="space-y-2 text-sm font-medium text-stone-700">
+                {t("BookingForm.findRequestReference")}
+                <Input value={lookupReference} onChange={(event) => setLookupReference(event.target.value)} />
+              </label>
+              <Button type="submit" variant="outline" className="h-11 rounded-2xl px-5 whitespace-nowrap" disabled={isLookingUp}>
+                <Search className="mr-2 h-4 w-4" />
+                {isLookingUp ? t("BookingForm.findingRequest") : t("BookingForm.findRequestButton")}
+              </Button>
+            </div>
           </div>
           {lookupError ? <p className="mt-3 text-sm text-red-600">{lookupError}</p> : null}
         </form>

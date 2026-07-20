@@ -173,7 +173,7 @@ export function DateRangeField({
         <PopoverContent
           align="start"
           sideOffset={10}
-          className="w-auto rounded-md p-4 shadow-xl"
+          className="w-[min(24rem,calc(100vw-2rem))] rounded-md p-3 shadow-xl sm:w-auto sm:p-4"
         >
           <Calendar
             mode="range"
@@ -197,10 +197,12 @@ export function DateRangeField({
               });
             }}
           />
-          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 px-1 text-xs text-stone-600">
-            <span>{isLoadingAvailability ? t("loadingAvailability") : t("rangeHint")}</span>
-            <span className="inline-flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-amber-500" />{t("limited")}</span>
-            <span className="inline-flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-red-500" />{t("full")}</span>
+          <div className="mt-3 space-y-2 px-1 text-xs text-stone-600">
+            <p>{isLoadingAvailability ? t("loadingAvailability") : t("rangeHint")}</p>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><span className="h-2 w-2 rounded-full bg-amber-500" />{t("limited")}</span>
+              <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><span className="h-2 w-2 rounded-full bg-red-500" />{t("full")}</span>
+            </div>
           </div>
           {rangeAvailabilityError ? <p className="mt-2 px-1 text-xs text-red-600">{rangeAvailabilityError}</p> : null}
           <div className="mt-4 flex justify-end gap-2 border-t border-stone-200 px-1 pt-4">

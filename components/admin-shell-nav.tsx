@@ -10,43 +10,40 @@ import {
   Ticket,
 } from "lucide-react";
 
-import { cn } from "@/lib/utils/cn";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const items = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/bookings", label: "Bookings", icon: Ticket },
-  { href: "/admin/calendar", label: "Calendar", icon: CalendarDays },
-  { href: "/admin/units", label: "Units", icon: House },
-  { href: "/admin/blocks", label: "Blocks", icon: ShieldBan },
+  { href: "/admin", value: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/bookings", value: "bookings", label: "Bookings", icon: Ticket },
+  { href: "/admin/calendar", value: "calendar", label: "Calendar", icon: CalendarDays },
+  { href: "/admin/units", value: "units", label: "Units", icon: House },
+  { href: "/admin/blocks", value: "blocks", label: "Blocks", icon: ShieldBan },
 ] as const;
+
+function activeValue(pathname: string) {
+  const active = items.find((item) => item.href !== "/admin" && pathname.startsWith(item.href));
+  return active?.value ?? "dashboard";
+}
 
 export function AdminShellNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:block lg:space-y-1.5">
-      {items.map((item) => {
-        const Icon = item.icon;
-        const isActive =
-          pathname === item.href ||
-          (item.href !== "/admin" && pathname.startsWith(item.href));
+    <Tabs value={activeValue(pathname)} className="min-w-0 overflow-x-auto">
+      <TabsList className="h-9 w-max gap-0.5 bg-stone-100/80">
+        {items.map((item) => {
+          const Icon = item.icon;
 
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={cn(
-              "flex min-w-0 items-center gap-2 rounded-2xl px-3 py-2 text-sm font-medium transition-colors lg:px-3 lg:py-2.5",
-              isActive
-                ? "bg-stone-950 text-white shadow-sm"
-                : "text-stone-700 hover:bg-stone-100 hover:text-stone-950",
-            )}
-          >
-            <Icon className="h-4 w-4 flex-none" />
-            <span className="truncate">{item.label}</span>
-          </Link>
-        );
-      })}
-    </nav>
+          return (
+            <TabsTrigger key={item.href} value={item.value} asChild className="h-7 gap-1.5 px-2.5 text-xs sm:text-sm">
+              <Link href={item.href}>
+                <Icon className="h-3.5 w-3.5" />
+                {item.label}
+              </Link>
+            </TabsTrigger>
+          );
+        })}
+      </TabsList>
+    </Tabs>
   );
 }
