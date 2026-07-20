@@ -12,6 +12,7 @@ import {
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { AvailabilityChecker } from "@/components/availability-checker";
+import { BookingStatusBanner } from "@/components/booking-status-banner";
 import { HomeGalleryCarousel } from "@/components/home-gallery-carousel";
 import { SectionTitle } from "@/components/section-title";
 import { SiteFooter } from "@/components/site-footer";
@@ -146,6 +147,7 @@ export default async function HomePage({ params }: PageProps) {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
+      <BookingStatusBanner />
       <main className="flex-1">
         <script
           type="application/ld+json"

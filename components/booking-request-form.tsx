@@ -9,7 +9,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DateRangeField } from "@/components/date-range-field";
-import { useRouter } from "@/i18n/navigation";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { createBookingRequestSchema } from "@/lib/validation/bookings";
@@ -30,7 +29,7 @@ type FormValues = {
 type StoredBookingRequest = {
   clientRequestId: string;
   reference: string;
-  status: "pending" | "confirmed";
+  status: "pending" | "confirmed" | "rejected" | "cancelled";
   checkInDate: string;
   checkOutDate: string;
   requestedUnitCount: number;
@@ -45,8 +44,12 @@ function todayIso() {
   return new Date().toISOString().slice(0, 10);
 }
 
-function isActiveRequest(value: StoredBookingRequest) {
-  return value.checkOutDate >= todayIso() && ["pending", "confirmed"].includes(value.status);
+function isStoredRequestRelevant(value: StoredBookingRequest) {
+  return value.checkOutDate >= todayIso();
+}
+
+function isClosedStatus(status: StoredBookingRequest["status"]) {
+  return status === "rejected" || status === "cancelled";
 }
 
 function readStoredRequest() {
@@ -57,7 +60,7 @@ function readStoredRequest() {
     if (!raw) return null;
 
     const value = JSON.parse(raw) as StoredBookingRequest;
-    if (!value.reference || !value.clientRequestId || !isActiveRequest(value)) {
+    if (!value.reference || !value.clientRequestId || !isStoredRequestRelevant(value)) {
       window.localStorage.removeItem(ACTIVE_REQUEST_KEY);
       return null;
     }
@@ -90,7 +93,7 @@ function getRetryableClientRequestId() {
 function createStoredRequestFromSubmit(
   clientRequestId: string,
   values: FormValues,
-  booking: { booking_reference: string; status: "pending" | "confirmed" }
+  booking: { booking_reference: string; status: StoredBookingRequest["status"] }
 ): StoredBookingRequest {
   return {
     clientRequestId,
@@ -108,7 +111,7 @@ function createStoredRequestFromRecovery(
   clientRequestId: string,
   booking: {
     booking_reference: string;
-    status: "pending" | "confirmed";
+    status: StoredBookingRequest["status"];
     check_in_date: string;
     check_out_date: string;
     requested_unit_count: number;
@@ -135,7 +138,6 @@ export function BookingRequestForm({
 }) {
   const t = useTranslations();
   const locale = useLocale();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [activeRequest, setActiveRequest] = useState<StoredBookingRequest | null>(null);
   const [isRecovering, setIsRecovering] = useState(false);
@@ -171,10 +173,8 @@ export function BookingRequestForm({
     const stored = readStoredRequest();
     if (stored) {
       setActiveRequest(stored);
-      void recoverBookingRequest(stored.clientRequestId, false);
+      void recoverBookingRequest(stored.clientRequestId);
     }
-    // This is a mount-only local recovery check; submit recovery uses the live callback.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -203,11 +203,8 @@ export function BookingRequestForm({
     }
   }, [form, searchParams]);
 
-  function goToSuccess(reference: string) {
-    router.push("/booking/request/success?reference=" + encodeURIComponent(reference));
-  }
 
-  async function recoverBookingRequest(clientRequestId: string, redirectOnFound: boolean) {
+  async function recoverBookingRequest(clientRequestId: string) {
     setIsRecovering(true);
 
     try {
@@ -222,10 +219,6 @@ export function BookingRequestForm({
         const recovered = createStoredRequestFromRecovery(clientRequestId, booking);
         saveStoredRequest(recovered);
         setActiveRequest(recovered);
-
-        if (redirectOnFound) {
-          goToSuccess(recovered.reference);
-        }
 
         return recovered;
       }
@@ -260,9 +253,9 @@ export function BookingRequestForm({
       const stored = createStoredRequestFromSubmit(clientRequestId, values, booking);
       saveStoredRequest(stored);
       setActiveRequest(stored);
-      goToSuccess(stored.reference);
+      form.reset(values);
     } catch {
-      const recovered = await recoverBookingRequest(clientRequestId, true);
+      const recovered = await recoverBookingRequest(clientRequestId);
 
       if (!recovered) {
         form.setError("root", { message: t("BookingForm.uncertainResult") });
@@ -282,20 +275,52 @@ export function BookingRequestForm({
     year: "numeric"
   });
 
+  useEffect(() => {
+    if (!activeRequest || isClosedStatus(activeRequest.status)) return;
+
+    const interval = window.setInterval(() => {
+      void recoverBookingRequest(activeRequest.clientRequestId);
+    }, 30000);
+
+    return () => window.clearInterval(interval);
+    // The interval only needs the current stored request id/status.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeRequest?.clientRequestId, activeRequest?.status]);
+
   if (activeRequest) {
-    const statusLabel = activeRequest.status === "confirmed"
-      ? t("BookingForm.activeRequestStatusConfirmed")
-      : t("BookingForm.activeRequestStatusPending");
+    const statusLabel = t(
+      activeRequest.status === "confirmed"
+        ? "BookingForm.activeRequestStatusConfirmed"
+        : activeRequest.status === "rejected"
+          ? "BookingForm.activeRequestStatusRejected"
+          : activeRequest.status === "cancelled"
+            ? "BookingForm.activeRequestStatusCancelled"
+            : "BookingForm.activeRequestStatusPending"
+    );
+    const statusBody = t(
+      activeRequest.status === "confirmed"
+        ? "BookingForm.activeRequestBodyConfirmed"
+        : activeRequest.status === "rejected"
+          ? "BookingForm.activeRequestBodyRejected"
+          : activeRequest.status === "cancelled"
+            ? "BookingForm.activeRequestBodyCancelled"
+            : "BookingForm.activeRequestBodyPending"
+    );
+    const panelClassName = isClosedStatus(activeRequest.status)
+      ? "rounded-md border border-stone-200 bg-stone-50 p-4"
+      : activeRequest.status === "confirmed"
+        ? "rounded-md border border-green-200 bg-green-50 p-4"
+        : "rounded-md border border-amber-200 bg-amber-50 p-4";
 
     return (
       <Card>
         <CardContent className="space-y-5 p-5">
-          <div className="rounded-md border border-amber-200 bg-amber-50 p-4">
+          <div className={panelClassName}>
             <h2 className="text-base font-semibold text-stone-950">
               {t("BookingForm.activeRequestTitle")}
             </h2>
             <p className="mt-2 text-sm leading-6 text-stone-700">
-              {t("BookingForm.activeRequestBody")}
+              {statusBody}
             </p>
             <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-3">
               <div>
@@ -317,23 +342,16 @@ export function BookingRequestForm({
           {isRecovering ? (
             <p className="text-sm text-stone-600">{t("BookingForm.recovering")}</p>
           ) : null}
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button
-              type="button"
-              className="h-11 rounded-2xl bg-amber-700 text-white hover:bg-amber-600"
-              onClick={() => goToSuccess(activeRequest.reference)}
-            >
-              {t("BookingForm.activeRequestBack")}
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              className="h-11 rounded-2xl"
-              onClick={clearActiveRequest}
-            >
-              {t("BookingForm.startNewRequest")}
-            </Button>
-          </div>
+          <Button
+            type="button"
+            variant={isClosedStatus(activeRequest.status) ? "default" : "outline"}
+            className="h-11 rounded-2xl"
+            onClick={clearActiveRequest}
+          >
+            {isClosedStatus(activeRequest.status)
+              ? t("BookingForm.makeAnotherRequest")
+              : t("BookingForm.startNewRequest")}
+          </Button>
         </CardContent>
       </Card>
     );
