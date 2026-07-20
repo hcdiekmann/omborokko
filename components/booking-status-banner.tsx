@@ -8,13 +8,14 @@ import { Link } from "@/i18n/navigation";
 type BookingStatus = "pending" | "confirmed" | "rejected" | "cancelled";
 
 type StoredBookingRequest = {
-  clientRequestId: string;
+  clientRequestId?: string;
   reference: string;
   status: BookingStatus;
   checkInDate: string;
   checkOutDate: string;
   requestedUnitCount: number;
   guestEmail: string;
+  guestMessage?: string | null;
   createdAt?: string;
 };
 
@@ -25,6 +26,7 @@ type RecoveredBooking = {
   check_out_date: string;
   requested_unit_count: number;
   guest_email: string;
+  guest_message?: string | null;
   created_at?: string;
 };
 
@@ -44,7 +46,7 @@ function readStoredRequest() {
     if (!raw) return null;
 
     const value = JSON.parse(raw) as StoredBookingRequest;
-    if (!value.reference || !value.clientRequestId || !isRelevant(value)) {
+    if (!value.reference || !value.guestEmail || !isRelevant(value)) {
       window.localStorage.removeItem(ACTIVE_REQUEST_KEY);
       return null;
     }
@@ -56,7 +58,7 @@ function readStoredRequest() {
   }
 }
 
-function toStoredRequest(clientRequestId: string, booking: RecoveredBooking): StoredBookingRequest {
+function toStoredRequest(booking: RecoveredBooking, clientRequestId?: string): StoredBookingRequest {
   return {
     clientRequestId,
     reference: booking.booking_reference,
@@ -65,6 +67,7 @@ function toStoredRequest(clientRequestId: string, booking: RecoveredBooking): St
     checkOutDate: booking.check_out_date,
     requestedUnitCount: booking.requested_unit_count,
     guestEmail: booking.guest_email,
+    guestMessage: booking.guest_message,
     createdAt: booking.created_at
   };
 }
@@ -92,14 +95,20 @@ export function BookingStatusBanner() {
     const stored = readStoredRequest();
     if (!stored) return;
 
-    setRequest(stored);
-    const clientRequestId = stored.clientRequestId;
+    const currentRequest = stored;
+    setRequest(currentRequest);
 
     async function refresh() {
-      const response = await fetch(
-        "/api/bookings/request/recover?clientRequestId=" + encodeURIComponent(clientRequestId),
-        { method: "GET" }
-      );
+      const response = currentRequest.clientRequestId
+        ? await fetch(
+            "/api/bookings/request/recover?clientRequestId=" + encodeURIComponent(currentRequest.clientRequestId),
+            { method: "GET" }
+          )
+        : await fetch("/api/bookings/request/lookup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ guestEmail: currentRequest.guestEmail, bookingReference: currentRequest.reference })
+          });
       const payload = await response.json().catch(() => null);
       const booking = payload?.data?.booking as RecoveredBooking | undefined;
 
@@ -111,7 +120,7 @@ export function BookingStatusBanner() {
         return;
       }
 
-      const updated = toStoredRequest(clientRequestId, booking);
+      const updated = toStoredRequest(booking, currentRequest.clientRequestId);
       window.localStorage.setItem(ACTIVE_REQUEST_KEY, JSON.stringify(updated));
       setRequest(updated);
     }

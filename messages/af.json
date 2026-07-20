@@ -26,7 +26,11 @@
     "done": "Klaar",
     "selectDeparture": "Kies ’n vertrekdatum",
     "rangeHint": "Kies eers aankoms en dan vertrek.",
-    "doneDisabled": "Kies ’n vertrekdatum om voort te gaan"
+    "doneDisabled": "Kies ’n vertrekdatum om voort te gaan",
+    "loadingAvailability": "Loading availability...",
+    "limited": "Limited",
+    "full": "Full",
+    "rangeUnavailable": "These stay dates include a full night. Please choose different dates."
   },
   "AvailabilityChecker": {
     "campsitesNeeded": "Kampplekke benodig",
@@ -66,7 +70,22 @@
     "activeRequestStatusRejected": "Nie beskikbaar nie",
     "activeRequestStatusCancelled": "Gekanselleer",
     "makeAnotherRequest": "Stuur nog ’n versoek",
-    "viewRequest": "Bekyk versoek"
+    "viewRequest": "Bekyk versoek",
+    "findRequestTitle": "Already requested a booking?",
+    "findRequestBody": "Find it with the email address and reference from your request.",
+    "findRequestEmail": "Email",
+    "findRequestReference": "Reference",
+    "findRequestButton": "Find request",
+    "findingRequest": "Finding...",
+    "findRequestNotFound": "We could not find a request matching that email and reference.",
+    "findRequestFailed": "Booking lookup failed",
+    "guestMessageTitle": "Message from Omborokko",
+    "timelineSent": "Request sent",
+    "timelineReview": "Under review",
+    "timelineDecision": "Decision",
+    "timelineConfirmed": "Confirmed",
+    "timelineRejected": "Not available",
+    "timelineCancelled": "Cancelled"
   },
   "BookingValidation": {
     "dateFormat": "Verwagte datumformaat: JJJJ-MM-DD",

@@ -114,6 +114,7 @@ export type Database = {
           guest_email: string;
           guest_first_name: string;
           guest_last_name: string;
+          guest_message: string | null;
           guest_phone: string | null;
           guests_count: number;
           id: string;
@@ -142,6 +143,7 @@ export type Database = {
           guest_email: string;
           guest_first_name: string;
           guest_last_name: string;
+          guest_message?: string | null;
           guest_phone?: string | null;
           guests_count: number;
           id?: string;
@@ -170,6 +172,7 @@ export type Database = {
           guest_email?: string;
           guest_first_name?: string;
           guest_last_name?: string;
+          guest_message?: string | null;
           guest_phone?: string | null;
           guests_count?: number;
           id?: string;
@@ -290,6 +293,7 @@ export type Database = {
           guest_email: string;
           guest_first_name: string;
           guest_last_name: string;
+          guest_message: string | null;
           guest_phone: string | null;
           guests_count: number;
           id: string;
@@ -340,8 +344,37 @@ export type Database = {
           check_out_date: string;
           created_at: string;
           guest_email: string;
+          guest_message: string | null;
           requested_unit_count: number;
           status: Database["public"]["Enums"]["booking_status"];
+        }[];
+      };
+      get_booking_request_by_guest_lookup: {
+        Args: { p_booking_reference: string; p_guest_email: string };
+        Returns: {
+          booking_id: string;
+          booking_reference: string;
+          check_in_date: string;
+          check_out_date: string;
+          created_at: string;
+          guest_email: string;
+          guest_message: string | null;
+          requested_unit_count: number;
+          status: Database["public"]["Enums"]["booking_status"];
+        }[];
+      };
+      get_campsite_nightly_availability: {
+        Args: {
+          p_end_date: string;
+          p_requested_unit_count?: number;
+          p_start_date: string;
+        };
+        Returns: {
+          availability_status: string;
+          available_count: number;
+          night_date: string;
+          requested_unit_count: number;
+          total_count: number;
         }[];
       };
       get_available_campsite_units: {

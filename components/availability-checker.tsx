@@ -28,6 +28,7 @@ export function AvailabilityChecker() {
     availableUnits: Array<{ id: string; name: string }>;
   } | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [availabilityError, setAvailabilityError] = useState<string | null>(null);
   const form = useForm<FormValues>({
     resolver: zodResolver(
       availabilityQuerySchema({
@@ -52,6 +53,11 @@ export function AvailabilityChecker() {
   async function onSubmit(values: FormValues) {
     setErrorMessage(null);
     setResult(null);
+
+    if (availabilityError) {
+      setErrorMessage(availabilityError);
+      return;
+    }
 
     const search = new URLSearchParams({
       checkInDate: values.checkInDate,
@@ -80,6 +86,8 @@ export function AvailabilityChecker() {
             className="sm:col-span-2"
             checkInDate={form.watch("checkInDate")}
             checkOutDate={form.watch("checkOutDate")}
+            requestedUnitCount={form.watch("requestedUnitCount") ?? 1}
+            onAvailabilityError={setAvailabilityError}
             onChange={({ checkInDate, checkOutDate }) => {
               form.setValue("checkInDate", checkInDate, {
                 shouldDirty: true,
@@ -109,7 +117,7 @@ export function AvailabilityChecker() {
           <Button
             type="submit"
             className="h-11 rounded-2xl bg-amber-700 text-white hover:bg-amber-600 sm:col-span-3"
-            disabled={form.formState.isSubmitting}
+            disabled={form.formState.isSubmitting || Boolean(availabilityError)}
           >
             {form.formState.isSubmitting
               ? t("AvailabilityChecker.checking")

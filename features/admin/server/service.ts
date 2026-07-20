@@ -170,14 +170,14 @@ export async function getAdminBookingDetail(bookingId: string) {
 export async function updateAdminBookingStatus(
   bookingId: string,
   status: Enums<"booking_status">,
-  adminNotes?: string
+  guestMessage?: string
 ) {
   const { supabase } = await requireAdmin();
 
   if (status === "confirmed") {
     const { data, error } = await supabase.rpc("admin_confirm_booking", {
       p_booking_id: bookingId,
-      p_admin_notes: adminNotes?.trim() ? adminNotes.trim() : null
+      p_admin_notes: guestMessage?.trim() ? guestMessage.trim() : null
     } as never);
 
     if (error) {
@@ -208,7 +208,8 @@ export async function updateAdminBookingStatus(
 
   const patch: TablesUpdate<"bookings"> = {
     status,
-    admin_notes: adminNotes?.trim() ? adminNotes.trim() : null
+    admin_notes: guestMessage?.trim() ? guestMessage.trim() : null,
+    guest_message: guestMessage?.trim() ? guestMessage.trim() : null
   };
 
   const { data, error } = await supabase

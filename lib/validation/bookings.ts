@@ -48,6 +48,20 @@ export function availabilityQuerySchema(
     });
 }
 
+export const availabilityCalendarQuerySchema = z.object({
+  startDate: createRequiredIsoDate(defaultMessages.checkInRequired, defaultMessages),
+  endDate: createRequiredIsoDate(defaultMessages.checkOutRequired, defaultMessages),
+  requestedUnitCount: z.number().int().positive().max(4).default(1)
+}).superRefine((value, context) => {
+  if (value.endDate <= value.startDate) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["endDate"],
+      message: defaultMessages.checkOutLater
+    });
+  }
+});
+
 export function createBookingRequestSchema(
   messages: BookingValidationMessages = defaultMessages
 ) {
@@ -93,6 +107,7 @@ export const bookingStatusSchema = z.enum(["pending", "confirmed", "rejected", "
 
 export const updateBookingStatusSchema = z.object({
   status: bookingStatusSchema,
+  guestMessage: z.string().trim().max(2000).optional().or(z.literal("")),
   adminNotes: z.string().trim().max(2000).optional().or(z.literal(""))
 });
 
@@ -104,4 +119,9 @@ export const bookingListQuerySchema = z.object({
 
 export const bookingRecoveryQuerySchema = z.object({
   clientRequestId: z.string().trim().uuid()
+});
+
+export const bookingLookupSchema = z.object({
+  guestEmail: z.string().trim().min(1).email().max(255),
+  bookingReference: z.string().trim().min(1).max(40)
 });

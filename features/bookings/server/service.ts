@@ -21,6 +21,11 @@ type CreateBookingRequestInput = {
 type UnitRow = Tables<"campsite_units">;
 type BookingRequestRpcResult = Database["public"]["Functions"]["create_booking_request"]["Returns"][number];
 type BookingRequestSummary = Database["public"]["Functions"]["get_booking_request_by_client_request_id"]["Returns"][number];
+type BookingGuestLookupSummary = Database["public"]["Functions"]["get_booking_request_by_guest_lookup"]["Returns"][number];
+
+function normalizeBookingReference(value: string) {
+  return value.trim().replace(/\s+/g, "").toUpperCase();
+}
 
 export async function getActiveUnits(): Promise<UnitRow[]> {
   const supabase = await createServerSupabaseClient();
@@ -171,4 +176,18 @@ export async function getBookingRequestByClientRequestId(clientRequestId: string
   }
 
   return ((data as BookingRequestSummary[] | null)?.[0] ?? null) as BookingRequestSummary | null;
+}
+
+export async function getBookingRequestByGuestLookup(guestEmail: string, bookingReference: string): Promise<BookingGuestLookupSummary | null> {
+  const supabase = await createServerSupabaseClient();
+  const { data, error } = await supabase.rpc("get_booking_request_by_guest_lookup", {
+    p_guest_email: guestEmail.trim(),
+    p_booking_reference: normalizeBookingReference(bookingReference)
+  } as never);
+
+  if (error) {
+    throw new AppError("Failed to find booking request", 500, "booking_lookup_failed", error);
+  }
+
+  return ((data as BookingGuestLookupSummary[] | null)?.[0] ?? null) as BookingGuestLookupSummary | null;
 }

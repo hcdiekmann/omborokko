@@ -11,7 +11,7 @@ export async function PATCH(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params;
     const payload = updateBookingStatusSchema.parse(await request.json());
-    const booking = await updateAdminBookingStatus(id, payload.status, payload.adminNotes);
+    const booking = await updateAdminBookingStatus(id, payload.status, payload.guestMessage ?? payload.adminNotes);
     await sendBookingStatusEmail(id, payload.status).catch((error) => {
       console.error("Failed to send booking status email", error);
     });

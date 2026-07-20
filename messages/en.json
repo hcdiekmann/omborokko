@@ -26,7 +26,11 @@
     "done": "Done",
     "selectDeparture": "Select a departure date",
     "rangeHint": "Select an arrival date, then a departure date.",
-    "doneDisabled": "Choose a departure date to continue"
+    "doneDisabled": "Choose a departure date to continue",
+    "loadingAvailability": "Loading availability...",
+    "limited": "Limited",
+    "full": "Full",
+    "rangeUnavailable": "These stay dates include a full night. Please choose different dates."
   },
   "AvailabilityChecker": {
     "campsitesNeeded": "Campsites needed",
@@ -66,7 +70,22 @@
     "activeRequestStatusRejected": "Not available",
     "activeRequestStatusCancelled": "Cancelled",
     "makeAnotherRequest": "Make another request",
-    "viewRequest": "View request"
+    "viewRequest": "View request",
+    "findRequestTitle": "Already requested a booking?",
+    "findRequestBody": "Find it with the email address and reference from your request.",
+    "findRequestEmail": "Email",
+    "findRequestReference": "Reference",
+    "findRequestButton": "Find request",
+    "findingRequest": "Finding...",
+    "findRequestNotFound": "We could not find a request matching that email and reference.",
+    "findRequestFailed": "Booking lookup failed",
+    "guestMessageTitle": "Message from Omborokko",
+    "timelineSent": "Request sent",
+    "timelineReview": "Under review",
+    "timelineDecision": "Decision",
+    "timelineConfirmed": "Confirmed",
+    "timelineRejected": "Not available",
+    "timelineCancelled": "Cancelled"
   },
   "BookingValidation": {
     "dateFormat": "Expected YYYY-MM-DD date",

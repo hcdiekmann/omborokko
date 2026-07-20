@@ -14,7 +14,7 @@ import type { Enums } from "@/types/database";
 
 export function AdminBookingDetailClient({ bookingId }: { bookingId: string }) {
   const queryClient = useQueryClient();
-  const [adminNotes, setAdminNotes] = useState("");
+  const [guestMessage, setGuestMessage] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
 
   const bookingQuery = useQuery({
@@ -29,7 +29,7 @@ export function AdminBookingDetailClient({ bookingId }: { bookingId: string }) {
 
   useEffect(() => {
     if (bookingQuery.data?.booking) {
-      setAdminNotes(bookingQuery.data.booking.admin_notes || "");
+      setGuestMessage(bookingQuery.data.booking.guest_message || "");
     }
   }, [bookingQuery.data]);
 
@@ -38,7 +38,7 @@ export function AdminBookingDetailClient({ bookingId }: { bookingId: string }) {
       const response = await fetch(`/api/admin/bookings/${bookingId}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status, adminNotes })
+        body: JSON.stringify({ status, guestMessage })
       });
       const payload = await response.json();
       if (!response.ok) {
@@ -153,8 +153,8 @@ export function AdminBookingDetailClient({ bookingId }: { bookingId: string }) {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs uppercase tracking-wide text-stone-500">Admin notes</label>
-              <Textarea value={adminNotes} onChange={(event) => setAdminNotes(event.target.value)} className="min-h-32" />
+              <label className="text-xs uppercase tracking-wide text-stone-500">Message shown to guest</label>
+              <Textarea value={guestMessage} onChange={(event) => setGuestMessage(event.target.value)} className="min-h-32" />
             </div>
 
             <div className="flex flex-wrap gap-3">

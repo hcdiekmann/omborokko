@@ -13,7 +13,7 @@ export type BookingStatusEmailProps = {
   requestedUnitCount: number;
   assignedUnitNames: string[];
   totalAmount: string;
-  adminNotes?: string | null;
+  guestMessage?: string | null;
 };
 
 const titleByStatus: Record<Enums<"booking_status">, string> = {
@@ -54,10 +54,10 @@ export default function BookingStatusCustomerEmail(props: BookingStatusEmailProp
           }
         ]}
       />
-      {props.adminNotes ? (
+      {props.guestMessage ? (
         <Section style={noteCard}>
           <Text style={noteTitle}>Message from the team</Text>
-          <Text style={noteText}>{props.adminNotes}</Text>
+          <Text style={noteText}>{props.guestMessage}</Text>
         </Section>
       ) : null}
       {props.status === "confirmed" ? (

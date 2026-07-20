@@ -79,7 +79,7 @@ export async function sendBookingStatusEmail(bookingId: string, status: Enums<"b
         requestedUnitCount={booking.requested_unit_count}
         assignedUnitNames={assignedUnitNames}
         totalAmount={formatCurrency(booking.total_amount)}
-        adminNotes={booking.admin_notes}
+        guestMessage={booking.guest_message}
       />
     ),
     replyTo: config.replyToEmail || undefined
