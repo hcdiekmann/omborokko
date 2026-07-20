@@ -23,7 +23,10 @@
     "label": "Dates du séjour",
     "placeholder": "Sélectionnez vos dates",
     "clear": "Effacer les dates",
-    "done": "Terminé"
+    "done": "Terminé",
+    "selectDeparture": "Sélectionnez une date de départ",
+    "rangeHint": "Sélectionnez une arrivée, puis un départ.",
+    "doneDisabled": "Choisissez une date de départ pour continuer"
   },
   "AvailabilityChecker": {
     "campsitesNeeded": "Emplacements nécessaires",
@@ -45,7 +48,19 @@
     "notes": "Notes",
     "submitting": "Envoi...",
     "submit": "Envoyer la demande",
-    "requestFailed": "La demande de réservation a échoué"
+    "requestFailed": "La demande de réservation a échoué",
+    "activeRequestTitle": "Vous avez déjà une demande active",
+    "activeRequestBody": "Nous avons reçu cette demande et l’examinerons dès que possible. Merci de ne pas envoyer la même demande à nouveau.",
+    "activeRequestReference": "Référence",
+    "activeRequestDates": "Dates du séjour",
+    "activeRequestStatus": "Statut",
+    "activeRequestStatusPending": "En attente d’examen",
+    "activeRequestStatusConfirmed": "Confirmée",
+    "activeRequestBack": "Ouvrir la confirmation",
+    "startNewRequest": "Commencer une autre demande",
+    "recovering": "Vérification de votre demande enregistrée...",
+    "requestRecovered": "Nous avons retrouvé votre demande de réservation.",
+    "uncertainResult": "La connexion a été interrompue avant que nous puissions confirmer le résultat. Réessayez ; la protection anti-doublon renverra la demande originale si elle a été reçue."
   },
   "BookingValidation": {
     "dateFormat": "Format de date attendu : AAAA-MM-JJ",
@@ -54,7 +69,9 @@
     "lastNameRequired": "Veuillez saisir votre nom",
     "emailRequired": "Veuillez saisir votre adresse e-mail",
     "emailInvalid": "Veuillez saisir une adresse e-mail valide",
-    "addGuest": "Ajoutez au moins un voyageur"
+    "addGuest": "Ajoutez au moins un voyageur",
+    "checkInRequired": "Sélectionnez une date d’arrivée",
+    "checkOutRequired": "Sélectionnez une date de départ"
   },
   "HomePage": {
     "metaTitle": "Camping bush reculé en Namibie",

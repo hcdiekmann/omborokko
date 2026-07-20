@@ -7,7 +7,8 @@ export async function POST(request: Request) {
   try {
     const payload = createBookingRequestSchema().parse(await request.json());
     const result = await createPendingBookingRequest(payload);
-    await sendBookingRequestEmails({
+    if (result.booking.created) {
+      void sendBookingRequestEmails({
       bookingId: result.booking.booking_id,
       bookingReference: result.booking.booking_reference,
       guestName: `${payload.guestFirstName} ${payload.guestLastName}`,
@@ -25,11 +26,12 @@ export async function POST(request: Request) {
         maximumFractionDigits: 2
       }).format(result.pricing.totalAmount),
       notes: payload.notes || null
-    }).catch((error) => {
-      console.error("Failed to send booking request emails", error);
-    });
+      }).catch((error) => {
+        console.error("Failed to send booking request emails", error);
+      });
+    }
 
-    return ok(result, { status: 201 });
+    return ok(result, { status: result.booking.created ? 201 : 200 });
   } catch (error) {
     return fail(error);
   }

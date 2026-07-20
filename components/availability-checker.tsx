@@ -32,6 +32,8 @@ export function AvailabilityChecker() {
     resolver: zodResolver(
       availabilityQuerySchema({
         dateFormat: t("BookingValidation.dateFormat"),
+        checkInRequired: t("BookingValidation.checkInRequired"),
+        checkOutRequired: t("BookingValidation.checkOutRequired"),
         checkOutLater: t("BookingValidation.checkOutLater"),
         firstNameRequired: t("BookingValidation.firstNameRequired"),
         lastNameRequired: t("BookingValidation.lastNameRequired"),
@@ -81,9 +83,11 @@ export function AvailabilityChecker() {
             onChange={({ checkInDate, checkOutDate }) => {
               form.setValue("checkInDate", checkInDate, {
                 shouldDirty: true,
+                shouldValidate: true,
               });
               form.setValue("checkOutDate", checkOutDate, {
                 shouldDirty: true,
+                shouldValidate: true,
               });
             }}
             error={

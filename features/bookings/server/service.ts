@@ -15,10 +15,12 @@ type CreateBookingRequestInput = {
   adultGuestsCount: number;
   childGuestsCount: number;
   notes?: string;
+  clientRequestId?: string;
 };
 
 type UnitRow = Tables<"campsite_units">;
 type BookingRequestRpcResult = Database["public"]["Functions"]["create_booking_request"]["Returns"][number];
+type BookingRequestSummary = Database["public"]["Functions"]["get_booking_request_by_client_request_id"]["Returns"][number];
 
 export async function getActiveUnits(): Promise<UnitRow[]> {
   const supabase = await createServerSupabaseClient();
@@ -136,6 +138,7 @@ export async function createPendingBookingRequest(input: CreateBookingRequestInp
     p_requested_unit_count: input.requestedUnitCount,
     p_adult_guests_count: input.adultGuestsCount,
     p_child_guests_count: input.childGuestsCount,
+    p_client_request_id: input.clientRequestId?.trim() ? input.clientRequestId.trim() : null,
     p_notes: input.notes?.trim() ? input.notes.trim() : null
   } as never);
 
@@ -155,4 +158,17 @@ export async function createPendingBookingRequest(input: CreateBookingRequestInp
     unit,
     availability
   };
+}
+
+export async function getBookingRequestByClientRequestId(clientRequestId: string): Promise<BookingRequestSummary | null> {
+  const supabase = await createServerSupabaseClient();
+  const { data, error } = await supabase.rpc("get_booking_request_by_client_request_id", {
+    p_client_request_id: clientRequestId
+  } as never);
+
+  if (error) {
+    throw new AppError("Failed to recover booking request", 500, "booking_recovery_failed", error);
+  }
+
+  return ((data as BookingRequestSummary[] | null)?.[0] ?? null) as BookingRequestSummary | null;
 }

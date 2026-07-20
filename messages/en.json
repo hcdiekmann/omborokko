@@ -23,7 +23,10 @@
     "label": "Stay dates",
     "placeholder": "Select stay dates",
     "clear": "Clear dates",
-    "done": "Done"
+    "done": "Done",
+    "selectDeparture": "Select a departure date",
+    "rangeHint": "Select an arrival date, then a departure date.",
+    "doneDisabled": "Choose a departure date to continue"
   },
   "AvailabilityChecker": {
     "campsitesNeeded": "Campsites needed",
@@ -45,7 +48,19 @@
     "notes": "Notes",
     "submitting": "Submitting...",
     "submit": "Request booking",
-    "requestFailed": "Booking request failed"
+    "requestFailed": "Booking request failed",
+    "activeRequestTitle": "You already have an active booking request",
+    "activeRequestBody": "We received this request and will review it as soon as possible. Please do not send the same request again.",
+    "activeRequestReference": "Reference",
+    "activeRequestDates": "Stay dates",
+    "activeRequestStatus": "Status",
+    "activeRequestStatusPending": "Pending review",
+    "activeRequestStatusConfirmed": "Confirmed",
+    "activeRequestBack": "Open confirmation",
+    "startNewRequest": "Start a different request",
+    "recovering": "Checking your saved request...",
+    "requestRecovered": "We found your saved booking request.",
+    "uncertainResult": "The connection dropped before we could confirm the result. Please try again; duplicate protection will return the original request if it was received."
   },
   "BookingValidation": {
     "dateFormat": "Expected YYYY-MM-DD date",
@@ -54,7 +69,9 @@
     "lastNameRequired": "Enter your last name",
     "emailRequired": "Enter your email address",
     "emailInvalid": "Enter a valid email address",
-    "addGuest": "Add at least one guest"
+    "addGuest": "Add at least one guest",
+    "checkInRequired": "Select an arrival date",
+    "checkOutRequired": "Select a departure date"
   },
   "HomePage": {
     "metaTitle": "Remote Bush Camping in Namibia",

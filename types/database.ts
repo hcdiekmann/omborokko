@@ -107,6 +107,7 @@ export type Database = {
           check_in_date: string;
           check_out_date: string;
           child_guests_count: number;
+          client_request_id: string | null;
           created_at: string;
           currency: string;
           fees_amount: number;
@@ -134,6 +135,7 @@ export type Database = {
           check_in_date: string;
           check_out_date: string;
           child_guests_count?: number;
+          client_request_id?: string | null;
           created_at?: string;
           currency?: string;
           fees_amount?: number;
@@ -161,6 +163,7 @@ export type Database = {
           check_in_date?: string;
           check_out_date?: string;
           child_guests_count?: number;
+          client_request_id?: string | null;
           created_at?: string;
           currency?: string;
           fees_amount?: number;
@@ -276,10 +279,11 @@ export type Database = {
           admin_notes: string | null;
           adult_guests_count: number;
           booking_reference: string;
-          campsite_unit_id: string;
+          campsite_unit_id: string | null;
           check_in_date: string;
           check_out_date: string;
           child_guests_count: number;
+          client_request_id: string | null;
           created_at: string;
           currency: string;
           fees_amount: number;
@@ -292,6 +296,7 @@ export type Database = {
           nights: number;
           notes: string | null;
           payment_status: Database["public"]["Enums"]["payment_status"];
+          requested_unit_count: number;
           status: Database["public"]["Enums"]["booking_status"];
           subtotal_amount: number;
           total_amount: number;
@@ -315,12 +320,27 @@ export type Database = {
           p_guest_first_name: string;
           p_guest_last_name: string;
           p_guest_phone: string;
+          p_client_request_id?: string;
           p_notes?: string;
           p_requested_unit_count: number;
         };
         Returns: {
           booking_id: string;
           booking_reference: string;
+          created: boolean;
+          status: Database["public"]["Enums"]["booking_status"];
+        }[];
+      };
+      get_booking_request_by_client_request_id: {
+        Args: { p_client_request_id: string };
+        Returns: {
+          booking_id: string;
+          booking_reference: string;
+          check_in_date: string;
+          check_out_date: string;
+          created_at: string;
+          guest_email: string;
+          requested_unit_count: number;
           status: Database["public"]["Enums"]["booking_status"];
         }[];
       };

@@ -23,7 +23,10 @@
     "label": "Fechas de estancia",
     "placeholder": "Selecciona las fechas",
     "clear": "Borrar fechas",
-    "done": "Listo"
+    "done": "Listo",
+    "selectDeparture": "Selecciona una fecha de salida",
+    "rangeHint": "Selecciona llegada y después salida.",
+    "doneDisabled": "Elige una fecha de salida para continuar"
   },
   "AvailabilityChecker": {
     "campsitesNeeded": "Parcelas necesarias",
@@ -45,7 +48,19 @@
     "notes": "Notas",
     "submitting": "Enviando...",
     "submit": "Solicitar reserva",
-    "requestFailed": "La solicitud de reserva falló"
+    "requestFailed": "La solicitud de reserva falló",
+    "activeRequestTitle": "Ya tienes una solicitud de reserva activa",
+    "activeRequestBody": "Hemos recibido esta solicitud y la revisaremos lo antes posible. No envíes la misma solicitud de nuevo.",
+    "activeRequestReference": "Referencia",
+    "activeRequestDates": "Fechas de estancia",
+    "activeRequestStatus": "Estado",
+    "activeRequestStatusPending": "Pendiente de revisión",
+    "activeRequestStatusConfirmed": "Confirmada",
+    "activeRequestBack": "Abrir confirmación",
+    "startNewRequest": "Iniciar otra solicitud",
+    "recovering": "Comprobando tu solicitud guardada...",
+    "requestRecovered": "Encontramos tu solicitud de reserva guardada.",
+    "uncertainResult": "La conexión se cortó antes de confirmar el resultado. Inténtalo de nuevo; la protección contra duplicados devolverá la solicitud original si fue recibida."
   },
   "BookingValidation": {
     "dateFormat": "Formato de fecha esperado: AAAA-MM-DD",
@@ -54,7 +69,9 @@
     "lastNameRequired": "Introduce tu apellido",
     "emailRequired": "Introduce tu correo electrónico",
     "emailInvalid": "Introduce un correo electrónico válido",
-    "addGuest": "Añade al menos un huésped"
+    "addGuest": "Añade al menos un huésped",
+    "checkInRequired": "Selecciona una fecha de llegada",
+    "checkOutRequired": "Selecciona una fecha de salida"
   },
   "HomePage": {
     "metaTitle": "Camping bush remoto en Namibia",

@@ -23,7 +23,10 @@
     "label": "Date del soggiorno",
     "placeholder": "Seleziona le date",
     "clear": "Cancella date",
-    "done": "Fatto"
+    "done": "Fatto",
+    "selectDeparture": "Seleziona una data di partenza",
+    "rangeHint": "Seleziona l’arrivo e poi la partenza.",
+    "doneDisabled": "Scegli una data di partenza per continuare"
   },
   "AvailabilityChecker": {
     "campsitesNeeded": "Piazzole necessarie",
@@ -45,7 +48,19 @@
     "notes": "Note",
     "submitting": "Invio...",
     "submit": "Richiedi prenotazione",
-    "requestFailed": "La richiesta di prenotazione non è riuscita"
+    "requestFailed": "La richiesta di prenotazione non è riuscita",
+    "activeRequestTitle": "Hai già una richiesta di prenotazione attiva",
+    "activeRequestBody": "Abbiamo ricevuto questa richiesta e la controlleremo il prima possibile. Non inviare di nuovo la stessa richiesta.",
+    "activeRequestReference": "Riferimento",
+    "activeRequestDates": "Date del soggiorno",
+    "activeRequestStatus": "Stato",
+    "activeRequestStatusPending": "In attesa di verifica",
+    "activeRequestStatusConfirmed": "Confermata",
+    "activeRequestBack": "Apri conferma",
+    "startNewRequest": "Avvia un’altra richiesta",
+    "recovering": "Controllo della richiesta salvata...",
+    "requestRecovered": "Abbiamo trovato la tua richiesta di prenotazione salvata.",
+    "uncertainResult": "La connessione si è interrotta prima di confermare il risultato. Riprova; la protezione dai duplicati restituirà la richiesta originale se è stata ricevuta."
   },
   "BookingValidation": {
     "dateFormat": "Formato data previsto: AAAA-MM-GG",
@@ -54,7 +69,9 @@
     "lastNameRequired": "Inserisci il tuo cognome",
     "emailRequired": "Inserisci il tuo indirizzo email",
     "emailInvalid": "Inserisci un indirizzo email valido",
-    "addGuest": "Aggiungi almeno un ospite"
+    "addGuest": "Aggiungi almeno un ospite",
+    "checkInRequired": "Seleziona una data di arrivo",
+    "checkOutRequired": "Seleziona una data di partenza"
   },
   "HomePage": {
     "metaTitle": "Campeggio bush remoto in Namibia",

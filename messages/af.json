@@ -23,7 +23,10 @@
     "label": "Verblyfdatums",
     "placeholder": "Kies verblyfdatums",
     "clear": "Maak datums skoon",
-    "done": "Klaar"
+    "done": "Klaar",
+    "selectDeparture": "Kies ’n vertrekdatum",
+    "rangeHint": "Kies eers aankoms en dan vertrek.",
+    "doneDisabled": "Kies ’n vertrekdatum om voort te gaan"
   },
   "AvailabilityChecker": {
     "campsitesNeeded": "Kampplekke benodig",
@@ -45,7 +48,19 @@
     "notes": "Notas",
     "submitting": "Stuur...",
     "submit": "Stuur bespreekingsversoek",
-    "requestFailed": "Bespreekingsversoek het misluk"
+    "requestFailed": "Bespreekingsversoek het misluk",
+    "activeRequestTitle": "Jy het reeds ’n aktiewe bespreekingsversoek",
+    "activeRequestBody": "Ons het hierdie versoek ontvang en sal dit so gou moontlik nagaan. Moet asseblief nie dieselfde versoek weer stuur nie.",
+    "activeRequestReference": "Verwysing",
+    "activeRequestDates": "Verblyfdatums",
+    "activeRequestStatus": "Status",
+    "activeRequestStatusPending": "Wag vir nagaan",
+    "activeRequestStatusConfirmed": "Bevestig",
+    "activeRequestBack": "Maak bevestiging oop",
+    "startNewRequest": "Begin ’n ander versoek",
+    "recovering": "Gestoorde versoek word nagegaan...",
+    "requestRecovered": "Ons het jou gestoorde bespreekingsversoek gevind.",
+    "uncertainResult": "Die verbinding het onderbreek voordat ons die resultaat kon bevestig. Probeer asseblief weer; duplikaatbeskerming sal die oorspronklike versoek teruggee as dit ontvang is."
   },
   "BookingValidation": {
     "dateFormat": "Verwagte datumformaat: JJJJ-MM-DD",
@@ -54,7 +69,9 @@
     "lastNameRequired": "Voer jou van in",
     "emailRequired": "Voer jou e-posadres in",
     "emailInvalid": "Voer 'n geldige e-posadres in",
-    "addGuest": "Voeg ten minste een gas by"
+    "addGuest": "Voeg ten minste een gas by",
+    "checkInRequired": "Kies ’n aankomsdatum",
+    "checkOutRequired": "Kies ’n vertrekdatum"
   },
   "HomePage": {
     "metaTitle": "Afgeleë boskampering in Namibië",

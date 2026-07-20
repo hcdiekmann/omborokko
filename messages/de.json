@@ -23,7 +23,10 @@
     "label": "Aufenthaltsdaten",
     "placeholder": "Reisedaten auswählen",
     "clear": "Daten löschen",
-    "done": "Fertig"
+    "done": "Fertig",
+    "selectDeparture": "Abreisedatum auswählen",
+    "rangeHint": "Wählen Sie zuerst die Anreise und dann die Abreise.",
+    "doneDisabled": "Wählen Sie ein Abreisedatum, um fortzufahren"
   },
   "AvailabilityChecker": {
     "campsitesNeeded": "Benötigte Campingplätze",
@@ -45,7 +48,19 @@
     "notes": "Hinweise",
     "submitting": "Wird gesendet...",
     "submit": "Buchung anfragen",
-    "requestFailed": "Buchungsanfrage fehlgeschlagen"
+    "requestFailed": "Buchungsanfrage fehlgeschlagen",
+    "activeRequestTitle": "Sie haben bereits eine aktive Buchungsanfrage",
+    "activeRequestBody": "Wir haben diese Anfrage erhalten und prüfen sie so schnell wie möglich. Bitte senden Sie dieselbe Anfrage nicht erneut.",
+    "activeRequestReference": "Referenz",
+    "activeRequestDates": "Aufenthaltsdaten",
+    "activeRequestStatus": "Status",
+    "activeRequestStatusPending": "Wird geprüft",
+    "activeRequestStatusConfirmed": "Bestätigt",
+    "activeRequestBack": "Bestätigung öffnen",
+    "startNewRequest": "Andere Anfrage starten",
+    "recovering": "Gespeicherte Anfrage wird geprüft...",
+    "requestRecovered": "Wir haben Ihre gespeicherte Buchungsanfrage gefunden.",
+    "uncertainResult": "Die Verbindung wurde unterbrochen, bevor wir das Ergebnis bestätigen konnten. Bitte versuchen Sie es erneut; der Duplikatschutz gibt die ursprüngliche Anfrage zurück, falls sie eingegangen ist."
   },
   "BookingValidation": {
     "dateFormat": "Erwartetes Datumsformat: JJJJ-MM-TT",
@@ -54,7 +69,9 @@
     "lastNameRequired": "Bitte Nachnamen eingeben",
     "emailRequired": "Bitte E-Mail-Adresse eingeben",
     "emailInvalid": "Bitte eine gültige E-Mail-Adresse eingeben",
-    "addGuest": "Bitte mindestens einen Gast hinzufügen"
+    "addGuest": "Bitte mindestens einen Gast hinzufügen",
+    "checkInRequired": "Wählen Sie ein Anreisedatum",
+    "checkOutRequired": "Wählen Sie ein Abreisedatum"
   },
   "HomePage": {
     "metaTitle": "Abgelegenes Buschcamping in Namibia",

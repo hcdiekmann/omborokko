@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { CalendarIcon } from "lucide-react";
 import { format, parseISO, startOfToday } from "date-fns";
 import { af, de, enUS, es, fr, it } from "date-fns/locale";
@@ -9,7 +10,6 @@ import { DateRange } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
-  PopoverClose,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -56,6 +56,7 @@ export function DateRangeField({
 }: DateRangeFieldProps) {
   const locale = useLocale();
   const t = useTranslations("DateRangeField");
+  const [open, setOpen] = useState(false);
   const selectedRange = toRange(checkInDate, checkOutDate);
   const formatter = new Intl.DateTimeFormat(locale, {
     month: "short",
@@ -65,21 +66,23 @@ export function DateRangeField({
   const rangeLabel = checkInDate
     ? checkOutDate
       ? `${formatter.format(parseISO(checkInDate))} - ${formatter.format(parseISO(checkOutDate))}`
-      : formatter.format(parseISO(checkInDate))
+      : `${formatter.format(parseISO(checkInDate))} - ${t("selectDeparture")}`
     : t("placeholder");
+  const hasCompleteRange = Boolean(checkInDate && checkOutDate);
 
   return (
     <div className={cn("space-y-2", className)}>
       <div className="text-sm font-medium text-stone-700">
         {label === "Stay dates" ? t("label") : label}
       </div>
-      <Popover>
+      <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <button
             type="button"
             className={cn(
               "inline-flex h-11 w-full items-center justify-start rounded-2xl border border-stone-300 bg-white px-4 text-left text-sm font-normal text-stone-900 transition-colors hover:bg-stone-50 hover:border-stone-950",
               !checkInDate && "text-stone-500",
+              error && "border-red-400"
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -108,6 +111,7 @@ export function DateRangeField({
               });
             }}
           />
+          <p className="mt-3 px-1 text-xs text-stone-600">{t("rangeHint")}</p>
           <div className="mt-4 flex justify-end gap-2 border-t border-stone-200 px-1 pt-4">
             <Button
               type="button"
@@ -123,16 +127,17 @@ export function DateRangeField({
             >
               {t("clear")}
             </Button>
-            <PopoverClose asChild>
-              <Button
-                type="button"
-                variant="secondary"
-                size="sm"
-                className="rounded-full"
-              >
-                {t("done")}
-              </Button>
-            </PopoverClose>
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              className="rounded-full"
+              disabled={!hasCompleteRange}
+              title={!hasCompleteRange ? t("doneDisabled") : undefined}
+              onClick={() => setOpen(false)}
+            >
+              {t("done")}
+            </Button>
           </div>
         </PopoverContent>
       </Popover>

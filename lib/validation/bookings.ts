@@ -2,6 +2,8 @@ import { z } from "zod";
 
 export type BookingValidationMessages = {
   dateFormat: string;
+  checkInRequired: string;
+  checkOutRequired: string;
   checkOutLater: string;
   firstNameRequired: string;
   lastNameRequired: string;
@@ -12,6 +14,8 @@ export type BookingValidationMessages = {
 
 const defaultMessages: BookingValidationMessages = {
   dateFormat: "Expected YYYY-MM-DD date",
+  checkInRequired: "Select an arrival date",
+  checkOutRequired: "Select a departure date",
   checkOutLater: "Check-out date must be later than check-in date",
   firstNameRequired: "Enter your first name",
   lastNameRequired: "Enter your last name",
@@ -20,19 +24,17 @@ const defaultMessages: BookingValidationMessages = {
   addGuest: "Add at least one guest"
 };
 
-function createIsoDate(messages: BookingValidationMessages) {
-  return z.string().regex(/^\d{4}-\d{2}-\d{2}$/, messages.dateFormat);
+function createRequiredIsoDate(message: string, messages: BookingValidationMessages) {
+  return z.string().trim().min(1, message).regex(/^\d{4}-\d{2}-\d{2}$/, messages.dateFormat);
 }
 
 export function availabilityQuerySchema(
   messages: BookingValidationMessages = defaultMessages
 ) {
-  const isoDate = createIsoDate(messages);
-
   return z
     .object({
-      checkInDate: isoDate,
-      checkOutDate: isoDate,
+      checkInDate: createRequiredIsoDate(messages.checkInRequired, messages),
+      checkOutDate: createRequiredIsoDate(messages.checkOutRequired, messages),
       requestedUnitCount: z.number().int().positive().max(4).default(1)
     })
     .superRefine((value, context) => {
@@ -49,12 +51,10 @@ export function availabilityQuerySchema(
 export function createBookingRequestSchema(
   messages: BookingValidationMessages = defaultMessages
 ) {
-  const isoDate = createIsoDate(messages);
-
   return z
     .object({
-      checkInDate: isoDate,
-      checkOutDate: isoDate,
+      checkInDate: createRequiredIsoDate(messages.checkInRequired, messages),
+      checkOutDate: createRequiredIsoDate(messages.checkOutRequired, messages),
       requestedUnitCount: z.number().int().positive().max(4),
       guestFirstName: z.string().trim().min(1, messages.firstNameRequired).max(120),
       guestLastName: z.string().trim().min(1, messages.lastNameRequired).max(120),
@@ -67,7 +67,8 @@ export function createBookingRequestSchema(
       guestPhone: z.string().trim().max(50).optional().or(z.literal("")),
       adultGuestsCount: z.number().int().min(0).max(20),
       childGuestsCount: z.number().int().min(0).max(20),
-      notes: z.string().trim().max(2000).optional().or(z.literal(""))
+      notes: z.string().trim().max(2000).optional().or(z.literal("")),
+      clientRequestId: z.string().trim().uuid().optional()
     })
     .superRefine((value, context) => {
       if (value.checkOutDate <= value.checkInDate) {
@@ -99,4 +100,8 @@ export const bookingListQuerySchema = z.object({
   status: bookingStatusSchema.optional(),
   search: z.string().trim().max(200).optional(),
   unitId: z.string().uuid().optional()
+});
+
+export const bookingRecoveryQuerySchema = z.object({
+  clientRequestId: z.string().trim().uuid()
 });
