@@ -204,7 +204,7 @@ export function BookingRequestForm({
   }, [form, searchParams]);
 
   function goToSuccess(reference: string) {
-    router.push("/" + locale + "/booking/request/success?reference=" + encodeURIComponent(reference));
+    router.push("/booking/request/success?reference=" + encodeURIComponent(reference));
   }
 
   async function recoverBookingRequest(clientRequestId: string, redirectOnFound: boolean) {
