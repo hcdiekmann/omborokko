@@ -201,6 +201,9 @@ export function AdminBlocksClient() {
               checkInDate={form.watch("startDate")}
               checkOutDate={form.watch("endDate")}
               label="Blocked dates"
+              startLabel="From"
+              endLabel="Until"
+              enforceAvailability={false}
               onChange={({ checkInDate, checkOutDate }) => {
                 form.setValue("startDate", checkInDate, {
                   shouldDirty: true,
