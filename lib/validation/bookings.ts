@@ -125,3 +125,28 @@ export const bookingLookupSchema = z.object({
   guestEmail: z.string().trim().min(1).email().max(255),
   bookingReference: z.string().trim().min(1).max(40)
 });
+
+export const pricingQuerySchema = z
+  .object({
+    checkInDate: z.string().trim().regex(/^\d{4}-\d{2}-\d{2}$/, defaultMessages.dateFormat).optional(),
+    checkOutDate: z.string().trim().regex(/^\d{4}-\d{2}-\d{2}$/, defaultMessages.dateFormat).optional(),
+    adultGuestsCount: z.number().int().min(0).max(20).default(1),
+    childGuestsCount: z.number().int().min(0).max(20).default(0)
+  })
+  .superRefine((value, context) => {
+    if (Boolean(value.checkInDate) !== Boolean(value.checkOutDate)) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: [value.checkInDate ? "checkOutDate" : "checkInDate"],
+        message: "Provide both checkInDate and checkOutDate to get a quote"
+      });
+    }
+
+    if (value.checkInDate && value.checkOutDate && value.checkOutDate <= value.checkInDate) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["checkOutDate"],
+        message: defaultMessages.checkOutLater
+      });
+    }
+  });

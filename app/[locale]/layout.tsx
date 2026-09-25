@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
+import { WebMcpTools } from "@/components/webmcp-tools";
 import { routing, type AppLocale } from "@/i18n/routing";
 
 type LocaleLayoutProps = {
@@ -30,6 +31,7 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       {children}
+      <WebMcpTools />
     </NextIntlClientProvider>
   );
 }

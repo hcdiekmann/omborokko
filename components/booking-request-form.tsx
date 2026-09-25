@@ -13,6 +13,17 @@ import { Card, CardContent } from "@/components/ui/card";
 import { DateRangeField } from "@/components/date-range-field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  clearStoredRequest,
+  createStoredRequestFromSubmit,
+  createStoredRequestFromSummary,
+  getRetryableClientRequestId,
+  readStoredRequest,
+  saveStoredRequest,
+  STORED_REQUEST_CHANGED_EVENT,
+  type BookingSummary,
+  type StoredBookingRequest,
+} from "@/features/bookings/client/request-storage";
 import { createBookingRequestSchema } from "@/lib/validation/bookings";
 import { cn } from "@/lib/utils/cn";
 
@@ -29,113 +40,10 @@ type FormValues = {
   notes?: string;
 };
 
-type BookingStatus = "pending" | "confirmed" | "rejected" | "cancelled";
-
-type StoredBookingRequest = {
-  clientRequestId?: string;
-  reference: string;
-  status: BookingStatus;
-  checkInDate: string;
-  checkOutDate: string;
-  requestedUnitCount: number;
-  guestEmail: string;
-  guestMessage?: string | null;
-  createdAt?: string;
-};
-
-type BookingSummary = {
-  booking_reference: string;
-  status: BookingStatus;
-  check_in_date: string;
-  check_out_date: string;
-  requested_unit_count: number;
-  guest_email: string;
-  guest_message?: string | null;
-  created_at?: string;
-};
-
-const ACTIVE_REQUEST_KEY = "omborokko.activeBookingRequest";
-const PENDING_REQUEST_KEY = "omborokko.pendingBookingRequestId";
-
-function todayIso() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function isStoredRequestRelevant(value: StoredBookingRequest) {
-  return value.checkOutDate >= todayIso();
-}
+type BookingStatus = StoredBookingRequest["status"];
 
 function isClosedStatus(status: BookingStatus) {
   return status === "rejected" || status === "cancelled";
-}
-
-function readStoredRequest() {
-  if (typeof window === "undefined") return null;
-
-  try {
-    const raw = window.localStorage.getItem(ACTIVE_REQUEST_KEY);
-    if (!raw) return null;
-
-    const value = JSON.parse(raw) as StoredBookingRequest;
-    if (!value.reference || !value.guestEmail || !isStoredRequestRelevant(value)) {
-      window.localStorage.removeItem(ACTIVE_REQUEST_KEY);
-      return null;
-    }
-
-    return value;
-  } catch {
-    window.localStorage.removeItem(ACTIVE_REQUEST_KEY);
-    return null;
-  }
-}
-
-function saveStoredRequest(value: StoredBookingRequest) {
-  window.localStorage.setItem(ACTIVE_REQUEST_KEY, JSON.stringify(value));
-  window.localStorage.removeItem(PENDING_REQUEST_KEY);
-}
-
-function createClientRequestId() {
-  return crypto.randomUUID();
-}
-
-function getRetryableClientRequestId() {
-  const stored = window.localStorage.getItem(PENDING_REQUEST_KEY);
-  if (stored) return stored;
-
-  const created = createClientRequestId();
-  window.localStorage.setItem(PENDING_REQUEST_KEY, created);
-  return created;
-}
-
-function createStoredRequestFromSubmit(
-  clientRequestId: string,
-  values: FormValues,
-  booking: { booking_reference: string; status: BookingStatus }
-): StoredBookingRequest {
-  return {
-    clientRequestId,
-    reference: booking.booking_reference,
-    status: booking.status,
-    checkInDate: values.checkInDate,
-    checkOutDate: values.checkOutDate,
-    requestedUnitCount: values.requestedUnitCount,
-    guestEmail: values.guestEmail,
-    createdAt: new Date().toISOString()
-  };
-}
-
-function createStoredRequestFromSummary(booking: BookingSummary, clientRequestId?: string): StoredBookingRequest {
-  return {
-    clientRequestId,
-    reference: booking.booking_reference,
-    status: booking.status,
-    checkInDate: booking.check_in_date,
-    checkOutDate: booking.check_out_date,
-    requestedUnitCount: booking.requested_unit_count,
-    guestEmail: booking.guest_email,
-    guestMessage: booking.guest_message,
-    createdAt: booking.created_at
-  };
 }
 
 function timelineTerminalKey(status: BookingStatus) {
@@ -274,6 +182,16 @@ export function BookingRequestForm({
     }
   }, [refreshActiveRequest]);
 
+  // Pick up requests made or found elsewhere on the page (e.g. by WebMCP tools).
+  useEffect(() => {
+    function syncStoredRequest() {
+      setActiveRequest(readStoredRequest());
+    }
+
+    window.addEventListener(STORED_REQUEST_CHANGED_EVENT, syncStoredRequest);
+    return () => window.removeEventListener(STORED_REQUEST_CHANGED_EVENT, syncStoredRequest);
+  }, []);
+
   useEffect(() => {
     const checkInDate = searchParams.get("checkInDate") ?? "";
     const checkOutDate = searchParams.get("checkOutDate") ?? "";
@@ -365,8 +283,7 @@ export function BookingRequestForm({
   }
 
   function clearActiveRequest() {
-    window.localStorage.removeItem(ACTIVE_REQUEST_KEY);
-    window.localStorage.removeItem(PENDING_REQUEST_KEY);
+    clearStoredRequest();
     setActiveRequest(null);
   }
 
