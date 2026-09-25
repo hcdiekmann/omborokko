@@ -109,7 +109,7 @@ export function AvailabilityChecker() {
               type="number"
               min={1}
               max={4}
-              className="h-11 bg-white"
+              className="h-14 bg-white px-4"
               value={form.watch("requestedUnitCount") ?? 1}
               {...form.register("requestedUnitCount", { valueAsNumber: true })}
             />
