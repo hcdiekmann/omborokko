@@ -58,6 +58,7 @@
     "postcss": "^8.5.3",
     "react-email": "^5.2.10",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "webmcp-types": "^0.1.9"
   }
 }

@@ -32,18 +32,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  BOOKING_MONTHS_AHEAD,
+  getNightStatus,
+  useNightAvailability,
+} from "@/features/bookings/client/night-availability";
 import { useMediaQuery } from "@/lib/hooks/use-media-query";
 import { cn } from "@/lib/utils/cn";
-
-export type NightAvailabilityStatus = "available" | "limited" | "full";
-
-export type NightAvailability = {
-  night_date: string;
-  available_count: number;
-  total_count: number;
-  requested_unit_count: number;
-  availability_status: NightAvailabilityStatus;
-};
 
 type DateRangeValue = { checkInDate: string; checkOutDate: string };
 
@@ -66,8 +61,7 @@ type DateRangeFieldProps = {
   enforceAvailability?: boolean;
 };
 
-/** How far ahead guests can browse and book. */
-const MONTHS_AHEAD = 18;
+const MONTHS_AHEAD = BOOKING_MONTHS_AHEAD;
 const DESKTOP_MEDIA_QUERY = "(min-width: 768px)";
 const SWIPE_DISMISS_DISTANCE = 120;
 const SWIPE_DISMISS_VELOCITY = 0.6;
@@ -131,41 +125,6 @@ function hapticTick() {
   }
 }
 
-function useNightAvailability(enabled: boolean, requestedUnitCount: number) {
-  const [nights, setNights] = useState<NightAvailability[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (!enabled) return;
-
-    const controller = new AbortController();
-    const windowStart = startOfMonth(startOfToday());
-    const search = new URLSearchParams({
-      startDate: toIsoDate(windowStart),
-      endDate: toIsoDate(addMonths(windowStart, MONTHS_AHEAD)),
-      requestedUnitCount: String(requestedUnitCount)
-    });
-
-    setIsLoading(true);
-    fetch(`/api/availability/calendar?${search.toString()}`, { signal: controller.signal })
-      .then((response) => response.json().then((payload) => ({ response, payload })))
-      .then(({ response, payload }) => {
-        if (!response.ok) return;
-        setNights(payload.data?.nights ?? []);
-      })
-      .catch((fetchError) => {
-        if (fetchError.name !== "AbortError") setNights([]);
-      })
-      .finally(() => {
-        if (!controller.signal.aborted) setIsLoading(false);
-      });
-
-    return () => controller.abort();
-  }, [enabled, requestedUnitCount]);
-
-  return { nights, isLoading };
-}
-
 export function DateRangeField({
   checkInDate,
   checkOutDate,
@@ -185,7 +144,6 @@ export function DateRangeField({
   const dateFnsLocale = datePickerLocales[locale as keyof typeof datePickerLocales] ?? enUS;
 
   const [open, setOpen] = useState(false);
-  const [hasOpened, setHasOpened] = useState(false);
   const [draft, setDraft] = useState<DateRangeValue>(EMPTY_RANGE);
   const [hoveredDate, setHoveredDate] = useState<Date | undefined>();
   const [dragOffset, setDragOffset] = useState(0);
@@ -208,26 +166,25 @@ export function DateRangeField({
   // only committed on "Save" (dismissing the sheet discards it).
   const working = isDesktop ? committed : draft;
 
-  const { nights, isLoading: isLoadingAvailability } = useNightAvailability(
-    hasOpened,
-    requestedUnitCount
-  );
+  // Loaded on mount (not on first open) so the calendar is usually ready by
+  // the time it is opened; the query cache shares it across pickers.
+  const { data: nights = [], isLoading: isLoadingAvailability } = useNightAvailability();
 
   const fullNights = useMemo(
     () =>
       new Set(
         nights
-          .filter((night) => night.availability_status === "full")
+          .filter((night) => getNightStatus(night, requestedUnitCount) === "full")
           .map((night) => night.night_date)
       ),
-    [nights]
+    [nights, requestedUnitCount]
   );
   const limitedDates = useMemo(
     () =>
       nights
-        .filter((night) => night.availability_status === "limited")
+        .filter((night) => getNightStatus(night, requestedUnitCount) === "limited")
         .map((night) => parseISO(night.night_date)),
-    [nights]
+    [nights, requestedUnitCount]
   );
   const fullDates = useMemo(
     () => [...fullNights].map((night) => parseISO(night)),
@@ -319,7 +276,6 @@ export function DateRangeField({
 
   function handleOpenChange(nextOpen: boolean) {
     if (nextOpen) {
-      setHasOpened(true);
       setDraft(committed);
       setDragOffset(0);
       setMonth(startOfMonth(checkInDate ? parseISO(checkInDate) : today));
