@@ -13,7 +13,12 @@ export async function GET(request: NextRequest) {
     });
     const nights = await getCampsiteNightlyAvailability(params.startDate, params.endDate, params.requestedUnitCount);
 
-    return ok({ nights });
+    // Counts only, identical for every visitor: let the CDN absorb repeat
+    // loads. Booking requests are re-checked server-side at submit time.
+    return ok(
+      { nights },
+      { headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" } }
+    );
   } catch (error) {
     return fail(error);
   }
