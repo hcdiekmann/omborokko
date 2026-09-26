@@ -198,5 +198,10 @@
     "body": "Selbst unsere besten Fährtenleser konnten diese Seite nicht finden. Vielleicht ist sie umgezogen, oder dieser Pfad endet einfach hier. Wir bringen Sie zurück ins Camp.",
     "home": "Zurück ins Camp",
     "book": "Aufenthalt buchen"
+  },
+  "Gallery": {
+    "previous": "Vorheriges Bild anzeigen",
+    "next": "Nächstes Bild anzeigen",
+    "position": "Bild {current} von {total}"
   }
 }

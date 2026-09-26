@@ -198,5 +198,10 @@
     "body": "Ni nuestros mejores rastreadores han encontrado esta página. Puede que se haya movido, o que este sendero simplemente termine aquí. Te llevamos de vuelta al campamento.",
     "home": "Volver al campamento",
     "book": "Reserva tu estancia"
+  },
+  "Gallery": {
+    "previous": "Mostrar imagen anterior",
+    "next": "Mostrar imagen siguiente",
+    "position": "Imagen {current} de {total}"
   }
 }

@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { TouchEvent } from "react";
+import type { FocusEvent, TouchEvent } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/cn";
@@ -20,9 +21,11 @@ export function HomeGalleryCarousel({
   images,
   alt,
 }: HomeGalleryCarouselProps) {
+  const t = useTranslations("Gallery");
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [hasFocus, setHasFocus] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
@@ -49,9 +52,12 @@ export function HomeGalleryCarousel({
     };
   }, []);
 
+  // Pause while hovered or while keyboard focus is inside the carousel.
+  const isAutoScrolling = isDesktop && !isHovered && !hasFocus && images.length > 1;
+
   // Restarts whenever the slide changes, so manual navigation gets a full interval.
   useEffect(() => {
-    if (!isDesktop || isPaused || images.length < 2) {
+    if (!isAutoScrolling) {
       return;
     }
 
@@ -59,7 +65,13 @@ export function HomeGalleryCarousel({
       setActiveIndex((current) => (current === images.length - 1 ? 0 : current + 1));
     }, AUTO_SCROLL_INTERVAL_MS);
     return () => window.clearTimeout(timeout);
-  }, [activeIndex, isDesktop, isPaused, images.length]);
+  }, [activeIndex, isAutoScrolling, images.length]);
+
+  function handleBlur(event: FocusEvent<HTMLDivElement>) {
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      setHasFocus(false);
+    }
+  }
 
   function handleTouchStart(event: TouchEvent<HTMLDivElement>) {
     touchStartX.current = event.touches[0].clientX;
@@ -85,11 +97,15 @@ export function HomeGalleryCarousel({
   const isDragging = dragOffset !== 0;
 
   return (
-    <div className="space-y-4">
+    <div
+      className="space-y-2 md:space-y-4"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={(event) => setHasFocus(event.target.matches(":focus-visible"))}
+      onBlur={handleBlur}
+    >
       <div
         className="relative touch-pan-y overflow-hidden rounded-xl bg-stone-100"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -128,7 +144,7 @@ export function HomeGalleryCarousel({
             size="sm"
             className="pointer-events-auto h-10 w-10 rounded-full bg-white/85 p-0 hover:bg-white"
             onClick={showPrevious}
-            aria-label="Show previous image"
+            aria-label={t("previous")}
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
@@ -138,28 +154,44 @@ export function HomeGalleryCarousel({
             size="sm"
             className="pointer-events-auto h-10 w-10 rounded-full bg-white/85 p-0 hover:bg-white"
             onClick={showNext}
-            aria-label="Show next image"
+            aria-label={t("next")}
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
       </div>
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        {images.map((image, index) => (
-          <button
-            key={image}
-            type="button"
-            onClick={() => setActiveIndex(index)}
-            aria-label={`Show image ${index + 1}`}
-            className={cn(
-              "h-2.5 rounded-full transition-all",
-              activeIndex === index
-                ? "w-8 bg-amber-700"
-                : "w-2.5 bg-stone-300 hover:bg-stone-400",
-            )}
-          />
-        ))}
+      <div className="flex items-center justify-between md:justify-center">
+        <button
+          type="button"
+          onClick={showPrevious}
+          aria-label={t("previous")}
+          className="flex h-11 w-11 items-center justify-center rounded-full text-stone-600 transition hover:bg-stone-100 hover:text-stone-900 md:hidden"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <div aria-hidden="true" className="flex items-center gap-2">
+          {images.map((image, index) => (
+            <span
+              key={image}
+              className={cn(
+                "h-2.5 rounded-full transition-all",
+                activeIndex === index ? "w-8 bg-amber-700" : "w-2.5 bg-stone-300",
+              )}
+            />
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={showNext}
+          aria-label={t("next")}
+          className="flex h-11 w-11 items-center justify-center rounded-full text-stone-600 transition hover:bg-stone-100 hover:text-stone-900 md:hidden"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
       </div>
+      <p className="sr-only" aria-live={isAutoScrolling ? "off" : "polite"}>
+        {t("position", { current: activeIndex + 1, total: images.length })}
+      </p>
     </div>
   );
 }

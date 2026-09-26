@@ -198,5 +198,10 @@
     "body": "Even our best trackers couldn't find this page. It may have moved, or this track simply ends here. Let's get you back to camp.",
     "home": "Back to camp",
     "book": "Book your stay"
+  },
+  "Gallery": {
+    "previous": "Show previous image",
+    "next": "Show next image",
+    "position": "Image {current} of {total}"
   }
 }

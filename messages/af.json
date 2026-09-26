@@ -198,5 +198,10 @@
     "body": "Selfs ons beste spoorsnyers kon nie hierdie bladsy kry nie. Dalk het dit geskuif, of hierdie paadjie loop net hier dood. Kom ons kry jou terug kamp toe.",
     "home": "Terug kamp toe",
     "book": "Bespreek jou verblyf"
+  },
+  "Gallery": {
+    "previous": "Wys vorige foto",
+    "next": "Wys volgende foto",
+    "position": "Foto {current} van {total}"
   }
 }

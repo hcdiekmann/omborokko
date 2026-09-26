@@ -198,5 +198,10 @@
     "body": "Nemmeno i nostri migliori tracciatori hanno trovato questa pagina. Forse è stata spostata, o questo sentiero finisce semplicemente qui. Ti riportiamo al campeggio.",
     "home": "Torna al campeggio",
     "book": "Prenota il tuo soggiorno"
+  },
+  "Gallery": {
+    "previous": "Mostra immagine precedente",
+    "next": "Mostra immagine successiva",
+    "position": "Immagine {current} di {total}"
   }
 }

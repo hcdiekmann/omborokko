@@ -198,5 +198,10 @@
     "body": "Même nos meilleurs pisteurs n’ont pas trouvé cette page. Elle a peut-être été déplacée, ou cette piste s’arrête tout simplement ici. Retournons au camp.",
     "home": "Retour au camp",
     "book": "Réserver votre séjour"
+  },
+  "Gallery": {
+    "previous": "Afficher l’image précédente",
+    "next": "Afficher l’image suivante",
+    "position": "Image {current} sur {total}"
   }
 }
