@@ -53,7 +53,11 @@ export const metadata: Metadata = {
       "Remote bush camping in Namibia with essential comforts, mountain views, and a simple request-and-confirm booking flow.",
   },
   icons: {
-    icon: "/favicon.ico",
+    // SVG adapts its color to light/dark browser themes; the .ico is the fallback (e.g. Safari).
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
     apple: "/apple-touch-icon.png",
   },
 };
