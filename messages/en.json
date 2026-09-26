@@ -14,6 +14,7 @@
   },
   "Footer": {
     "directions": "Directions",
+    "whatsappLabel": "Chat with us on WhatsApp",
     "reviewPrefix": "Leave us a 5-",
     "reviewSuffix": "review",
     "admin": "Admin Dashboard",
@@ -176,7 +177,9 @@
     "adultLabel": "Adults 16+",
     "childLabel": "Children 8-15",
     "perNight": "/night",
-    "noCleaningFees": "No cleaning fees"
+    "noCleaningFees": "No cleaning fees",
+    "safariNoticeTitle": "Heads up: no lions included",
+    "safariNoticeBody": "Despite the “Safaris” in our name, we run a campsite, not game drives. The only Big Five you'll spot here: a crackling campfire, starry skies, total quiet, big views and a cold drink."
   },
   "BookingSuccessPage": {
     "metaTitle": "Booking Request Received",
@@ -187,5 +190,13 @@
     "body": "We will review availability and confirm the stay as soon as possible. You will receive a confirmation email once your booking is confirmed.",
     "backToBooking": "Back to booking",
     "returnHome": "Return home"
+  },
+  "NotFound": {
+    "metaTitle": "Page not found",
+    "eyebrow": "Error 404",
+    "title": "Lost in the bush?",
+    "body": "Even our best trackers couldn't find this page. It may have moved, or this track simply ends here. Let's get you back to camp.",
+    "home": "Back to camp",
+    "book": "Book your stay"
   }
 }

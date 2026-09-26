@@ -3,14 +3,16 @@ import { useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { MountainRidge } from "@/components/mountain-ridge";
 import { siteContent } from "@/lib/content/site-content";
 
 export function SiteHeader() {
   const t = useTranslations("Site");
 
   return (
-    <header className="border-b border-stone-200/80 bg-stone-50/95 backdrop-blur">
-      <div className="mx-auto flex h-24 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+    <header className="relative border-b border-stone-200/80 bg-gradient-to-r from-amber-50 via-stone-50 to-orange-100/70">
+      <MountainRidge />
+      <div className="relative mx-auto flex h-24 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link
           href="/"
           className="flex items-center gap-0 text-lg font-semibold tracking-tight text-stone-900 sm:gap-1"

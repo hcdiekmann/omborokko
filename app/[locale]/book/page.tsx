@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { TentTree } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { BookingRequestForm } from "@/components/booking-request-form";
@@ -54,10 +55,7 @@ export default async function BookPage({ params }: PageProps) {
       <main className="mx-auto flex-1 max-w-6xl space-y-6 px-4 py-5 sm:px-6">
         <section className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <div className="space-y-5 rounded-[2rem] border border-stone-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-800">
-              {t("eyebrow")}
-            </p>
-            <h1 className="brand-title text-3xl font-semibold tracking-tight text-stone-950">
+            <h1 className="hero-title text-3xl font-semibold tracking-tight text-stone-950">
               {t("title")}
             </h1>
 
@@ -72,6 +70,22 @@ export default async function BookPage({ params }: PageProps) {
                   </li>
                 ))}
               </ul>
+            </div>
+            <div
+              role="note"
+              className="flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4"
+            >
+              <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-amber-100 text-amber-700">
+                <TentTree className="h-5 w-5" />
+              </span>
+              <div className="space-y-1">
+                <p className="text-sm font-semibold text-amber-900">
+                  {t("safariNoticeTitle")}
+                </p>
+                <p className="text-sm leading-6 text-amber-900/80">
+                  {t("safariNoticeBody")}
+                </p>
+              </div>
             </div>
             <div className="flex flex-wrap gap-2 text-sm text-stone-700">
               <span className="rounded-full bg-stone-100 px-3 py-1">

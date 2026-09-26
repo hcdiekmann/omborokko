@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import {
+  ArrowRight,
+  CalendarDays,
   Compass,
   FlameKindling,
   Mountain,
@@ -184,38 +186,40 @@ export default async function HomePage({ params }: PageProps) {
                 <div className="flex flex-wrap gap-3">
                   <Link
                     href="/book"
-                    className="rounded-full bg-amber-700 px-5 py-3 text-sm font-medium text-white shadow-lg shadow-amber-950/20 transition hover:bg-amber-600"
+                    className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-600 to-amber-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-amber-900/40 ring-1 ring-inset ring-white/20 transition duration-200 hover:-translate-y-0.5 hover:from-amber-500 hover:to-amber-600 hover:shadow-xl hover:shadow-amber-700/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200"
                   >
                     {t("bookNow")}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
                   </Link>
                   <a
                     href="#availability"
-                    className="rounded-full border border-white/20 bg-black/20 px-5 py-3 text-sm font-medium text-white transition hover:bg-black/30"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition duration-200 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                   >
+                    <CalendarDays className="h-4 w-4" />
                     {t("checkAvailability")}
                   </a>
                 </div>
               </div>
-              <div className="rounded-[2rem] border border-white/15 bg-white/10 p-5 text-white backdrop-blur-md">
-                <p className="ml-2 text-sm font-semibold uppercase tracking-[0.22em] text-amber-100">
+              <div className="rounded-[2rem] border border-white/15 bg-white/10 p-4 text-white backdrop-blur-md sm:p-5">
+                <p className="ml-2 text-xs font-semibold uppercase tracking-[0.22em] text-amber-100 sm:text-sm">
                   {t("bookingCardEyebrow")}
                 </p>
-                <div id="rates" className="mt-5 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-3xl bg-white/10 p-4">
+                <div id="rates" className="mt-3 grid grid-cols-2 gap-3 sm:mt-5 sm:gap-4">
+                  <div className="rounded-3xl bg-white/10 p-3 sm:p-4">
                     <p className="text-sm text-amber-100">{t("adultLabel")}</p>
-                    <p className="mt-2 text-2xl font-semibold md:text-3xl">
+                    <p className="mt-1 text-xl font-semibold sm:mt-2 sm:text-2xl md:text-3xl">
                       N$ {siteContent.pricing.adultRate}
                     </p>
-                    <p className="mt-2 text-xs text-stone-200">
+                    <p className="mt-1 text-xs text-stone-200 sm:mt-2">
                       {t("perPersonPerNight")}
                     </p>
                   </div>
-                  <div className="rounded-3xl bg-white/10 p-4">
+                  <div className="rounded-3xl bg-white/10 p-3 sm:p-4">
                     <p className="text-sm text-amber-100">{t("childLabel")}</p>
-                    <p className="mt-2 text-2xl font-semibold md:text-3xl">
+                    <p className="mt-1 text-xl font-semibold sm:mt-2 sm:text-2xl md:text-3xl">
                       N$ {siteContent.pricing.childRate}
                     </p>
-                    <p className="mt-2 text-xs text-stone-200">
+                    <p className="mt-1 text-xs text-stone-200 sm:mt-2">
                       {t("perPersonPerNight")}
                     </p>
                   </div>
@@ -224,7 +228,7 @@ export default async function HomePage({ params }: PageProps) {
             </div>
           </div>
         </section>
-        <section className="mx-auto max-w-6xl space-y-8 px-4 py-14 sm:px-6">
+        <section className="mx-auto max-w-6xl space-y-8 px-4 pt-14 pb-6 sm:px-6">
           <SectionTitle
             eyebrow={t("aboutEyebrow")}
             title={t("aboutTitle")}
@@ -236,10 +240,12 @@ export default async function HomePage({ params }: PageProps) {
                 key={item.title}
                 className="rounded-3xl border border-stone-200 bg-white p-5 shadow-sm"
               >
-                <item.icon className="h-6 w-6 text-amber-700" />
-                <p className="mt-4 text-base font-medium text-stone-900">
-                  {item.title}
-                </p>
+                <div className="flex items-center gap-3">
+                  <item.icon className="h-6 w-6 shrink-0 text-amber-700" />
+                  <p className="text-base font-medium text-amber-700">
+                    {item.title}
+                  </p>
+                </div>
                 <p className="mt-2 text-sm leading-6 text-stone-600">
                   {item.text}
                 </p>
@@ -247,7 +253,7 @@ export default async function HomePage({ params }: PageProps) {
             ))}
           </div>
         </section>
-        <section className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
+        <section className="mx-auto max-w-6xl px-4 pb-6 sm:px-6">
           <div className="space-y-6">
             <HomeGalleryCarousel
               images={siteContent.images}

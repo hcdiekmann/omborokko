@@ -1,6 +1,7 @@
 import { createPendingBookingRequest } from "@/features/bookings/server/service";
 import { sendBookingRequestEmails } from "@/lib/email/booking-mailer";
 import { createBookingRequestSchema } from "@/lib/validation/bookings";
+import { formatCurrency } from "@/lib/utils/format";
 import { fail, ok } from "@/lib/utils/http";
 
 export async function POST(request: Request) {
@@ -20,11 +21,7 @@ export async function POST(request: Request) {
       adultGuestsCount: payload.adultGuestsCount,
       childGuestsCount: payload.childGuestsCount,
       nights: result.pricing.nights,
-      totalAmount: new Intl.NumberFormat("en-NA", {
-        style: "currency",
-        currency: result.pricing.currency,
-        maximumFractionDigits: 2
-      }).format(result.pricing.totalAmount),
+      totalAmount: formatCurrency(result.pricing.totalAmount, { maximumFractionDigits: 2 }),
       notes: payload.notes || null
       }).catch((error) => {
         console.error("Failed to send booking request emails", error);

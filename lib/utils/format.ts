@@ -2,12 +2,13 @@ import { format } from "date-fns";
 
 import type { Enums } from "@/types/database";
 
-export function formatCurrency(value: number) {
-  return new Intl.NumberFormat("en-NA", {
-    style: "currency",
-    currency: "NAD",
-    maximumFractionDigits: 0
+// Intl renders NAD as a bare "$" for en-NA, so prefix the Namibian "N$" ourselves.
+export function formatCurrency(value: number, { maximumFractionDigits = 0 } = {}) {
+  const amount = new Intl.NumberFormat("en-NA", {
+    minimumFractionDigits: maximumFractionDigits,
+    maximumFractionDigits
   }).format(value);
+  return `N$ ${amount}`;
 }
 
 export function formatDate(value: string) {

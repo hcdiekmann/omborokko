@@ -14,6 +14,7 @@
   },
   "Footer": {
     "directions": "Aanwysings",
+    "whatsappLabel": "Gesels met ons op WhatsApp",
     "reviewPrefix": "Los vir ons 'n 5-",
     "reviewSuffix": "resensie",
     "admin": "Admin-paneel",
@@ -24,10 +25,10 @@
     "placeholder": "Kies verblyfdatums",
     "clear": "Maak datums skoon",
     "rangeHint": "Kies eers aankoms en dan vertrek.",
-    "loadingAvailability": "Loading availability...",
-    "limited": "Limited",
-    "full": "Full",
-    "rangeUnavailable": "These stay dates include a full night. Please choose different dates.",
+    "loadingAvailability": "Laai beskikbaarheid...",
+    "limited": "Beperk",
+    "full": "Vol",
+    "rangeUnavailable": "Hierdie datums sluit ’n vol nag in. Kies asseblief ander datums.",
     "checkIn": "Aankoms",
     "checkOut": "Vertrek",
     "addDate": "Kies datum",
@@ -77,21 +78,21 @@
     "activeRequestStatusCancelled": "Gekanselleer",
     "makeAnotherRequest": "Stuur nog ’n versoek",
     "viewRequest": "Bekyk versoek",
-    "findRequestTitle": "Already requested a booking?",
-    "findRequestBody": "Find it with the email address and reference from your request.",
-    "findRequestEmail": "Email",
-    "findRequestReference": "Reference",
-    "findRequestButton": "Find request",
-    "findingRequest": "Finding...",
-    "findRequestNotFound": "We could not find a request matching that email and reference.",
-    "findRequestFailed": "Booking lookup failed",
-    "guestMessageTitle": "Message from Omborokko",
-    "timelineSent": "Request sent",
-    "timelineReview": "Under review",
-    "timelineDecision": "Decision",
-    "timelineConfirmed": "Confirmed",
-    "timelineRejected": "Not available",
-    "timelineCancelled": "Cancelled"
+    "findRequestTitle": "Het jy reeds ’n bespreking aangevra?",
+    "findRequestBody": "Vind dit met die e-posadres en verwysing van jou versoek.",
+    "findRequestEmail": "E-pos",
+    "findRequestReference": "Verwysing",
+    "findRequestButton": "Vind versoek",
+    "findingRequest": "Soek...",
+    "findRequestNotFound": "Ons kon nie ’n versoek vind wat by daardie e-pos en verwysing pas nie.",
+    "findRequestFailed": "Kon nie die bespreking opsoek nie",
+    "guestMessageTitle": "Boodskap van Omborokko",
+    "timelineSent": "Versoek gestuur",
+    "timelineReview": "Word nagegaan",
+    "timelineDecision": "Besluit",
+    "timelineConfirmed": "Bevestig",
+    "timelineRejected": "Nie beskikbaar nie",
+    "timelineCancelled": "Gekanselleer"
   },
   "BookingValidation": {
     "dateFormat": "Verwagte datumformaat: JJJJ-MM-DD",
@@ -176,7 +177,9 @@
     "adultLabel": "Volwassenes 16+",
     "childLabel": "Kinders 8-15",
     "perNight": "/nag",
-    "noCleaningFees": "Geen skoonmaakfooie"
+    "noCleaningFees": "Geen skoonmaakfooie",
+    "safariNoticeTitle": "Let wel: geen leeus ingesluit nie",
+    "safariNoticeBody": "Ten spyte van die “Safaris” in ons naam, is ons ’n kampterrein, nie ’n wildrit-operateur nie. Die enigste Groot Vyf wat jy hier sal sien: ’n knetterende kampvuur, sterrehemel, doodse stilte, wye uitsigte en ’n koue drankie."
   },
   "BookingSuccessPage": {
     "metaTitle": "Bespreekingsversoek ontvang",
@@ -187,5 +190,13 @@
     "body": "Ons sal beskikbaarheid nagaan en die verblyf so gou moontlik bevestig. Jy sal 'n bevestigings-e-pos ontvang sodra jou bespreking bevestig is.",
     "backToBooking": "Terug na bespreking",
     "returnHome": "Terug na tuisblad"
+  },
+  "NotFound": {
+    "metaTitle": "Bladsy nie gevind nie",
+    "eyebrow": "Fout 404",
+    "title": "Verdwaal in die bos?",
+    "body": "Selfs ons beste spoorsnyers kon nie hierdie bladsy kry nie. Dalk het dit geskuif, of hierdie paadjie loop net hier dood. Kom ons kry jou terug kamp toe.",
+    "home": "Terug kamp toe",
+    "book": "Bespreek jou verblyf"
   }
 }

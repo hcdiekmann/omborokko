@@ -5,16 +5,9 @@ import BookingRequestCustomerEmail from "@/emails/booking-request-customer";
 import BookingStatusCustomerEmail from "@/emails/booking-status-customer";
 import { getEmailConfig, isEmailEnabled } from "@/lib/email/config";
 import { sendEmail } from "@/lib/email/sender";
+import { formatCurrency } from "@/lib/utils/format";
 import { getAdminBookingDetail } from "@/features/admin/server/service";
 import type { Enums } from "@/types/database";
-
-function formatCurrency(amount: number) {
-  return new Intl.NumberFormat("en-NA", {
-    style: "currency",
-    currency: "NAD",
-    maximumFractionDigits: 2
-  }).format(amount);
-}
 
 export async function sendBookingRequestEmails(input: BookingEmailProps) {
   if (!isEmailEnabled()) {
@@ -78,7 +71,7 @@ export async function sendBookingStatusEmail(bookingId: string, status: Enums<"b
         checkOutDate={booking.check_out_date}
         requestedUnitCount={booking.requested_unit_count}
         assignedUnitNames={assignedUnitNames}
-        totalAmount={formatCurrency(booking.total_amount)}
+        totalAmount={formatCurrency(booking.total_amount, { maximumFractionDigits: 2 })}
         guestMessage={booking.guest_message}
       />
     ),

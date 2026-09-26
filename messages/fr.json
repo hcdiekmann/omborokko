@@ -14,6 +14,7 @@
   },
   "Footer": {
     "directions": "Itinéraire",
+    "whatsappLabel": "Écrivez-nous sur WhatsApp",
     "reviewPrefix": "Laissez-nous un avis 5-",
     "reviewSuffix": "",
     "admin": "Tableau de bord admin",
@@ -24,10 +25,10 @@
     "placeholder": "Sélectionnez vos dates",
     "clear": "Effacer les dates",
     "rangeHint": "Sélectionnez une arrivée, puis un départ.",
-    "loadingAvailability": "Loading availability...",
-    "limited": "Limited",
-    "full": "Full",
-    "rangeUnavailable": "These stay dates include a full night. Please choose different dates.",
+    "loadingAvailability": "Chargement des disponibilités...",
+    "limited": "Limité",
+    "full": "Complet",
+    "rangeUnavailable": "Ces dates incluent une nuit complète. Veuillez choisir d’autres dates.",
     "checkIn": "Arrivée",
     "checkOut": "Départ",
     "addDate": "Ajouter une date",
@@ -77,21 +78,21 @@
     "activeRequestStatusCancelled": "Annulée",
     "makeAnotherRequest": "Faire une autre demande",
     "viewRequest": "Voir la demande",
-    "findRequestTitle": "Already requested a booking?",
-    "findRequestBody": "Find it with the email address and reference from your request.",
-    "findRequestEmail": "Email",
-    "findRequestReference": "Reference",
-    "findRequestButton": "Find request",
-    "findingRequest": "Finding...",
-    "findRequestNotFound": "We could not find a request matching that email and reference.",
-    "findRequestFailed": "Booking lookup failed",
-    "guestMessageTitle": "Message from Omborokko",
-    "timelineSent": "Request sent",
-    "timelineReview": "Under review",
-    "timelineDecision": "Decision",
-    "timelineConfirmed": "Confirmed",
-    "timelineRejected": "Not available",
-    "timelineCancelled": "Cancelled"
+    "findRequestTitle": "Vous avez déjà demandé une réservation ?",
+    "findRequestBody": "Retrouvez-la avec l’adresse e-mail et la référence de votre demande.",
+    "findRequestEmail": "E-mail",
+    "findRequestReference": "Référence",
+    "findRequestButton": "Trouver la demande",
+    "findingRequest": "Recherche...",
+    "findRequestNotFound": "Nous n’avons trouvé aucune demande correspondant à cet e-mail et à cette référence.",
+    "findRequestFailed": "La recherche de réservation a échoué",
+    "guestMessageTitle": "Message d’Omborokko",
+    "timelineSent": "Demande envoyée",
+    "timelineReview": "En cours d’examen",
+    "timelineDecision": "Décision",
+    "timelineConfirmed": "Confirmée",
+    "timelineRejected": "Non disponible",
+    "timelineCancelled": "Annulée"
   },
   "BookingValidation": {
     "dateFormat": "Format de date attendu : AAAA-MM-JJ",
@@ -176,7 +177,9 @@
     "adultLabel": "Adultes 16+",
     "childLabel": "Enfants 8-15",
     "perNight": "/nuit",
-    "noCleaningFees": "Aucun frais de ménage"
+    "noCleaningFees": "Aucun frais de ménage",
+    "safariNoticeTitle": "Petite précision : lions non inclus",
+    "safariNoticeBody": "Malgré le « Safaris » de notre nom, nous sommes un camping, pas un organisateur de safaris. Les seuls Big Five que vous verrez ici : un feu de camp qui crépite, un ciel étoilé, un calme absolu, des vues immenses et une boisson fraîche."
   },
   "BookingSuccessPage": {
     "metaTitle": "Demande de réservation reçue",
@@ -187,5 +190,13 @@
     "body": "Nous allons vérifier la disponibilité et confirmer le séjour dès que possible. Vous recevrez un e-mail de confirmation une fois la réservation confirmée.",
     "backToBooking": "Retour à la réservation",
     "returnHome": "Retour à l'accueil"
+  },
+  "NotFound": {
+    "metaTitle": "Page introuvable",
+    "eyebrow": "Erreur 404",
+    "title": "Perdu dans la brousse ?",
+    "body": "Même nos meilleurs pisteurs n’ont pas trouvé cette page. Elle a peut-être été déplacée, ou cette piste s’arrête tout simplement ici. Retournons au camp.",
+    "home": "Retour au camp",
+    "book": "Réserver votre séjour"
   }
 }

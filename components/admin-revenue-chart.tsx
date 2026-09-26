@@ -3,20 +3,13 @@
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { formatCurrency } from "@/lib/utils/format";
 
 type RevenuePoint = {
   month: string;
   revenue: number;
   bookings: number;
 };
-
-function formatCurrency(value: number) {
-  return new Intl.NumberFormat("en-NA", {
-    style: "currency",
-    currency: "NAD",
-    maximumFractionDigits: 0
-  }).format(value);
-}
 
 export function AdminRevenueChart({ data }: { data: RevenuePoint[] }) {
   return (
@@ -49,7 +42,7 @@ export function AdminRevenueChart({ data }: { data: RevenuePoint[] }) {
                 width={72}
                 fontSize={12}
                 stroke="#78716c"
-                tickFormatter={(value) => formatCurrency(Number(value)).replace("NAD", "N$")}
+                tickFormatter={(value) => formatCurrency(Number(value))}
               />
               <Tooltip
                 cursor={{ fill: "#f5f5f4" }}
