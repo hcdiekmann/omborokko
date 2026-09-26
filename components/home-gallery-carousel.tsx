@@ -131,7 +131,8 @@ export function HomeGalleryCarousel({
                 fill
                 draggable={false}
                 className="object-cover"
-                sizes="(max-width: 768px) 100vw, 1200px"
+                quality={80}
+                sizes="(max-width: 1152px) 100vw, 1152px"
               />
             </div>
           ))}

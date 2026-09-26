@@ -156,7 +156,8 @@ export default async function HomePage({ params }: PageProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingJsonLd) }}
         />
         <section className="relative overflow-hidden border-b border-stone-200">
-          <div className="absolute inset-0">
+          {/* Dark base keeps the white hero text readable before the photo arrives. */}
+          <div className="absolute inset-0 bg-stone-900">
             <Image
               src="/images/campsite/mountains.webp"
               alt="Omborokko campsite"
@@ -164,6 +165,7 @@ export default async function HomePage({ params }: PageProps) {
               className="object-cover"
               priority
               fetchPriority="high"
+              quality={80}
               sizes="100vw"
             />
             <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(17,24,39,0.88),rgba(68,48,34,0.62),rgba(17,24,39,0.7))]" />

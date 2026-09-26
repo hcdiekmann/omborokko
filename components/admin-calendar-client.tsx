@@ -20,6 +20,8 @@ import {
   type EventPropGetter,
   type View,
 } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import "./admin-calendar.css";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
